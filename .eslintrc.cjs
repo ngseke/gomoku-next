@@ -7,6 +7,7 @@ module.exports = {
     'standard-with-typescript',
     'plugin:@next/next/recommended',
     'next/core-web-vitals',
+    'plugin:tailwindcss/recommended',
   ],
   overrides: [
     {
