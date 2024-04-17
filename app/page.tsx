@@ -1,5 +1,7 @@
+import { Playground } from '@/components/Playground'
+
 export default async function Home () {
-  return (
-    <div />
-  )
+  return (<>
+    <Playground />
+  </>)
 }
