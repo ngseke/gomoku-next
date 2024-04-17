@@ -1,10 +1,13 @@
 'use client'
 
 import { useDatabaseChat } from '@/hooks/useDatabaseChat'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import axios from 'axios'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
+import { onAuthStateChanged } from 'firebase/auth'
+import { useAuth } from 'reactfire'
+import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
 
 dayjs.extend(localizedFormat)
 
@@ -19,6 +22,16 @@ export function Playground () {
     await axios.post(`/api/chat/send/${roomId}`, { message })
     setMessage('')
   }
+
+  const auth = useAuth()
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log(user)
+    })
+  }, [auth])
+
+  const { signIn } = useSignInWithGoogleAuth()
 
   return (
     <div className="container">
@@ -57,6 +70,7 @@ export function Playground () {
           placeholder="Aa"
         />
       </form>
+      <button onClick={signIn}>Sign in</button>
     </div>
   )
 }
