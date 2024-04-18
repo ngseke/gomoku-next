@@ -9,7 +9,7 @@ export function useSignInWithGoogleAuth () {
     try {
       const result = await signInWithPopup(auth, new GoogleAuthProvider())
       const { user } = result
-      await axios.post(`/api/user/${user.uid}/init`, user)
+      await axios.post(`/api/player/${user.uid}/init`, user)
     } catch (err) {
       console.error(err)
     }
