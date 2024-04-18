@@ -1,13 +1,12 @@
 'use client'
 
 import { useDatabaseChat } from '@/hooks/useDatabaseChat'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import dayjs from 'dayjs'
 import axios from 'axios'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
-import { onAuthStateChanged } from 'firebase/auth'
-import { useAuth } from 'reactfire'
 import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
+import { useAppSelector } from '@/lib/hooks'
 
 dayjs.extend(localizedFormat)
 
@@ -23,18 +22,16 @@ export function Playground () {
     setMessage('')
   }
 
-  const auth = useAuth()
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log(user)
-    })
-  }, [auth])
-
   const { signIn } = useSignInWithGoogleAuth()
+
+  const user = useAppSelector((state) => state.auth.user)
 
   return (
     <div className="container">
+      <code className="font-mono text-pink-500">
+        {JSON.stringify(user)}
+      </code>
+
       <label>
         roomId:
         <input
