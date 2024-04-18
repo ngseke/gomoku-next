@@ -49,9 +49,9 @@ export function Playground () {
       <label>
         roomId:
         <input
+          className="rounded-md border px-2 py-1"
           value={roomId}
           onChange={event => { setRoomId(event.target.value) }}
-          className="rounded-md border px-2 py-1"
         />
       </label>
 
@@ -75,10 +75,10 @@ export function Playground () {
       }}
       >
         <input
-          value={message}
-          onChange={event => { setMessage(event.target.value) }}
           className="rounded-md border px-2 py-1"
           placeholder="Aa"
+          value={message}
+          onChange={event => { setMessage(event.target.value) }}
         />
       </form>
     </div>

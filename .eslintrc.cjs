@@ -62,5 +62,10 @@ module.exports = {
     'react/self-closing-comp': 'warn',
     'react/jsx-fragments': 'warn',
     'react/jsx-equals-spacing': [2, 'never'],
+    'react/jsx-sort-props': ['warn', {
+      callbacksLast: true,
+      shorthandFirst: true,
+      reservedFirst: true,
+    }],
   },
 }
