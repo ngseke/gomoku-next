@@ -7,6 +7,7 @@ import axios from 'axios'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
 import { useAppSelector } from '@/lib/hooks'
+import { useSignOut } from '@/hooks/useSignOut'
 
 dayjs.extend(localizedFormat)
 
@@ -25,12 +26,25 @@ export function Playground () {
   const { signIn } = useSignInWithGoogleAuth()
 
   const user = useAppSelector((state) => state.auth.user)
+  const isInitializingUser =
+    useAppSelector((state) => state.auth.isInitializingUser)
+
+  const { signOut } = useSignOut()
 
   return (
     <div className="container">
-      <code className="font-mono text-pink-500">
-        {JSON.stringify(user)}
-      </code>
+      <div>
+        <code className="font-mono text-blue-500">
+          {JSON.stringify({ isInitializingUser })}
+        </code>
+
+        <code className="font-mono text-pink-500">
+          {JSON.stringify(user)}
+        </code>
+
+        <button onClick={signIn}>Sign in</button>
+        <button onClick={signOut}>Sign out</button>
+      </div>
 
       <label>
         roomId:
@@ -67,7 +81,6 @@ export function Playground () {
           placeholder="Aa"
         />
       </form>
-      <button onClick={signIn}>Sign in</button>
     </div>
   )
 }

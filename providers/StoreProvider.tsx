@@ -15,10 +15,7 @@ function useInitializeUser (
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) return
-
       const serializedUser = JSON.parse(JSON.stringify(user))
-
       dispatch?.(setUser(serializedUser))
     })
 
