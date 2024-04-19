@@ -8,9 +8,9 @@ import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
 import { useAppSelector } from '@/lib/hooks'
 import { useSignOut } from '@/hooks/useSignOut'
-import { NewRoomButton } from './ui/NewRoomButton'
-import { JoinRoomButton } from './ui/JoinRoomButton'
-import { UserBadge } from './ui/UserBadge'
+import { NewRoomButton } from './GradientButton/NewRoomButton'
+import { JoinRoomButton } from './GradientButton/JoinRoomButton'
+import { UserBadge } from './UserBadge'
 
 dayjs.extend(localizedFormat)
 
