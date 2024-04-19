@@ -7,7 +7,7 @@ export function NewRoomButton (
 ) {
   return (
     <GradientButton
-      colors={['#00f2fe', '#4facfe']}
+      colors={['#ffecd2', '#fcb69f']}
       text="New"
       {...props}
     />

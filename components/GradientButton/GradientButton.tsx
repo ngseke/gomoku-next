@@ -10,7 +10,7 @@ export function GradientButton (
   return (
     <BaseGradientButton {...restProps}>
       <span
-        className="relative z-10 text-2xl font-bold italic tracking-wide text-white"
+        className="relative z-10 text-3xl font-bold italic tracking-wide text-white"
         style={{ color: textColor }}
       >
         {text}
