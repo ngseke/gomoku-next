@@ -13,6 +13,9 @@ import { JoinRoomButton } from './GradientButton/JoinRoomButton'
 import { UserBadge } from './UserBadge'
 import { Logo } from './LogoText'
 import { ProfileButton } from './GradientButton/ProfileButton'
+import { IconButton } from './IconButton'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 dayjs.extend(localizedFormat)
 
@@ -56,6 +59,9 @@ export function Playground () {
           <UserBadge image={user?.photoURL}loading={isInitializingUser} name={user?.displayName} />
           <UserBadge emoji="🍌️"loading={isInitializingUser} name={user?.displayName} />
           <UserBadge loading={isInitializingUser} name="Sean Sean Sean Sean " />
+          <IconButton onClick={signOut}>
+            <FontAwesomeIcon icon={faRightFromBracket} />
+          </IconButton>
         </div>
       </div>
 

@@ -3,13 +3,13 @@ import { type ComponentProps } from 'react'
 
 function NameSkeleton () {
   return (
-    <span className="mr-3 inline-block h-4 w-14 rounded-md bg-neutral-200" />
+    <span className="mr-2 inline-block h-4 w-14 rounded-md bg-neutral-200" />
   )
 }
 
 function Name (props: ComponentProps<'span'>) {
   return (
-    <span className="mr-3 truncate text-sm font-medium" {...props} />
+    <span className="mr-2 truncate text-sm font-medium" {...props} />
   )
 }
 
@@ -20,8 +20,8 @@ export function UserBadge ({ name, image, emoji, loading }: {
   loading?: boolean
 }) {
   return (
-    <span className="inline-flex max-w-48 items-center gap-1 rounded-full border border-neutral-200">
-      <span className="m-1 flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200">
+    <span className="inline-flex h-10 max-w-48 items-center gap-1 rounded-full border border-neutral-200 px-1">
+      <span className="flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200">
         {image && (
           <img alt="Avatar" className="size-full object-cover" src={image} />
         )}
