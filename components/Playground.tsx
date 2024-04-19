@@ -8,6 +8,8 @@ import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
 import { useAppSelector } from '@/lib/hooks'
 import { useSignOut } from '@/hooks/useSignOut'
+import { NewRoomButton } from './ui/NewRoomButton'
+import { JoinRoomButton } from './ui/JoinRoomButton'
 
 dayjs.extend(localizedFormat)
 
@@ -81,6 +83,11 @@ export function Playground () {
           onChange={event => { setMessage(event.target.value) }}
         />
       </form>
+
+      <div className="mt-6 grid grid-cols-3 gap-4">
+        <NewRoomButton />
+        <JoinRoomButton />
+      </div>
     </div>
   )
 }
