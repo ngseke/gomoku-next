@@ -1,3 +1,4 @@
+import { cn } from '@/modules/cn'
 import { type Nullish } from '@/types/Nullish'
 import { type ComponentProps } from 'react'
 
@@ -13,14 +14,23 @@ function Name (props: ComponentProps<'span'>) {
   )
 }
 
-export function UserBadge ({ name, image, emoji, loading }: {
+const whiteClassName = 'bg-gradient-to-tr from-[#fdfbfb] to-[#cfd4d7]'
+const blackClassName = 'bg-gradient-to-tr from-black to-[#434343] text-white'
+
+export function UserBadge ({ name, image, emoji, loading, color }: {
   name?: Nullish<string>
   image?: Nullish<string>
   emoji?: Nullish<string>
   loading?: boolean
+  color?: Nullish<'black' | 'white'>
 }) {
   return (
-    <span className="inline-flex h-10 max-w-48 items-center gap-1 rounded-full border border-neutral-200 px-1">
+    <span
+      className={cn('inline-flex h-10 max-w-48 items-center gap-1 rounded-full border border-neutral-200 px-1 text-neutral-800', {
+        [blackClassName]: color === 'black',
+        [whiteClassName]: color === 'white',
+      })}
+    >
       <span className="flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200">
         {image && (
           <img alt="Avatar" className="size-full object-cover" src={image} />

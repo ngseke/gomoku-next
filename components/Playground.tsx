@@ -60,6 +60,8 @@ export function Playground () {
           <UserBadge image={user?.photoURL}loading={isInitializingUser} name={user?.displayName} />
           <UserBadge emoji="🍌️"loading={isInitializingUser} name={user?.displayName} />
           <UserBadge loading={isInitializingUser} name="Sean Sean Sean Sean " />
+          <UserBadge color="black" image={user?.photoURL} loading={isInitializingUser} name={user?.displayName} />
+          <UserBadge color="white" image={user?.photoURL} loading={isInitializingUser} name={user?.displayName} />
 
           <IconButton onClick={signOut}>
             <FontAwesomeIcon icon={faRightFromBracket} />
