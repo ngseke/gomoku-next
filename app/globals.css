@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  @apply h-full;
+}
+
 body {
   @apply antialiased;
+  @apply from-[#fdfbfb] to-[#ebedee] bg-gradient-to-tr;
+  @apply h-full;
 }
