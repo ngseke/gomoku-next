@@ -68,5 +68,6 @@ module.exports = {
       shorthandFirst: true,
       reservedFirst: true,
     }],
+    '@next/next/no-img-element': ['off'],
   },
 }
