@@ -11,6 +11,7 @@ import { useSignOut } from '@/hooks/useSignOut'
 import { NewRoomButton } from './GradientButton/NewRoomButton'
 import { JoinRoomButton } from './GradientButton/JoinRoomButton'
 import { UserBadge } from './UserBadge'
+import { Logo } from './LogoText'
 
 dayjs.extend(localizedFormat)
 
@@ -81,18 +82,27 @@ export function Playground () {
         />
       </form>
 
-      <div className="mt-6 grid grid-cols-3 gap-4">
-        <NewRoomButton />
-        <JoinRoomButton />
-      </div>
+      <hr className="my-6" />
 
-      <div className="mt-4 flex gap-2">
-        <UserBadge />
-        <UserBadge loading />
-        <UserBadge loading={isInitializingUser} name="Sean" />
-        <UserBadge image={user?.photoURL}loading={isInitializingUser} name={user?.displayName} />
-        <UserBadge emoji="🍌️"loading={isInitializingUser} name={user?.displayName} />
-        <UserBadge loading={isInitializingUser} name="Sean Sean Sean Sean " />
+      <div className="flex flex-col gap-4">
+
+        <div>
+          <Logo />
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          <NewRoomButton />
+          <JoinRoomButton />
+        </div>
+
+        <div className="flex gap-2">
+          <UserBadge />
+          <UserBadge loading />
+          <UserBadge loading={isInitializingUser} name="Sean" />
+          <UserBadge image={user?.photoURL}loading={isInitializingUser} name={user?.displayName} />
+          <UserBadge emoji="🍌️"loading={isInitializingUser} name={user?.displayName} />
+          <UserBadge loading={isInitializingUser} name="Sean Sean Sean Sean " />
+        </div>
       </div>
     </div>
   )
