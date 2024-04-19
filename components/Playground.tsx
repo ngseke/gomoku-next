@@ -10,6 +10,7 @@ import { useAppSelector } from '@/lib/hooks'
 import { useSignOut } from '@/hooks/useSignOut'
 import { NewRoomButton } from './ui/NewRoomButton'
 import { JoinRoomButton } from './ui/JoinRoomButton'
+import { UserBadge } from './ui/UserBadge'
 
 dayjs.extend(localizedFormat)
 
@@ -38,10 +39,6 @@ export function Playground () {
       <div>
         <code className="font-mono text-blue-500">
           {JSON.stringify({ isInitializingUser })}
-        </code>
-
-        <code className="font-mono text-pink-500">
-          {JSON.stringify(user)}
         </code>
 
         <button onClick={signIn}>Sign in</button>
@@ -87,6 +84,15 @@ export function Playground () {
       <div className="mt-6 grid grid-cols-3 gap-4">
         <NewRoomButton />
         <JoinRoomButton />
+      </div>
+
+      <div className="mt-4 flex gap-2">
+        <UserBadge />
+        <UserBadge loading />
+        <UserBadge loading={isInitializingUser} name="Sean" />
+        <UserBadge image={user?.photoURL}loading={isInitializingUser} name={user?.displayName} />
+        <UserBadge emoji="🍌️"loading={isInitializingUser} name={user?.displayName} />
+        <UserBadge loading={isInitializingUser} name="Sean Sean Sean Sean " />
       </div>
     </div>
   )
