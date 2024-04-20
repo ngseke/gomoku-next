@@ -17,6 +17,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightFromBracket, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { RoundButton } from './RoundButton'
 import { useAxios } from '@/hooks/useAxios'
+import { Input } from './Input'
+import { type Room } from '@/types/Room'
 
 dayjs.extend(localizedFormat)
 
@@ -35,8 +37,10 @@ export function Playground () {
   }
 
   async function createRoom () {
-    const { data } = await axios.post('/api/room/create/')
-    console.log(data)
+    const { data } = await axios.post<Room>('/api/room/create/', {
+      name: roomName,
+    })
+    setRoomId(data.id)
   }
 
   const { signIn } = useSignInWithGoogleAuth()
@@ -48,6 +52,8 @@ export function Playground () {
   const { signOut } = useSignOut()
 
   const [isActive, setIsActive] = useState(true)
+
+  const [roomName, setRoomName] = useState('')
 
   return (
     <div className="container pt-8">
@@ -62,7 +68,7 @@ export function Playground () {
           <ProfileButton />
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <input checked={isActive} type="checkbox" onChange={() => { setIsActive(!isActive) }} />
           <UserPill />
           <UserPill loading />
@@ -86,7 +92,12 @@ export function Playground () {
         </div>
 
         <div className="flex gap-2">
-
+          <div className="w-52">
+            <Input
+              value={roomName}
+              onChange={event => { setRoomName(event.target.value) }}
+            />
+          </div>
           <RoundButton onClick={createRoom}>
             Create Room
           </RoundButton>
@@ -94,15 +105,6 @@ export function Playground () {
       </div>
 
       <hr className="my-6" />
-
-      <div>
-        <code className="font-mono text-blue-500">
-          {JSON.stringify({ isInitializingUser })}
-        </code>
-
-        <button onClick={signIn}>Sign in</button>
-        <button onClick={signOut}>Sign out</button>
-      </div>
 
       <label>
         roomId:

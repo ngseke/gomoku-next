@@ -6,7 +6,7 @@ export function RoundButton ({ icon, loading, children, ...restProps }: Componen
 }) {
   return (
     <button
-      className="inline-flex h-10 items-center justify-center gap-2 rounded-full border border-neutral-200 px-2 text-sm font-bold text-neutral-800 duration-200 hover:bg-neutral-200"
+      className="inline-flex h-10 min-w-20 items-center justify-center gap-2 rounded-full border border-neutral-200 px-3 text-sm font-bold text-neutral-800 duration-200 hover:bg-neutral-200 bg-neutral-100"
       type="button"
       {...restProps}
     >

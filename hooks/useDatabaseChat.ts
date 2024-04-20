@@ -10,6 +10,7 @@ export function useDatabaseChat (roomId: string) {
 
   useEffect(() => {
     const chatsRef = ref(database, `chats/${roomId}`)
+    setChats(null)
 
     const unsubscribe = onChildAdded(
       query(chatsRef, limitToLast(10)),
