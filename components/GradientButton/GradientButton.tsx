@@ -19,7 +19,7 @@ export function GradientButton (
       <span
         className="absolute -left-8 -top-4 text-9xl font-bold italic tracking-tighter text-transparent opacity-30 after:content-[var(--text)]"
         style={{
-          '-webkit-text-stroke': '1px white',
+          WebkitTextStroke: '1px white',
           '--text': `'${text}'`,
         } as CSSProperties}
       />
