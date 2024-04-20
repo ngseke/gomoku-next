@@ -1,6 +1,7 @@
 import { type Player } from '@/types/Player'
 import { firebaseAdminDatabase } from './firebaseAdmin'
 import { parseAuthorization } from './parseAuthorization'
+import { resetPlayer } from './resetPlayer'
 
 export async function fetchPlayer (request: Request) {
   const auth = await parseAuthorization(request)
@@ -11,7 +12,12 @@ export async function fetchPlayer (request: Request) {
 
   const playerRef = firebaseAdminDatabase.ref(`players/${id}`)
 
-  const player = (await playerRef.get()).val() as Player
+  let player = (await playerRef.get()).val() as Player
+
+  if (!player) {
+    await resetPlayer(request)
+    player = (await playerRef.get()).val() as Player
+  }
 
   return player
 }
