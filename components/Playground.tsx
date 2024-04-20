@@ -10,7 +10,7 @@ import { useAppSelector } from '@/lib/hooks'
 import { useSignOut } from '@/hooks/useSignOut'
 import { NewRoomButton } from './GradientButton/NewRoomButton'
 import { JoinRoomButton } from './GradientButton/JoinRoomButton'
-import { UserBadge } from './UserBadge'
+import { UserPill } from './UserPill'
 import { Logo } from './LogoText'
 import { ProfileButton } from './GradientButton/ProfileButton'
 import { IconButton } from './IconButton'
@@ -40,6 +40,8 @@ export function Playground () {
 
   const { signOut } = useSignOut()
 
+  const [isActive, setIsActive] = useState(true)
+
   return (
     <div className="container pt-8">
       <div className="flex flex-col gap-4">
@@ -54,14 +56,15 @@ export function Playground () {
         </div>
 
         <div className="flex gap-2">
-          <UserBadge />
-          <UserBadge loading />
-          <UserBadge loading={isInitializingUser} name="Sean" />
-          <UserBadge image={user?.photoURL}loading={isInitializingUser} name={user?.displayName} />
-          <UserBadge emoji="🍌️"loading={isInitializingUser} name={user?.displayName} />
-          <UserBadge loading={isInitializingUser} name="Sean Sean Sean Sean " />
-          <UserBadge color="black" image={user?.photoURL} loading={isInitializingUser} name={user?.displayName} />
-          <UserBadge color="white" image={user?.photoURL} loading={isInitializingUser} name={user?.displayName} />
+          <input checked={isActive} type="checkbox" onChange={() => { setIsActive(!isActive) }} />
+          <UserPill />
+          <UserPill loading />
+          <UserPill loading={isInitializingUser} name="Sean" />
+          <UserPill image={user?.photoURL}loading={isInitializingUser} name={user?.displayName} />
+          <UserPill emoji="🍌️"loading={isInitializingUser} name={user?.displayName} />
+          <UserPill loading={isInitializingUser} name="Sean Sean Sean Sean " />
+          <UserPill active={isActive} color="black" image={user?.photoURL} loading={isInitializingUser} name={user?.displayName} />
+          <UserPill active={isActive} color="white" image={user?.photoURL} loading={isInitializingUser} name={user?.displayName} />
 
           <IconButton onClick={signOut}>
             <FontAwesomeIcon icon={faRightFromBracket} />
