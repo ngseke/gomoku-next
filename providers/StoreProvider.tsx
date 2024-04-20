@@ -3,9 +3,9 @@
 import { type PropsWithChildren, useRef, useEffect, type MutableRefObject } from 'react'
 import { Provider } from 'react-redux'
 import { makeStore, type AppStore } from '../lib/store'
-import { onAuthStateChanged } from 'firebase/auth'
+import { type User, onAuthStateChanged } from 'firebase/auth'
 import { useAuth } from 'reactfire'
-import { setUser } from '@/lib/features/authSlice'
+import { setToken, setUser } from '@/lib/features/authSlice'
 
 function useInitializeUser (
   storeRef: MutableRefObject<AppStore | undefined>
@@ -14,9 +14,12 @@ function useInitializeUser (
   const dispatch = storeRef?.current?.dispatch
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      const serializedUser = JSON.parse(JSON.stringify(user))
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      const serializedUser = user?.toJSON() as User
+      const token = await user?.getIdToken()
+
       dispatch?.(setUser(serializedUser))
+      dispatch?.(setToken(token ?? null))
     })
 
     return unsubscribe

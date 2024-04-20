@@ -1,5 +1,5 @@
-import { firebaseDatabase } from '@/modules/firebase'
-import { push, ref, serverTimestamp } from 'firebase/database'
+import { firebaseAdminDatabase } from '@/modules/firebaseAdmin'
+import { ServerValue } from 'firebase-admin/database'
 
 export async function POST (
   request: Request,
@@ -8,10 +8,10 @@ export async function POST (
   const { roomId } = params
   const { message } = await request.json()
 
-  const chatRef = ref(firebaseDatabase, `chats/${roomId}`)
-  const { key } = await push(chatRef, {
+  const chatRef = firebaseAdminDatabase.ref(`chats/${roomId}`)
+  const { key } = await chatRef.push({
     message,
-    createdAt: serverTimestamp(),
+    createdAt: ServerValue.TIMESTAMP,
   })
 
   return Response.json({

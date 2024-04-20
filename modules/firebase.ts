@@ -1,10 +1,10 @@
-import { initializeApp } from 'firebase/app'
-import { getDatabase } from 'firebase/database'
+import { type FirebaseOptions } from 'firebase/app'
 
-export const firebaseConfig = JSON.parse(
-  process.env.NEXT_PUBLIC_FIREBASE_CONFIG ?? ''
-)
+function getFirebaseConfig () {
+  const raw = process.env.NEXT_PUBLIC_FIREBASE_CONFIG
+  if (!raw) throw new Error('Missing env `NEXT_PUBLIC_FIREBASE_CONFIG`!')
 
-export const firebaseApp = initializeApp(firebaseConfig)
+  return JSON.parse(raw) as FirebaseOptions
+}
 
-export const firebaseDatabase = getDatabase(firebaseApp)
+export const firebaseConfig = getFirebaseConfig()

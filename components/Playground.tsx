@@ -3,7 +3,6 @@
 import { useDatabaseChat } from '@/hooks/useDatabaseChat'
 import { useState } from 'react'
 import dayjs from 'dayjs'
-import axios from 'axios'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
 import { useAppSelector } from '@/lib/hooks'
@@ -17,10 +16,13 @@ import { IconButton } from './IconButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightFromBracket, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { RoundButton } from './RoundButton'
+import { useAxios } from '@/hooks/useAxios'
 
 dayjs.extend(localizedFormat)
 
 export function Playground () {
+  const axios = useAxios()
+
   const [roomId, setRoomId] = useState('room1')
 
   const { chats } = useDatabaseChat(roomId)
@@ -30,6 +32,11 @@ export function Playground () {
   async function send () {
     await axios.post(`/api/chat/send/${roomId}`, { message })
     setMessage('')
+  }
+
+  async function createRoom () {
+    const { data } = await axios.post('/api/room/create/')
+    console.log(data)
   }
 
   const { signIn } = useSignInWithGoogleAuth()
@@ -75,6 +82,13 @@ export function Playground () {
             onClick={signIn}
           >
             Sign In
+          </RoundButton>
+        </div>
+
+        <div className="flex gap-2">
+
+          <RoundButton onClick={createRoom}>
+            Create Room
           </RoundButton>
         </div>
       </div>

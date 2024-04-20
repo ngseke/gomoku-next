@@ -1,16 +1,15 @@
-import { firebaseDatabase } from '@/modules/firebase'
+import { firebaseAdminDatabase } from '@/modules/firebaseAdmin'
 import { type Player } from '@/types/Player'
 import { type User } from 'firebase/auth'
-import { get, ref, set } from 'firebase/database'
 
 export async function POST (
   request: Request,
   { params }: { params: { uid: string } }
 ) {
   const user = await request.json() as User
-  const playerRef = ref(firebaseDatabase, `players/${params.uid}`)
+  const playerRef = firebaseAdminDatabase.ref(`players/${params.uid}`)
 
-  const snapshot = await get(playerRef)
+  const snapshot = await playerRef.get()
 
   const shouldInit = !snapshot.val()
 
@@ -21,10 +20,10 @@ export async function POST (
   const player = {
     id: user.uid,
     name: user.displayName,
-    photoUrl: user.photoURL,
+    avatar: user.photoURL,
   } satisfies Player
 
-  await set(playerRef, player)
+  await playerRef.set(player)
 
   return new Response(null, { status: 204 })
 }

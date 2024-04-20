@@ -1,5 +1,4 @@
-import { firebaseDatabase } from '@/modules/firebase'
-import { ref, set } from 'firebase/database'
+import { firebaseAdminDatabase } from '@/modules/firebaseAdmin'
 
 const database = {
   users: {
@@ -28,7 +27,7 @@ const database = {
 }
 
 export async function POST () {
-  await set(ref(firebaseDatabase), database)
+  await firebaseAdminDatabase.ref().set(database)
 
   return new Response(null, { status: 204 })
 }
