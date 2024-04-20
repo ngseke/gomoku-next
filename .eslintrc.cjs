@@ -69,5 +69,8 @@ module.exports = {
       reservedFirst: true,
     }],
     '@next/next/no-img-element': ['off'],
+    'tailwindcss/classnames-order': ['warn', {
+      callees: ['classnames', 'clsx', 'cn'],
+    }],
   },
 }

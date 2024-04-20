@@ -28,7 +28,7 @@ export function UserPill ({ name, image, emoji, loading, color, active }: {
   return (
     <span className="relative">
       <span
-        className={cn('inline-flex h-10 max-w-48 items-center gap-1 rounded-full border border-neutral-200 px-1 text-neutral-800 duration-150 outline outline-0 animate-flash-outline', {
+        className={cn('inline-flex h-10 max-w-48 animate-flash-outline items-center gap-1 rounded-full border border-neutral-200 px-1 text-neutral-800 outline outline-0 duration-150', {
           [blackClassName]: color === 'black',
           [whiteClassName]: color === 'white',
           'outline-2': active,
@@ -51,7 +51,7 @@ export function UserPill ({ name, image, emoji, loading, color, active }: {
       </span>
 
       <span
-        className={cn('absolute inset-0 -z-10 rounded-full opacity-0 scale-90 blur-md transition-opacity duration-700 animate-flash-bg', { 'opacity-70': active })}
+        className={cn('absolute inset-0 -z-10 scale-90 animate-flash-bg rounded-full opacity-0 blur-md transition-opacity duration-700', { 'opacity-70': active })}
       />
     </span>
 
