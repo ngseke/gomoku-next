@@ -28,8 +28,6 @@ export const authSlice = createSlice({
     setUser (state, action: PayloadAction<User | null>) {
       state.user = action.payload
       state.isInitializingUser = false
-
-      return state
     },
 
     setToken (state, action: PayloadAction<string | null>) {
@@ -39,6 +37,12 @@ export const authSlice = createSlice({
     setPlayer (state, action: PayloadAction<Player | null>) {
       state.player = action.payload
     },
+
+    clearAuth (state) {
+      state.user = null
+      state.token = null
+      state.player = null
+    },
   },
 })
 
@@ -46,6 +50,7 @@ export const {
   setUser,
   setToken,
   setPlayer,
+  clearAuth,
 } = authSlice.actions
 
 export const authReducer = authSlice.reducer

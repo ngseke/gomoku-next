@@ -1,5 +1,5 @@
-import { fetchPlayer } from '@/modules/fetchPlayer'
-import { firebaseAdminDatabase } from '@/modules/firebaseAdmin'
+import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
+import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { type Room } from '@/types/Room'
 import { nanoid } from '@reduxjs/toolkit'
 import { ServerValue } from 'firebase-admin/database'
@@ -32,5 +32,7 @@ export async function POST (
 
   await chatRef.push({ message, createdAt })
 
-  return Response.json(await roomRef.get())
+  const createdRoom = (await roomRef.get()).val()
+
+  return Response.json(createdRoom)
 }

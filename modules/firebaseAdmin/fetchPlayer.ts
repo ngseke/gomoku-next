@@ -1,3 +1,4 @@
+import { type Player } from '@/types/Player'
 import { firebaseAdminDatabase } from './firebaseAdmin'
 import { parseAuthorization } from './parseAuthorization'
 
@@ -10,7 +11,7 @@ export async function fetchPlayer (request: Request) {
 
   const playerRef = firebaseAdminDatabase.ref(`players/${id}`)
 
-  const player = (await playerRef.get()).val()
+  const player = (await playerRef.get()).val() as Player
 
   return player
 }

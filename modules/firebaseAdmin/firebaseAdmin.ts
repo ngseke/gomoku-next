@@ -2,7 +2,7 @@ import { credential } from 'firebase-admin'
 import { type ServiceAccount, initializeApp } from 'firebase-admin/app'
 import { getAuth } from 'firebase-admin/auth'
 import { getDatabase } from 'firebase-admin/database'
-import { firebaseConfig } from './firebase'
+import { firebaseConfig } from '../firebase'
 import { nanoid } from '@reduxjs/toolkit'
 
 function getServiceAccount () {

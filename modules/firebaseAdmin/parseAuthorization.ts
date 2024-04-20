@@ -1,4 +1,4 @@
-import { firebaseAdminAuth } from '@/modules/firebaseAdmin'
+import { firebaseAdminAuth } from '@/modules/firebaseAdmin/firebaseAdmin'
 
 export async function parseAuthorization (request: Request) {
   const authorization = request.headers.get('Authorization')

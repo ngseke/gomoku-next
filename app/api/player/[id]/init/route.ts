@@ -1,13 +1,13 @@
-import { firebaseAdminDatabase } from '@/modules/firebaseAdmin'
+import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { type Player } from '@/types/Player'
 import { type User } from 'firebase/auth'
 
 export async function POST (
   request: Request,
-  { params }: { params: { uid: string } }
+  { params }: { params: { id: string } }
 ) {
   const user = await request.json() as User
-  const playerRef = firebaseAdminDatabase.ref(`players/${params.uid}`)
+  const playerRef = firebaseAdminDatabase.ref(`players/${params.id}`)
 
   const snapshot = await playerRef.get()
 

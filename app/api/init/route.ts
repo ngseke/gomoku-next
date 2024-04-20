@@ -1,4 +1,4 @@
-import { firebaseAdminDatabase } from '@/modules/firebaseAdmin'
+import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 
 const database = {
   users: {

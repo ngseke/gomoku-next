@@ -19,6 +19,7 @@ import { RoundButton } from './RoundButton'
 import { useAxios } from '@/hooks/useAxios'
 import { Input } from './Input'
 import { type Room } from '@/types/Room'
+import { ChatList } from './ChatList'
 
 dayjs.extend(localizedFormat)
 
@@ -32,7 +33,7 @@ export function Playground () {
   const [message, setMessage] = useState('')
 
   async function send () {
-    await axios.post(`/api/chat/send/${roomId}`, { message })
+    await axios.post(`/api/chat/create/${roomId}`, { message })
     setMessage('')
   }
 
@@ -115,19 +116,7 @@ export function Playground () {
         />
       </label>
 
-      <ul className="list-inside list-disc">
-        {
-          chats &&
-            Object.entries(chats).map(([key, chat]) => (
-              <li key={key}>
-                {chat.message}
-                <span className="ml-2 text-sm opacity-70">
-                  ({dayjs(chat.createdAt).format('llll')})
-                </span>
-              </li>
-            ))
-        }
-      </ul>
+      <ChatList chats={chats} />
 
       <form onSubmit={async (event) => {
         event.preventDefault()

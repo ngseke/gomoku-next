@@ -5,7 +5,8 @@ import { Provider } from 'react-redux'
 import { makeStore, type AppStore } from '../lib/store'
 import { type User, onAuthStateChanged } from 'firebase/auth'
 import { useAuth } from 'reactfire'
-import { setToken, setUser } from '@/lib/features/authSlice'
+import { clearAuth, setPlayer, setToken, setUser } from '@/lib/features/authSlice'
+import axios from 'axios'
 
 function useInitializeUser (
   storeRef: MutableRefObject<AppStore | undefined>
@@ -15,11 +16,19 @@ function useInitializeUser (
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        dispatch?.(clearAuth())
+        return
+      }
       const serializedUser = user?.toJSON() as User
       const token = await user?.getIdToken()
+      const { data: player } = await axios.get('/api/player', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
 
       dispatch?.(setUser(serializedUser))
       dispatch?.(setToken(token ?? null))
+      dispatch?.(setPlayer(player))
     })
 
     return unsubscribe
