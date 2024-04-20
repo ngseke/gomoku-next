@@ -8,6 +8,6 @@ html {
 
 body {
   @apply antialiased;
-  @apply from-[#fdfbfb] to-[#ebedee] bg-gradient-to-tr;
+  @apply from-[#fdfbfb] to-[#ebedee] bg-gradient-to-tr bg-cover bg-fixed;
   @apply h-full;
 }
