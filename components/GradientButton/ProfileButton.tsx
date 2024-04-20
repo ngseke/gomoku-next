@@ -7,7 +7,7 @@ export function ProfileButton (
   return (
     <BaseGradientButton {...props}>
       <div className="flex flex-col items-center justify-center">
-        <span className="text-xl font-bold text-neutral-800">
+        <span className="text-xl font-bold">
           Profile
         </span>
       </div>

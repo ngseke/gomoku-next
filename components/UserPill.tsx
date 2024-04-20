@@ -28,7 +28,7 @@ export function UserPill ({ name, image, emoji, loading, color, active }: {
   return (
     <span className="relative">
       <span
-        className={cn('inline-flex h-10 max-w-48 animate-flash-outline items-center gap-1 rounded-full border border-neutral-200 px-1 text-neutral-800 outline outline-0 duration-150', {
+        className={cn('inline-flex h-10 max-w-48 animate-flash-outline items-center gap-1 rounded-full border border-neutral-200 px-1 outline outline-0 duration-150', {
           [blackClassName]: color === 'black',
           [whiteClassName]: color === 'white',
           'outline-2': active,
