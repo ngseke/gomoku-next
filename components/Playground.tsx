@@ -1,6 +1,5 @@
 'use client'
 
-import { useDatabaseChat } from '@/hooks/useDatabaseChat'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
@@ -19,7 +18,7 @@ import { RoundButton } from './RoundButton'
 import { useAxios } from '@/hooks/useAxios'
 import { Input } from './Input'
 import { type Room } from '@/types/Room'
-import { ChatList } from './ChatList'
+import { Chat } from './Chat'
 
 dayjs.extend(localizedFormat)
 
@@ -27,15 +26,6 @@ export function Playground () {
   const axios = useAxios()
 
   const [roomId, setRoomId] = useState('room1')
-
-  const { chats } = useDatabaseChat(roomId)
-
-  const [message, setMessage] = useState('')
-
-  async function send () {
-    await axios.post(`/api/chat/create/${roomId}`, { message })
-    setMessage('')
-  }
 
   async function createRoom () {
     const { data } = await axios.post<Room>('/api/room/create/', {
@@ -57,7 +47,7 @@ export function Playground () {
   const [roomName, setRoomName] = useState('')
 
   return (
-    <div className="container pt-8">
+    <div className="container py-8">
       <div className="flex flex-col gap-4">
         <div>
           <Logo />
@@ -103,33 +93,21 @@ export function Playground () {
             Create Room
           </RoundButton>
         </div>
+
+        <div className="flex flex-col gap-2">
+          <label>
+            roomId:
+            <Input
+              value={roomId}
+              onChange={event => { setRoomId(event.target.value) }}
+            />
+          </label>
+          <div className="h-72 w-full max-w-96">
+            <Chat roomId={roomId} />
+          </div>
+        </div>
       </div>
 
-      <hr className="my-6" />
-
-      <label>
-        roomId:
-        <input
-          className="rounded-md border px-2 py-1"
-          value={roomId}
-          onChange={event => { setRoomId(event.target.value) }}
-        />
-      </label>
-
-      <ChatList chats={chats} />
-
-      <form onSubmit={async (event) => {
-        event.preventDefault()
-        await send()
-      }}
-      >
-        <input
-          className="rounded-md border px-2 py-1"
-          placeholder="Aa"
-          value={message}
-          onChange={event => { setMessage(event.target.value) }}
-        />
-      </form>
     </div>
   )
 }
