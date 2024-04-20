@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { makeStore, type AppStore } from '../lib/store'
 import { type User, onAuthStateChanged } from 'firebase/auth'
 import { useAuth } from 'reactfire'
-import { clearAuth, setPlayer, setToken, setUser } from '@/lib/features/authSlice'
+import { clearAuth, setPlayer, setUser } from '@/lib/features/authSlice'
 import axios from 'axios'
 
 function useInitializeUser (
@@ -21,13 +21,15 @@ function useInitializeUser (
         return
       }
       const serializedUser = user?.toJSON() as User
+
       const token = await user?.getIdToken()
       const { data: player } = await axios.get('/api/player', {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
 
       dispatch?.(setUser(serializedUser))
-      dispatch?.(setToken(token ?? null))
       dispatch?.(setPlayer(player))
     })
 

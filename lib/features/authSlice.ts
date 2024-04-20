@@ -5,7 +5,6 @@ import { type User } from 'firebase/auth'
 
 export interface authState {
   user: User | null
-  token: string | null
   player: Player | null
 
   isInitializingUser: boolean
@@ -14,7 +13,6 @@ export interface authState {
 
 const initialState: authState = {
   user: null,
-  token: null,
   player: null,
 
   isInitializingUser: true,
@@ -30,17 +28,12 @@ export const authSlice = createSlice({
       state.isInitializingUser = false
     },
 
-    setToken (state, action: PayloadAction<string | null>) {
-      state.token = action.payload
-    },
-
     setPlayer (state, action: PayloadAction<Player | null>) {
       state.player = action.payload
     },
 
     clearAuth (state) {
       state.user = null
-      state.token = null
       state.player = null
     },
   },
@@ -48,7 +41,6 @@ export const authSlice = createSlice({
 
 export const {
   setUser,
-  setToken,
   setPlayer,
   clearAuth,
 } = authSlice.actions
