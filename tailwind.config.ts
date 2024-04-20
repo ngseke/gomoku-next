@@ -17,11 +17,16 @@ const config: Config = {
       },
       animation: {
         'flash-outline': 'flash-outline .5s linear infinite alternate',
+        'flash-bg': 'flash-bg .5s linear infinite alternate',
       },
       keyframes: {
         'flash-outline': {
           '0%': { 'outline-color': '#f78ca0' },
-          '100%': { 'outline-color': '#ff9a9e' },
+          '100%': { 'outline-color': '#fcb69f' },
+        },
+        'flash-bg': {
+          '0%': { 'background-color': '#f78ca0' },
+          '100%': { 'background-color': '#fcb69f' },
         },
       },
     },

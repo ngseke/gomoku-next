@@ -26,27 +26,34 @@ export function UserPill ({ name, image, emoji, loading, color, active }: {
   active?: boolean
 }) {
   return (
-    <span
-      className={cn('inline-flex h-10 max-w-48 items-center gap-1 rounded-full border border-neutral-200 px-1 text-neutral-800 duration-150 outline outline-0 animate-flash-outline', {
-        [blackClassName]: color === 'black',
-        [whiteClassName]: color === 'white',
-        'outline-2': active,
-      })}
-    >
-      <span className="flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200">
-        {image && (
-          <img alt="Avatar" className="size-full object-cover" src={image} />
-        )}
+    <span className="relative">
+      <span
+        className={cn('inline-flex h-10 max-w-48 items-center gap-1 rounded-full border border-neutral-200 px-1 text-neutral-800 duration-150 outline outline-0 animate-flash-outline', {
+          [blackClassName]: color === 'black',
+          [whiteClassName]: color === 'white',
+          'outline-2': active,
+        })}
+      >
+        <span className="flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200">
+          {image && (
+            <img alt="Avatar" className="size-full object-cover" src={image} />
+          )}
 
-        {emoji && (
-          <span className="select-none text-lg">{emoji}</span>
-        )}
+          {emoji && (
+            <span className="select-none text-lg">{emoji}</span>
+          )}
+        </span>
+
+        {loading
+          ? <NameSkeleton />
+          : (name && <Name>{name}</Name>)
+        }
       </span>
 
-      {loading
-        ? <NameSkeleton />
-        : (name && <Name>{name}</Name>)
-      }
+      <span
+        className={cn('absolute inset-0 -z-10 rounded-full opacity-0 scale-90 blur-md transition-opacity duration-700 animate-flash-bg', { 'opacity-70': active })}
+      />
     </span>
+
   )
 }
