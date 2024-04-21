@@ -1,22 +1,32 @@
 import baseAxios from 'axios'
 import { useEffect, useRef } from 'react'
 import { useAuth } from 'reactfire'
+import { useAuthStore } from './useAuthStore'
 
 export function useAxios () {
-  const axios = useRef(baseAxios.create())
+  const axiosRef = useRef(baseAxios.create())
   const auth = useAuth()
 
-  useEffect(() => {
-    axios.current.interceptors.request.use(async (config) => {
-      const token = await auth.currentUser?.getIdToken()
+  const { sessionId } = useAuthStore()
 
+  useEffect(() => {
+    const axios = axiosRef.current
+
+    const interceptor = axios.interceptors.request.use(async (config) => {
+      const token = await auth.currentUser?.getIdToken()
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
 
+      config.headers['X-Session-Id'] = sessionId
+
       return config
     })
-  }, [auth])
 
-  return axios.current
+    return () => {
+      axios.interceptors.request.eject(interceptor)
+    }
+  }, [auth, sessionId])
+
+  return axiosRef.current
 }

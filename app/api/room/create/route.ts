@@ -16,7 +16,7 @@ export async function POST (
   const roomId = nanoid(6)
   const roomRef = firebaseAdminDatabase.ref(`rooms/${roomId}`)
 
-  const name = String(body.name).trim() || `Room ${roomId}`
+  const name = body.name?.trim() || `Room ${roomId}`
   const createdAt = ServerValue.TIMESTAMP as number
 
   const room = {
@@ -28,7 +28,7 @@ export async function POST (
 
   await roomRef.set(room)
 
-  const message = `"${name}" has been created`
+  const message = `${name} has been created`
 
   await createChat(roomId, {
     message,

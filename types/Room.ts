@@ -3,4 +3,5 @@ export interface Room {
   createdBy: string
   createdAt: number
   name: string
+  players?: any[]
 }

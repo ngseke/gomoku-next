@@ -8,10 +8,6 @@ const database = {
   rooms: {
     1: {
       name: 'Default Room',
-    },
-  },
-  roomStates: {
-    room1: {
       users: {
       },
       boards: {
@@ -21,9 +17,8 @@ const database = {
   },
   boards: {},
   chats: {
-    room1: {},
+    1: {},
   },
-
 }
 
 export async function POST () {

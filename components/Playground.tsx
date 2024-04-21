@@ -7,12 +7,12 @@ import { NewRoomButton } from './GradientButton/NewRoomButton'
 import { JoinRoomButton } from './GradientButton/JoinRoomButton'
 import { Logo } from './LogoText'
 import { ProfileButton } from './GradientButton/ProfileButton'
-import { Button } from './Button'
 import { useAxios } from '@/hooks/useAxios'
 import { Input } from './Input'
 import { type Room } from '@/types/Room'
 import { Chat } from './Chat'
 import { SignInPanel } from './SignInPanel'
+import { useAuthStore } from '@/hooks/useAuthStore'
 
 dayjs.extend(localizedFormat)
 
@@ -22,41 +22,49 @@ export function Playground () {
   const [roomId, setRoomId] = useState('1')
 
   async function createRoom () {
-    const { data } = await axios.post<Room>('/api/room/create/', {
-      name: roomName,
-    })
+    const { data } = await axios.post<Room>('/api/room/create/', {})
     setRoomId(data.id)
+
+    return data
   }
 
-  const [roomName, setRoomName] = useState('')
+  async function joinRoom (roomId: string) {
+    await axios.post<Room>(`/api/room/${roomId}/join/`)
+  }
+
+  async function handleClickCreateRoom () {
+    const { id } = await createRoom()
+    await joinRoom(id)
+  }
+
+  async function handleClickJoinRoom () {
+    try {
+      await joinRoom(roomId)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const { sessionId } = useAuthStore()
 
   return (
-    <div className="container py-8">
+    <div className="container px-2 py-8">
       <div className="flex flex-col gap-6">
         <div>
           <Logo />
+          <span className="ml-3 text-xs opacity-50">
+            {sessionId}
+          </span>
         </div>
 
         <div className="grid grid-cols-3 gap-4">
-          <NewRoomButton />
-          <JoinRoomButton />
+          <NewRoomButton onClick={handleClickCreateRoom} />
+          <JoinRoomButton onClick={handleClickJoinRoom} />
           <ProfileButton />
         </div>
 
         <div className="flex justify-center">
           <SignInPanel />
-        </div>
-
-        <div className="flex gap-2">
-          <div className="w-52">
-            <Input
-              value={roomName}
-              onChange={event => { setRoomName(event.target.value) }}
-            />
-          </div>
-          <Button onClick={createRoom}>
-            Create Room
-          </Button>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -72,7 +80,6 @@ export function Playground () {
           </div>
         </div>
       </div>
-
     </div>
   )
 }

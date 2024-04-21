@@ -1,7 +1,6 @@
 'use client'
 
 import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
-import { useAppSelector } from '@/lib/hooks'
 import { useSignOut } from '@/hooks/useSignOut'
 import { UserPill } from './UserPill'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,6 +8,7 @@ import { faGear, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { Button } from './Button'
 import { useSignInAnonymously } from '@/hooks/useSignInAnonymously '
+import { useAuthStore } from '@/hooks/useAuthStore'
 
 function Divider () {
   return <hr className="h-6 border-l border-neutral-200" />
@@ -19,10 +19,7 @@ export function SignInPanel () {
 
   const { signInAnonymously, isSigningInAnonymously } = useSignInAnonymously()
 
-  const player = useAppSelector((state) => state.auth.player)
-
-  const isInitializingUser =
-    useAppSelector((state) => state.auth.isInitializingUser)
+  const { player, isInitializingPlayer } = useAuthStore()
 
   const { signOut } = useSignOut()
 
@@ -30,17 +27,17 @@ export function SignInPanel () {
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      {player ?? isInitializingUser
+      {player ?? isInitializingPlayer
         ? <>
-          <UserPill emoji={player?.emoji} loading={isInitializingUser} name={player?.name} />
+          <UserPill emoji={player?.emoji} loading={isInitializingPlayer} name={player?.name} />
 
           <Button
             key="setting"
             icon={<FontAwesomeIcon icon={faGear} />}
           />
 
-          <UserPill color="black" emoji={player?.emoji} image={player?.avatar} loading={isInitializingUser} name={player?.name} />
-          <UserPill color="white" emoji={player?.emoji} image={player?.avatar} loading={isInitializingUser} name={player?.name} />
+          <UserPill color="black" emoji={player?.emoji} image={player?.avatar} loading={isInitializingPlayer} name={player?.name} />
+          <UserPill color="white" emoji={player?.emoji} image={player?.avatar} loading={isInitializingPlayer} name={player?.name} />
 
           {/* <UserPill />
           <UserPill loading />

@@ -1,8 +1,8 @@
-import { useAppSelector } from '@/lib/hooks'
 import { type Nullish } from '@/types/Nullish'
+import { useAuthStore } from './useAuthStore'
 
 export function usePlayer () {
-  const player = useAppSelector((state) => state.auth.player)
+  const { player } = useAuthStore()
 
   function getIsSelf (playerId: Nullish<string>) {
     if (!playerId) return false
