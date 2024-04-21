@@ -1,12 +1,29 @@
 import { usePlayer } from '@/hooks/usePlayer'
 import { cn } from '@/modules/cn'
 import { type Chat } from '@/types/Chat'
+import { type Nullish } from '@/types/Nullish'
 import dayjs from 'dayjs'
 
 type Chats = Record<string, Chat>
 
+function AdminChatItem ({ message, timestamp }: {
+  message: string
+  timestamp: number
+}) {
+  const formattedDate = dayjs(timestamp).format('YYYY-MM-DD HH:mm')
+
+  return (
+    <li
+      className="gap-0.5 self-center text-center text-sm"
+      title={formattedDate}
+    >
+      {message}
+    </li>
+  )
+}
+
 function ChatItem ({ name, message, timestamp, hideName, self }: {
-  name: string | null
+  name: Nullish<string>
   message: string
   timestamp: number
   hideName?: boolean
@@ -47,15 +64,27 @@ export function ChatList ({ chats }: { chats: Chats | null }) {
   return (
     <ul className="flex h-full flex-col items-start gap-1">
       {
-        entries.map(([key, chat]) => (
-          <ChatItem
-            key={key}
-            message={chat.message}
-            name={chat.playerName}
-            self={getIsSelf(chat.createdBy)}
-            timestamp={chat.createdAt}
-          />
-        ))
+        entries.map(([key, chat]) => {
+          if (chat.isAdmin) {
+            return (
+              <AdminChatItem
+                key={key}
+                message={chat.message}
+                timestamp={chat.createdAt}
+              />
+            )
+          }
+
+          return (
+            <ChatItem
+              key={key}
+              message={chat.message}
+              name={chat.playerName}
+              self={getIsSelf(chat.createdBy)}
+              timestamp={chat.createdAt}
+            />
+          )
+        })
       }
     </ul>
   )

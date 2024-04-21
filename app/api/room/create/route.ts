@@ -1,3 +1,4 @@
+import { createChat } from '@/modules/firebaseAdmin/createChat'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { type Room } from '@/types/Room'
@@ -27,10 +28,12 @@ export async function POST (
 
   await roomRef.set(room)
 
-  const chatRef = firebaseAdminDatabase.ref(`chats/${roomId}`)
-  const message = `["${name}" has been created]`
+  const message = `"${name}" has been created`
 
-  await chatRef.push({ message, createdAt })
+  await createChat(roomId, {
+    message,
+    isAdmin: true,
+  })
 
   const createdRoom = (await roomRef.get()).val()
 
