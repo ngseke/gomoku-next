@@ -5,6 +5,7 @@ import { useListenPlayerState } from './hooks/useListenPlayerState'
 import { useInitializeSessionId } from './hooks/useInitializeSessionId'
 import { useInitializeUser } from './hooks/useInitializeUser'
 import { useListenRoom } from './hooks/useListenRoom'
+import { useOnDisconnect } from './hooks/useOnDisconnect'
 
 export function InitializeStoreProvider ({ children }: PropsWithChildren) {
   useInitializeUser()
@@ -12,6 +13,8 @@ export function InitializeStoreProvider ({ children }: PropsWithChildren) {
 
   useListenPlayerState()
   useListenRoom()
+
+  useOnDisconnect()
 
   return children
 }
