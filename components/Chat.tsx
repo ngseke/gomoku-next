@@ -3,13 +3,15 @@ import { type SyntheticEvent, useEffect, useRef } from 'react'
 import { ChatList } from './ChatList'
 import { Input } from './Input'
 import { useSendChat } from '@/hooks/useSendChat'
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export function Chat ({ roomId }: { roomId: string }) {
   const { chats } = useDatabaseChat(roomId)
 
   const inputRef = useRef<HTMLInputElement | null>(null)
 
-  const { message, setMessage, send, isSending } =
+  const { message, setMessage, send, isSending, error } =
     useSendChat(roomId)
 
   function focusInput () {
@@ -42,6 +44,12 @@ export function Chat ({ roomId }: { roomId: string }) {
         <Input
           ref={inputRef}
           disabled={isSending}
+          rightSection={error && (
+            <FontAwesomeIcon
+              className="text-rose-500"
+              icon={faTriangleExclamation}
+            />
+          )}
           size="sm"
           value={message}
           onChange={event => { setMessage(event.target.value) }}

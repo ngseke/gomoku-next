@@ -6,15 +6,17 @@ export function useSendChat (roomId: string) {
 
   const [message, setMessage] = useState('')
   const [isSending, setIsSending] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
 
   async function send () {
     setIsSending(true)
+    setError(null)
 
     try {
       await axios.post(`/api/chat/create/${roomId}`, { message })
       setMessage('')
     } catch (err) {
-      console.error(err)
+      setError(err as Error)
     } finally {
       setIsSending(false)
     }
@@ -25,5 +27,6 @@ export function useSendChat (roomId: string) {
     setMessage,
     send,
     isSending,
+    error,
   }
 }
