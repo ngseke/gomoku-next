@@ -61,6 +61,8 @@ export function ChatList ({ chats }: { chats: Chats | null }) {
 
   const entries = chats ? Object.entries(chats) : []
 
+  const hideNameThreshold = 1000 * 10
+
   return (
     <ul className="flex h-full flex-col items-start gap-1">
       {
@@ -76,7 +78,10 @@ export function ChatList ({ chats }: { chats: Chats | null }) {
           }
 
           const previousChat = entries[index - 1]?.[1] as Chat | undefined
-          const shouldHideName = previousChat?.createdBy === chat.createdBy
+          const shouldHideName =
+            previousChat &&
+            (chat.createdBy === previousChat.createdBy) &&
+            (chat.createdAt - previousChat.createdAt <= hideNameThreshold)
 
           return (
             <ChatItem
