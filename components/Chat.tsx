@@ -1,19 +1,27 @@
 import { useDatabaseChat } from '@/hooks/useDatabaseChat'
-import { useEffect, useRef, useState } from 'react'
+import { type SyntheticEvent, useEffect, useRef } from 'react'
 import { ChatList } from './ChatList'
-import { useAxios } from '@/hooks/useAxios'
 import { Input } from './Input'
+import { useSendChat } from '@/hooks/useSendChat'
 
 export function Chat ({ roomId }: { roomId: string }) {
   const { chats } = useDatabaseChat(roomId)
 
-  const [message, setMessage] = useState('')
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
-  const axios = useAxios()
+  const { message, setMessage, send, isSending } =
+    useSendChat(roomId)
 
-  async function send () {
-    await axios.post(`/api/chat/create/${roomId}`, { message })
-    setMessage('')
+  function focusInput () {
+    setTimeout(() => inputRef.current?.focus(), 0)
+  }
+
+  async function handleSubmit (event: SyntheticEvent) {
+    event.preventDefault()
+    if (!message.trim()) return
+
+    await send()
+    focusInput()
   }
 
   const scrollableRef = useRef<HTMLDivElement | null>(null)
@@ -30,14 +38,10 @@ export function Chat ({ roomId }: { roomId: string }) {
         </div>
       </div>
 
-      <form
-        className="flex-none"
-        onSubmit={async (event) => {
-          event.preventDefault()
-          await send()
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <Input
+          ref={inputRef}
+          disabled={isSending}
           size="sm"
           value={message}
           onChange={event => { setMessage(event.target.value) }}

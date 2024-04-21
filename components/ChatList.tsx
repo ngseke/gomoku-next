@@ -41,7 +41,7 @@ function ChatItem ({ name, message, timestamp, hideName, self }: {
     >
       {
         shouldShowName &&
-          <span className="text-xs font-medium text-neutral-600">
+          <span className="mt-2 text-xs font-medium text-neutral-600">
             {name}
           </span>
       }
@@ -64,7 +64,7 @@ export function ChatList ({ chats }: { chats: Chats | null }) {
   return (
     <ul className="flex h-full flex-col items-start gap-1">
       {
-        entries.map(([key, chat]) => {
+        entries.map(([key, chat], index) => {
           if (chat.isAdmin) {
             return (
               <AdminChatItem
@@ -75,9 +75,13 @@ export function ChatList ({ chats }: { chats: Chats | null }) {
             )
           }
 
+          const previousChat = entries[index - 1]?.[1] as Chat | undefined
+          const shouldHideName = previousChat?.createdBy === chat.createdBy
+
           return (
             <ChatItem
               key={key}
+              hideName={shouldHideName}
               message={chat.message}
               name={chat.playerName}
               self={getIsSelf(chat.createdBy)}
