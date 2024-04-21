@@ -16,6 +16,7 @@ import { useAuthStore } from '@/hooks/useAuthStore'
 import { usePlayerStateStore } from '@/hooks/usePlayerStateStore'
 import { Button } from './Button'
 import { useRoomStore } from '@/hooks/useRoomStore'
+import { UserPill } from './UserPill'
 
 dayjs.extend(localizedFormat)
 
@@ -58,6 +59,12 @@ export function Playground () {
     await axios.post('/api/room/exit')
   }
 
+  const roomPlayers = room?.players
+    ? Object.values(room?.players).sort((a, b) => (
+      a.piece?.localeCompare(b.piece)
+    ))
+    : []
+
   return (
     <div className="container max-w-[1000px] px-2 py-8">
       <div className="flex flex-col gap-6">
@@ -87,9 +94,21 @@ export function Playground () {
           <SignInPanel />
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex gap-4">
           <div className="h-72 w-full max-w-96">
             <Chat roomId={playerState?.roomId} />
+          </div>
+          <div className="flex gap-2">
+            {
+              roomPlayers?.map(player => (
+                <UserPill
+                  key={player.id}
+                  color={player.piece}
+                  emoji={player?.emoji}
+                  name={player?.name}
+                />
+              ))
+            }
           </div>
         </div>
 

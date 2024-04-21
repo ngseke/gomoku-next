@@ -36,9 +36,6 @@ export function SignInPanel () {
             icon={<FontAwesomeIcon icon={faGear} />}
           />
 
-          <UserPill color="black" emoji={player?.emoji} image={player?.avatar} loading={isInitializingPlayer} name={player?.name} />
-          <UserPill color="white" emoji={player?.emoji} image={player?.avatar} loading={isInitializingPlayer} name={player?.name} />
-
           {/* <UserPill />
           <UserPill loading />
           <UserPill loading={isInitializingUser} name={player?.name} />

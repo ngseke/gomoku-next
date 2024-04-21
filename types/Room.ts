@@ -1,8 +1,9 @@
 import { type Piece } from './PieceType'
+import { type Player } from './Player'
 
-export interface RoomPlayer {
+export interface RoomPlayer extends Player {
   sessionId: string
-  createdAt: number
+  joinedAt: number
   piece: Piece
 }
 

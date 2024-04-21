@@ -65,8 +65,9 @@ export async function POST (
   const roomRef = firebaseAdminDatabase.ref(`rooms/${roomId}`)
   const roomPlayerRef = roomRef.child(`players/${player.id}`)
   await roomPlayerRef.set({
+    ...player,
     sessionId,
-    createdAt: ServerValue.TIMESTAMP as number,
+    joinedAt: ServerValue.TIMESTAMP as number,
     piece,
   } satisfies RoomPlayer)
 
