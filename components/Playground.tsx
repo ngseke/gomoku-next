@@ -17,6 +17,7 @@ import { usePlayerStateStore } from '@/hooks/usePlayerStateStore'
 import { Button } from './Button'
 import { useRoomStore } from '@/hooks/useRoomStore'
 import { UserPill } from './UserPill'
+import { DebugView } from './DebugView'
 
 dayjs.extend(localizedFormat)
 
@@ -94,32 +95,30 @@ export function Playground () {
           <SignInPanel />
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           <div className="h-96 w-full max-w-96">
             <Chat roomId={playerState?.roomId} />
           </div>
-          <div className="flex gap-2">
-            {
-              roomPlayers?.map(player => (
+
+          <div className="flex flex-col gap-4">
+            <div className="flex gap-2">
+              {roomPlayers?.map(player => (
                 <UserPill
                   key={player.id}
                   color={player.piece}
                   emoji={player?.emoji}
                   name={player?.name}
                 />
-              ))
-            }
+              ))}
+            </div>
+
+            {playerState?.type === 'game' && (
+              <Button onClick={handleClickExitRoom}>Exit Room</Button>
+            )}
           </div>
         </div>
 
-        <div>
-          <pre>{JSON.stringify(playerState, null, 2)}</pre>
-          <pre>{JSON.stringify(room, null, 2)}</pre>
-
-          {playerState?.type === 'game' && (
-            <Button onClick={handleClickExitRoom}>Exit Room</Button>
-          )}
-        </div>
+        <DebugView />
       </div>
     </div>
   )
