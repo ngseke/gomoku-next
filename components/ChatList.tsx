@@ -14,7 +14,7 @@ function AdminChatItem ({ message, timestamp }: {
 
   return (
     <li
-      className="gap-0.5 self-center text-center text-sm"
+      className="gap-0.5 self-center text-center text-xs text-neutral-600"
       title={formattedDate}
     >
       {message}
