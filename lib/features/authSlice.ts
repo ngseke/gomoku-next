@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { type User } from 'firebase/auth'
 
-export interface authState {
+export interface AuthState {
   user: User | null
   player: Player | null
   sessionId: string | null
@@ -12,7 +12,7 @@ export interface authState {
   isInitializingPlayer: boolean
 }
 
-const initialState: authState = {
+const initialState: AuthState = {
   user: null,
   player: null,
   sessionId: null,
