@@ -2,11 +2,11 @@ import { type PlayerState } from '@/types/PlayerState'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-export interface playerStateState {
+export interface PlayerStateState {
   playerState: PlayerState | null
 }
 
-const initialState: playerStateState = {
+const initialState: PlayerStateState = {
   playerState: null,
 }
 
