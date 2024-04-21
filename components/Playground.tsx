@@ -18,6 +18,7 @@ import { Button } from './Button'
 import { useRoomStore } from '@/hooks/useRoomStore'
 import { UserPill } from './UserPill'
 import { DebugView } from './DebugView'
+import { Board } from './Board'
 
 dayjs.extend(localizedFormat)
 
@@ -74,6 +75,10 @@ export function Playground () {
           <span className="ml-3 text-xs opacity-50">
             {sessionId}
           </span>
+        </div>
+
+        <div>
+          <Board />
         </div>
 
         <div className="grid grid-cols-3 gap-4">

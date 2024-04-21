@@ -12,6 +12,9 @@ const config: Config = {
       center: true,
     },
     extend: {
+      gridTemplateColumns: {
+        15: 'repeat(15, minmax(0, 1fr))',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
