@@ -8,14 +8,17 @@ function NameSkeleton () {
   )
 }
 
-function Name (props: ComponentProps<'span'>) {
+function Name ({ dark, ...restProps }: ComponentProps<'span'> & { dark?: boolean }) {
   return (
-    <span className="mr-2 truncate text-sm font-medium" {...props} />
+    <span
+      className={cn(
+        'mr-2 truncate text-sm font-medium',
+        { 'text-white': dark }
+      )}
+      {...restProps}
+    />
   )
 }
-
-const whiteClassName = 'bg-gradient-to-tr from-[#fdfbfb] to-[#cfd4d7]'
-const blackClassName = 'bg-gradient-to-tr from-black to-[#434343] text-white'
 
 export function UserPill ({ name, image, emoji, loading, color, active }: {
   name?: Nullish<string>
@@ -26,11 +29,11 @@ export function UserPill ({ name, image, emoji, loading, color, active }: {
   active?: boolean
 }) {
   return (
-    <span className="relative">
+    <span className="relative flex">
       <span
-        className={cn('inline-flex h-10 max-w-48 animate-flash-outline items-center gap-1 rounded-full border border-neutral-200 px-1 outline outline-0 duration-150', {
-          [blackClassName]: color === 'black',
-          [whiteClassName]: color === 'white',
+        className={cn('inline-flex h-10 max-w-48 animate-flash-outline items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 px-1 outline outline-0 duration-150', {
+          'bg-gradient-to-tr from-black to-[#434343]': color === 'black',
+          'bg-gradient-to-tr from-[#cfd4d7] to-[#fdfbfb]': color === 'white',
           'outline-2': active,
         })}
       >
@@ -46,7 +49,7 @@ export function UserPill ({ name, image, emoji, loading, color, active }: {
 
         {loading
           ? <NameSkeleton />
-          : (name && <Name>{name}</Name>)}
+          : (name && <Name dark={color === 'black'}>{name}</Name>)}
       </span>
 
       <span

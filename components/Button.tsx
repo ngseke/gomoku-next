@@ -1,7 +1,7 @@
 import { cn } from '@/modules/cn'
 import { type ReactNode, type ComponentProps } from 'react'
 
-export function Button ({ icon, loading, children, ...restProps }: ComponentProps<'button'> & {
+export function Button ({ icon, loading, children, disabled, ...restProps }: ComponentProps<'button'> & {
   icon?: ReactNode
   loading?: boolean
 }) {
@@ -15,9 +15,11 @@ export function Button ({ icon, loading, children, ...restProps }: ComponentProp
       })}
     >
       <button
-        className={cn('peer inline-flex size-full items-center justify-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 text-sm font-bold outline outline-1 outline-transparent duration-150 active:scale-[97%]', {
+        className={cn('peer inline-flex size-full items-center justify-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 text-sm font-bold outline outline-1 outline-transparent duration-150 enabled:active:scale-[97%]', {
           'px-3': !isIconButton,
+          'opacity-50': disabled,
         })}
+        disabled={disabled}
         type="button"
         {...restProps}
       >
