@@ -13,7 +13,7 @@ export function useSendChat (roomId: string) {
     setError(null)
 
     try {
-      await axios.post(`/api/chat/create/${roomId}`, { message })
+      await axios.post(`/api/chat/${roomId}/create`, { message })
       setMessage('')
     } catch (err) {
       setError(err as Error)
