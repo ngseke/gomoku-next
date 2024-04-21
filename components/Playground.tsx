@@ -11,11 +11,10 @@ import { JoinRoomButton } from './GradientButton/JoinRoomButton'
 import { UserPill } from './UserPill'
 import { Logo } from './LogoText'
 import { ProfileButton } from './GradientButton/ProfileButton'
-import { IconButton } from './IconButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
-import { RoundButton } from './RoundButton'
+import { Button } from './Button'
 import { useAxios } from '@/hooks/useAxios'
 import { Input } from './Input'
 import { type Room } from '@/types/Room'
@@ -73,22 +72,26 @@ export function Playground () {
           <UserPill active={isActive} color="black" image={player?.avatar} loading={isInitializingUser} name={player?.name} />
           <UserPill active={isActive} color="white" image={player?.avatar} loading={isInitializingUser} name={player?.name} />
 
-          <IconButton onClick={signOut}>
-            <FontAwesomeIcon icon={faRightFromBracket} />
-          </IconButton>
+          <Button
+            icon={<FontAwesomeIcon icon={faRightFromBracket} />}
+            onClick={signOut}
+          />
 
-          <RoundButton
+          <Button
             icon={<FontAwesomeIcon icon={faGoogle} />}
             onClick={signIn}
           >
             Sign In
-          </RoundButton>
-          <RoundButton
+          </Button>
+          <Button
             icon={<FontAwesomeIcon icon={faUser} />}
             onClick={signInAnonymously}
           >
             Sign In
-          </RoundButton>
+          </Button>
+          <Button
+            icon={<FontAwesomeIcon icon={faUser} />}
+          />
         </div>
 
         <div className="flex gap-2">
@@ -98,9 +101,9 @@ export function Playground () {
               onChange={event => { setRoomName(event.target.value) }}
             />
           </div>
-          <RoundButton onClick={createRoom}>
+          <Button onClick={createRoom}>
             Create Room
-          </RoundButton>
+          </Button>
         </div>
 
         <div className="flex flex-col gap-2">
