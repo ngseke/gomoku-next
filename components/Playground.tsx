@@ -55,7 +55,7 @@ export function Playground () {
   }
 
   return (
-    <div className="container px-2 py-8">
+    <div className="container max-w-[1000px] px-2 py-8">
       <div className="flex flex-col gap-6">
         <div>
           <Logo />

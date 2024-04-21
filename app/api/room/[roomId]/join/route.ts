@@ -1,9 +1,23 @@
 import { createChat } from '@/modules/firebaseAdmin/createChat'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { fetchRoom } from '@/modules/firebaseAdmin/fetchRoom'
+import { fetchRoomPlayers } from '@/modules/firebaseAdmin/fetchRoomPlayers'
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { parseSessionId } from '@/modules/firebaseAdmin/parseSessionId'
+import { type Piece } from '@/types/PieceType'
 import { type PlayerState } from '@/types/PlayerState'
+import { type RoomPlayers, type RoomPlayer } from '@/types/Room'
+import { ServerValue } from 'firebase-admin/database'
+
+function getNextPiece (roomPlayers: RoomPlayers | null): Piece | null {
+  if (!roomPlayers) return 'black'
+
+  const players = Object.values(roomPlayers)
+  if (players.length >= 2) return null
+
+  const [anotherPlayer] = players
+  return anotherPlayer.piece === 'black' ? 'white' : 'black'
+}
 
 export async function POST (
   request: Request,
@@ -30,10 +44,20 @@ export async function POST (
     )
   }
 
+  const roomPlayers = await fetchRoomPlayers(roomId)
+  const piece = getNextPiece(roomPlayers)
+  if (!piece) {
+    return Response.json('The room is full!', { status: 400 })
+  }
+
   // Update Room
   const roomRef = firebaseAdminDatabase.ref(`rooms/${roomId}`)
   const roomPlayerRef = roomRef.child(`players/${player.id}`)
-  await roomPlayerRef.set({ sessionId })
+  await roomPlayerRef.set({
+    sessionId,
+    createdAt: ServerValue.TIMESTAMP as number,
+    piece,
+  } satisfies RoomPlayer)
 
   // Update Player State
   const playerStateRef = firebaseAdminDatabase.ref(`playerStates/${player.id}`)
