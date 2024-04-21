@@ -1,4 +1,5 @@
 import { cn } from '@/modules/cn'
+import { type Board } from '@/types/Board'
 import { type PropsWithChildren } from 'react'
 
 const size = 15
@@ -17,16 +18,22 @@ function Piece ({
   )
 }
 
-function Cell ({ children, x, y }: PropsWithChildren<{
+function Cell ({ children, x, y, onClick, disabled }: PropsWithChildren<{
   x: number
   y: number
+  onClick?: () => void
+  disabled?: boolean
 } >) {
   const shouldShowDot = dotPositions.some(
     position => x === position[0] && y === position[1]
   )
 
   return (
-    <div className="relative aspect-square">
+    <button
+      className="relative flex aspect-square"
+      disabled={disabled}
+      onClick={onClick}
+    >
       <span
         className={cn(
           'absolute left-1/2 -z-10 h-full -translate-x-1/2 border-l border-neutral-300', {
@@ -50,25 +57,39 @@ function Cell ({ children, x, y }: PropsWithChildren<{
       <div className="z-10 flex size-full items-center justify-center">
         {children}
       </div>
-    </div>
+    </button>
   )
 }
 
-export function Board () {
+export function GomokuBoard ({ board, onPlace, disabled }: {
+  board?: Board
+  onPlace?: (x: number, y: number) => void
+  disabled?: boolean
+}) {
+  function handleClick (x: number, y: number) {
+    onPlace?.(x, y)
+  }
+
   return (
     <div className="grid w-[500px] max-w-full grid-cols-15">
-      {
-        Array.from({ length: size ** 2 }).map((_, index) => {
-          const x = index % size
-          const y = Math.floor(index / size)
+      {Array.from({ length: size ** 2 }).map((_, index) => {
+        const x = index % size
+        const y = Math.floor(index / size)
 
-          return (
-            <Cell key={index} x={x} y={y}>
-              <Piece color={(x + y) % 2 ? 'white' : 'black'} />
-            </Cell>
-          )
-        })
-      }
+        const piece = board?.[x]?.[y]
+
+        return (
+          <Cell
+            key={index}
+            disabled={Boolean(piece) || disabled}
+            x={x}
+            y={y}
+            onClick={() => { handleClick(x, y) }}
+          >
+            {piece && <Piece color={piece.piece} />}
+          </Cell>
+        )
+      })}
     </div>
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { NewRoomButton } from './GradientButton/NewRoomButton'
@@ -18,7 +18,9 @@ import { Button } from './Button'
 import { useRoomStore } from '@/hooks/useRoomStore'
 import { UserPill } from './UserPill'
 import { DebugView } from './DebugView'
-import { Board } from './Board'
+import { GomokuBoard } from './GomokuBoard'
+import { type BoardRecord } from '@/types/BoardRecord'
+import { generateBoard } from '@/modules/generateBoard'
 
 dayjs.extend(localizedFormat)
 
@@ -67,6 +69,9 @@ export function Playground () {
     ))
     : []
 
+  const [boardRecords, setBoardRecords] = useState<BoardRecord[]>([])
+  const isBlack = useRef(true)
+
   return (
     <div className="container max-w-[1000px] px-2 py-8">
       <div className="flex flex-col gap-6">
@@ -78,7 +83,16 @@ export function Playground () {
         </div>
 
         <div>
-          <Board />
+          <GomokuBoard
+            board={generateBoard(boardRecords)}
+            onPlace={(x, y) => {
+              setBoardRecords([
+                ...boardRecords,
+                { piece: isBlack.current ? 'black' : 'white', x, y },
+              ])
+              isBlack.current = !isBlack.current
+            }}
+          />
         </div>
 
         <div className="grid grid-cols-3 gap-4">
