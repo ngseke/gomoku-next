@@ -34,7 +34,7 @@ function ChatItem ({ name, message, timestamp, hideName, self }: {
 
   return (
     <li
-      className={cn('flex flex-col items-start gap-0.5', {
+      className={cn('flex max-w-[80%] flex-col items-start gap-0.5', {
         'self-end items-end': self,
       })}
       title={formattedDate}
