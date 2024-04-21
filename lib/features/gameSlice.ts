@@ -2,16 +2,16 @@ import { type PlayerState } from '@/types/PlayerState'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-export interface PlayerStateState {
+export interface GameState {
   playerState: PlayerState | null
 }
 
-const initialState: PlayerStateState = {
+const initialState: GameState = {
   playerState: null,
 }
 
-export const playerStateSlice = createSlice({
-  name: 'playerState',
+export const gameSlice = createSlice({
+  name: 'game',
   initialState,
   reducers: {
     setPlayerState (state, action: PayloadAction<PlayerState | null>) {
@@ -22,6 +22,6 @@ export const playerStateSlice = createSlice({
 
 export const {
   setPlayerState,
-} = playerStateSlice.actions
+} = gameSlice.actions
 
-export const playerStateReducer = playerStateSlice.reducer
+export const gameReducer = gameSlice.reducer
