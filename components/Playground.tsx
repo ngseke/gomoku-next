@@ -19,7 +19,7 @@ dayjs.extend(localizedFormat)
 export function Playground () {
   const axios = useAxios()
 
-  const [roomId, setRoomId] = useState('room1')
+  const [roomId, setRoomId] = useState('1')
 
   async function createRoom () {
     const { data } = await axios.post<Room>('/api/room/create/', {

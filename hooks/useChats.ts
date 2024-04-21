@@ -3,7 +3,7 @@ import { produce } from 'immer'
 import { useEffect, useState } from 'react'
 import { useDatabase } from 'reactfire'
 
-export function useDatabaseChat (roomId: string) {
+export function useChats (roomId: string) {
   const database = useDatabase()
 
   const [chats, setChats] = useState<Record<string, any> | null>(null)
@@ -17,6 +17,7 @@ export function useDatabaseChat (roomId: string) {
       (snapshot) => {
         const key = snapshot.key
         const data = snapshot.val()
+
         if (!key) return
 
         setChats((chats) => (

@@ -1,4 +1,4 @@
-import { useDatabaseChat } from '@/hooks/useDatabaseChat'
+import { useChats } from '@/hooks/useChats'
 import { type SyntheticEvent, useEffect, useRef } from 'react'
 import { ChatList } from './ChatList'
 import { Input } from './Input'
@@ -7,7 +7,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export function Chat ({ roomId }: { roomId: string }) {
-  const { chats } = useDatabaseChat(roomId)
+  const { chats } = useChats(roomId)
 
   const inputRef = useRef<HTMLInputElement | null>(null)
 

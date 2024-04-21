@@ -6,8 +6,8 @@ const database = {
   userStates: {
   },
   rooms: {
-    room1: {
-      name: 'Room 1',
+    1: {
+      name: 'Default Room',
     },
   },
   roomStates: {
