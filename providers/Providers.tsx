@@ -5,6 +5,7 @@ import { type PropsWithChildren } from 'react'
 import { FirebaseAppProvider } from 'reactfire'
 import { FirebaseProviders } from './FirebaseProviders'
 import { StoreProvider } from './StoreProvider'
+import { InitializeStoreProvider } from './InitializeStoreProvider'
 
 export function Providers ({ children }: PropsWithChildren) {
   return (
@@ -12,7 +13,9 @@ export function Providers ({ children }: PropsWithChildren) {
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>
       <FirebaseProviders>
         <StoreProvider>
-          {children}
+          <InitializeStoreProvider>
+            {children}
+          </InitializeStoreProvider>
         </StoreProvider>
       </FirebaseProviders>
     </FirebaseAppProvider>
