@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { authReducer } from './features/authSlice'
+import { playerStateReducer } from './features/playerStateSlice'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       auth: authReducer,
+      playerState: playerStateReducer,
     },
   })
 }

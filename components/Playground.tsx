@@ -13,6 +13,8 @@ import { type Room } from '@/types/Room'
 import { Chat } from './Chat'
 import { SignInPanel } from './SignInPanel'
 import { useAuthStore } from '@/hooks/useAuthStore'
+import { usePlayerStateStore } from '@/hooks/usePlayerStateStore'
+import { Button } from './Button'
 
 dayjs.extend(localizedFormat)
 
@@ -22,14 +24,14 @@ export function Playground () {
   const [roomId, setRoomId] = useState('1')
 
   async function createRoom () {
-    const { data } = await axios.post<Room>('/api/room/create/', {})
+    const { data } = await axios.post<Room>('/api/room/create', {})
     setRoomId(data.id)
 
     return data
   }
 
   async function joinRoom (roomId: string) {
-    await axios.post<Room>(`/api/room/${roomId}/join/`)
+    await axios.post(`/api/room/${roomId}/join`)
   }
 
   async function handleClickCreateRoom () {
@@ -46,6 +48,11 @@ export function Playground () {
   }
 
   const { sessionId } = useAuthStore()
+  const playerState = usePlayerStateStore()
+
+  async function handleClickExitRoom () {
+    await axios.post(`/api/room/${roomId}/exit`)
+  }
 
   return (
     <div className="container px-2 py-8">
@@ -78,6 +85,13 @@ export function Playground () {
           <div className="h-72 w-full max-w-96">
             <Chat roomId={roomId} />
           </div>
+        </div>
+
+        <div>
+          {JSON.stringify(playerState)}
+          {playerState?.type === 'game' && (
+            <Button onClick={handleClickExitRoom}>Exit Room</Button>
+          )}
         </div>
       </div>
     </div>

@@ -3,7 +3,6 @@ import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { fetchRoom } from '@/modules/firebaseAdmin/fetchRoom'
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { parseSessionId } from '@/modules/firebaseAdmin/parseSessionId'
-import { type PlayerState } from '@/types/PlayerState'
 
 export async function POST (
   request: Request,
@@ -24,27 +23,20 @@ export async function POST (
 
   const room = await fetchRoom(request, roomId)
   if (!room) {
-    return Response.json(
-      `Room \`${roomId}\` does not exist!`,
-      { status: 400 }
-    )
+    return new Response(null, { status: 204 })
   }
 
   // Update Room
   const roomRef = firebaseAdminDatabase.ref(`rooms/${roomId}`)
   const roomPlayerRef = roomRef.child(`players/${player.id}`)
-  await roomPlayerRef.set({ sessionId })
+  await roomPlayerRef.remove()
 
   // Update Player State
   const playerStateRef = firebaseAdminDatabase.ref(`playerStates/${player.id}`)
-  await playerStateRef.set({
-    sessionId,
-    roomId,
-    type: 'game',
-  } satisfies PlayerState)
+  await playerStateRef.remove()
 
   await createChat(roomId, {
-    message: `${player.name} has joined`,
+    message: `${player.name} has left`,
     isAdmin: true,
   })
 

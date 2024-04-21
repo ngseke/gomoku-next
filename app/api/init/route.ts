@@ -1,24 +1,11 @@
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 
 const database = {
-  users: {
-  },
-  userStates: {
-  },
-  rooms: {
-    1: {
-      name: 'Default Room',
-      users: {
-      },
-      boards: {
-
-      },
-    },
-  },
+  players: {},
+  playerStates: {},
+  rooms: {},
   boards: {},
-  chats: {
-    1: {},
-  },
+  chats: {},
 }
 
 export async function POST () {
