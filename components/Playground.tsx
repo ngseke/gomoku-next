@@ -95,7 +95,7 @@ export function Playground () {
         </div>
 
         <div className="flex gap-4">
-          <div className="h-72 w-full max-w-96">
+          <div className="h-96 w-full max-w-96">
             <Chat roomId={playerState?.roomId} />
           </div>
           <div className="flex gap-2">

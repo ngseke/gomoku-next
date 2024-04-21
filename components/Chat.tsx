@@ -1,5 +1,5 @@
 import { useChats } from '@/hooks/useChats'
-import { type SyntheticEvent, useEffect, useRef } from 'react'
+import { type SyntheticEvent, useEffect, useRef, type KeyboardEvent } from 'react'
 import { ChatList } from './ChatList'
 import { Input } from './Input'
 import { useSendChat } from '@/hooks/useSendChat'
@@ -33,6 +33,12 @@ export function Chat ({ roomId }: { roomId: Nullish<string> }) {
     scrollableRef.current?.scrollTo(0, Number.MAX_SAFE_INTEGER)
   }, [chats])
 
+  function handleKeyDown (event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Escape' && !event.nativeEvent.isComposing) {
+      inputRef.current?.blur()
+    }
+  }
+
   return (
     <div className="flex h-full flex-col rounded-2xl border border-neutral-200 px-3 pb-3">
       <div ref={scrollableRef} className="-mr-3 flex-1 overflow-auto scroll-smooth">
@@ -54,6 +60,7 @@ export function Chat ({ roomId }: { roomId: Nullish<string> }) {
           size="sm"
           value={message}
           onChange={event => { setMessage(event.target.value) }}
+          onKeyDown={handleKeyDown}
         />
       </form>
     </div>
