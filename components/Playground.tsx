@@ -66,11 +66,11 @@ export function Playground () {
           <UserPill />
           <UserPill loading />
           <UserPill loading={isInitializingUser} name={player?.name} />
-          <UserPill image={player?.avatar}loading={isInitializingUser} name={player?.name} />
-          <UserPill emoji="🍌️"loading={isInitializingUser} name={player?.name} />
+          <UserPill emoji={player?.emoji} image={player?.avatar}loading={isInitializingUser} name={player?.name} />
+          <UserPill emoji={player?.emoji} loading={isInitializingUser} name={player?.name} />
           <UserPill loading={isInitializingUser} name={player?.name?.repeat(5)} />
-          <UserPill active={isActive} color="black" image={player?.avatar} loading={isInitializingUser} name={player?.name} />
-          <UserPill active={isActive} color="white" image={player?.avatar} loading={isInitializingUser} name={player?.name} />
+          <UserPill active={isActive} color="black" emoji={player?.emoji} image={player?.avatar} loading={isInitializingUser} name={player?.name} />
+          <UserPill active={isActive} color="white" emoji={player?.emoji} image={player?.avatar} loading={isInitializingUser} name={player?.name} />
 
           <Button
             icon={<FontAwesomeIcon icon={faRightFromBracket} />}

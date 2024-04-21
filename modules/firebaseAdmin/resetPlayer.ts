@@ -1,6 +1,7 @@
 import { type Player } from '@/types/Player'
 import { firebaseAdminDatabase } from './firebaseAdmin'
 import { parseAuthorization } from './parseAuthorization'
+import * as emoji from 'node-emoji'
 
 export async function resetPlayer (
   request: Request,
@@ -16,7 +17,7 @@ export async function resetPlayer (
   const player = {
     id,
     name,
-    avatar: auth?.picture ?? null,
+    emoji: emoji.random().emoji,
   } satisfies Player
 
   const playerRef = firebaseAdminDatabase.ref(`players/${id}`)

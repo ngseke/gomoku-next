@@ -40,7 +40,7 @@ export function UserPill ({ name, image, emoji, loading, color, active }: {
           )}
 
           {emoji && (
-            <span className="select-none text-lg">{emoji}</span>
+            <span className="select-none text-2xl">{emoji}</span>
           )}
         </span>
 
