@@ -35,6 +35,7 @@ export const authSlice = createSlice({
     clearAuth (state) {
       state.user = null
       state.player = null
+      state.isInitializingUser = false
     },
   },
 })

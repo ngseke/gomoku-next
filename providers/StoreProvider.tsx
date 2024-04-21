@@ -29,6 +29,8 @@ function useInitializeUser (
         },
       })
 
+      console.log(player)
+
       dispatch?.(setUser(serializedUser))
       dispatch?.(setPlayer(player))
     })

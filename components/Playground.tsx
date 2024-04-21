@@ -13,12 +13,14 @@ import { Logo } from './LogoText'
 import { ProfileButton } from './GradientButton/ProfileButton'
 import { IconButton } from './IconButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightFromBracket, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { RoundButton } from './RoundButton'
 import { useAxios } from '@/hooks/useAxios'
 import { Input } from './Input'
 import { type Room } from '@/types/Room'
 import { Chat } from './Chat'
+import { useSignInAnonymously } from '@/hooks/useSignInAnonymously '
 
 dayjs.extend(localizedFormat)
 
@@ -35,8 +37,9 @@ export function Playground () {
   }
 
   const { signIn } = useSignInWithGoogleAuth()
+  const { signIn: signInAnonymously } = useSignInAnonymously()
 
-  const user = useAppSelector((state) => state.auth.user)
+  const player = useAppSelector((state) => state.auth.player)
   const isInitializingUser =
     useAppSelector((state) => state.auth.isInitializingUser)
 
@@ -63,20 +66,26 @@ export function Playground () {
           <input checked={isActive} type="checkbox" onChange={() => { setIsActive(!isActive) }} />
           <UserPill />
           <UserPill loading />
-          <UserPill loading={isInitializingUser} name="Sean" />
-          <UserPill image={user?.photoURL}loading={isInitializingUser} name={user?.displayName} />
-          <UserPill emoji="🍌️"loading={isInitializingUser} name={user?.displayName} />
-          <UserPill loading={isInitializingUser} name="Sean Sean Sean Sean " />
-          <UserPill active={isActive} color="black" image={user?.photoURL} loading={isInitializingUser} name={user?.displayName} />
-          <UserPill active={isActive} color="white" image={user?.photoURL} loading={isInitializingUser} name={user?.displayName} />
+          <UserPill loading={isInitializingUser} name={player?.name} />
+          <UserPill image={player?.avatar}loading={isInitializingUser} name={player?.name} />
+          <UserPill emoji="🍌️"loading={isInitializingUser} name={player?.name} />
+          <UserPill loading={isInitializingUser} name={player?.name?.repeat(5)} />
+          <UserPill active={isActive} color="black" image={player?.avatar} loading={isInitializingUser} name={player?.name} />
+          <UserPill active={isActive} color="white" image={player?.avatar} loading={isInitializingUser} name={player?.name} />
 
           <IconButton onClick={signOut}>
             <FontAwesomeIcon icon={faRightFromBracket} />
           </IconButton>
 
           <RoundButton
-            icon={<FontAwesomeIcon icon={faRightToBracket} />}
+            icon={<FontAwesomeIcon icon={faGoogle} />}
             onClick={signIn}
+          >
+            Sign In
+          </RoundButton>
+          <RoundButton
+            icon={<FontAwesomeIcon icon={faUser} />}
+            onClick={signInAnonymously}
           >
             Sign In
           </RoundButton>

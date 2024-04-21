@@ -11,7 +11,7 @@ export async function resetPlayer (
 
   if (!id) throw new Error('No auth id')
 
-  const name = auth?.name
+  const name = auth?.name ?? `Player ${id.slice(-5)}`
 
   const player = {
     id,
