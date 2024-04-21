@@ -7,7 +7,7 @@ import { onValue, ref } from 'firebase/database'
 import { useAuthStore } from '@/hooks/useAuthStore'
 import { setPlayerState } from '@/lib/features/gameSlice'
 
-export function useInitializePlayerState () {
+export function useListenPlayerState () {
   const dispatch = useAppDispatch()
 
   const database = useDatabase()

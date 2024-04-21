@@ -15,6 +15,7 @@ import { SignInPanel } from './SignInPanel'
 import { useAuthStore } from '@/hooks/useAuthStore'
 import { usePlayerStateStore } from '@/hooks/usePlayerStateStore'
 import { Button } from './Button'
+import { useRoomStore } from '@/hooks/useRoomStore'
 
 dayjs.extend(localizedFormat)
 
@@ -37,6 +38,8 @@ export function Playground () {
   async function handleClickCreateRoom () {
     const { id } = await createRoom()
     await joinRoom(id)
+
+    setRoomId(id)
   }
 
   async function handleClickJoinRoom () {
@@ -49,6 +52,7 @@ export function Playground () {
 
   const { sessionId } = useAuthStore()
   const playerState = usePlayerStateStore()
+  const room = useRoomStore()
 
   async function handleClickExitRoom () {
     await axios.post(`/api/room/${roomId}/exit`)
@@ -66,7 +70,16 @@ export function Playground () {
 
         <div className="grid grid-cols-3 gap-4">
           <NewRoomButton onClick={handleClickCreateRoom} />
-          <JoinRoomButton onClick={handleClickJoinRoom} />
+          <div>
+            <JoinRoomButton onClick={handleClickJoinRoom} />
+            <label>
+              roomId:
+              <Input
+                value={roomId}
+                onChange={event => { setRoomId(event.target.value) }}
+              />
+            </label>
+          </div>
           <ProfileButton />
         </div>
 
@@ -75,20 +88,15 @@ export function Playground () {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label>
-            roomId:
-            <Input
-              value={roomId}
-              onChange={event => { setRoomId(event.target.value) }}
-            />
-          </label>
           <div className="h-72 w-full max-w-96">
-            <Chat roomId={roomId} />
+            <Chat roomId={playerState?.roomId} />
           </div>
         </div>
 
         <div>
-          {JSON.stringify(playerState)}
+          <pre>{JSON.stringify(playerState, null, 2)}</pre>
+          <pre>{JSON.stringify(room, null, 2)}</pre>
+
           {playerState?.type === 'game' && (
             <Button onClick={handleClickExitRoom}>Exit Room</Button>
           )}

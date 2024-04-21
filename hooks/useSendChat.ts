@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useAxios } from './useAxios'
+import { type Nullish } from '@/types/Nullish'
 
-export function useSendChat (roomId: string) {
+export function useSendChat (roomId: Nullish<string>) {
   const axios = useAxios()
 
   const [message, setMessage] = useState('')
@@ -9,6 +10,8 @@ export function useSendChat (roomId: string) {
   const [error, setError] = useState<Error | null>(null)
 
   async function send () {
+    if (!roomId) return
+
     setIsSending(true)
     setError(null)
 

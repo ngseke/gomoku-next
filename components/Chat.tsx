@@ -5,8 +5,9 @@ import { Input } from './Input'
 import { useSendChat } from '@/hooks/useSendChat'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { type Nullish } from '@/types/Nullish'
 
-export function Chat ({ roomId }: { roomId: string }) {
+export function Chat ({ roomId }: { roomId: Nullish<string> }) {
   const { chats } = useChats(roomId)
 
   const inputRef = useRef<HTMLInputElement | null>(null)

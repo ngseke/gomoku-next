@@ -1,14 +1,19 @@
+import { type Nullish } from '@/types/Nullish'
 import { ref, limitToLast, query, onChildAdded } from 'firebase/database'
 import { produce } from 'immer'
 import { useEffect, useState } from 'react'
 import { useDatabase } from 'reactfire'
 
-export function useChats (roomId: string) {
+export function useChats (roomId: Nullish<string>) {
   const database = useDatabase()
 
   const [chats, setChats] = useState<Record<string, any> | null>(null)
 
   useEffect(() => {
+    if (!roomId) {
+      setChats(null)
+      return
+    }
     const chatsRef = ref(database, `chats/${roomId}`)
     setChats(null)
 

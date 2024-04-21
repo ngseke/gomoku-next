@@ -1,4 +1,5 @@
 import { createChat } from '@/modules/firebaseAdmin/createChat'
+import { exitRoom } from '@/modules/firebaseAdmin/exitRoom'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { fetchRoom } from '@/modules/firebaseAdmin/fetchRoom'
 import { fetchRoomPlayers } from '@/modules/firebaseAdmin/fetchRoomPlayers'
@@ -44,7 +45,17 @@ export async function POST (
     )
   }
 
+  await exitRoom(request)
+
   const roomPlayers = await fetchRoomPlayers(roomId)
+
+  // Check if has joined
+  const hasSelfJoined = roomPlayers?.[player.id]
+  if (hasSelfJoined) {
+    return Response.json('You have joined this room!', { status: 400 })
+  }
+
+  // Get available piece
   const piece = getNextPiece(roomPlayers)
   if (!piece) {
     return Response.json('The room is full!', { status: 400 })

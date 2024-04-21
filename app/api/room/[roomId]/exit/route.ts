@@ -1,7 +1,5 @@
-import { createChat } from '@/modules/firebaseAdmin/createChat'
+import { exitRoom } from '@/modules/firebaseAdmin/exitRoom'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
-import { fetchRoom } from '@/modules/firebaseAdmin/fetchRoom'
-import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { parseSessionId } from '@/modules/firebaseAdmin/parseSessionId'
 
 export async function POST (
@@ -19,26 +17,6 @@ export async function POST (
     )
   }
 
-  const { roomId } = params
-
-  const room = await fetchRoom(request, roomId)
-  if (!room) {
-    return new Response(null, { status: 204 })
-  }
-
-  // Update Room
-  const roomRef = firebaseAdminDatabase.ref(`rooms/${roomId}`)
-  const roomPlayerRef = roomRef.child(`players/${player.id}`)
-  await roomPlayerRef.remove()
-
-  // Update Player State
-  const playerStateRef = firebaseAdminDatabase.ref(`playerStates/${player.id}`)
-  await playerStateRef.remove()
-
-  await createChat(roomId, {
-    message: `${player.name} has left`,
-    isAdmin: true,
-  })
-
+  await exitRoom(request)
   return new Response(null, { status: 204 })
 }
