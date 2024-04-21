@@ -45,6 +45,8 @@ module.exports = {
     '@typescript-eslint/strict-boolean-expressions': ['off'],
     '@typescript-eslint/no-unsafe-argument': ['off'],
     '@typescript-eslint/consistent-type-assertions': ['off'],
+
+    'react/jsx-curly-newline': ['warn'],
     'react/jsx-indent': ['warn', 2, {
       checkAttributes: true,
       indentLogicalExpressions: true,
@@ -62,11 +64,14 @@ module.exports = {
     }],
     'react/self-closing-comp': 'warn',
     'react/jsx-fragments': 'warn',
-    'react/jsx-equals-spacing': [2, 'never'],
+    'react/jsx-equals-spacing': ['warn', 'never'],
     'react/jsx-sort-props': ['warn', {
       callbacksLast: true,
       shorthandFirst: true,
       reservedFirst: true,
+    }],
+    'react/jsx-curly-brace-presence': ['warn', {
+
     }],
     '@next/next/no-img-element': ['off'],
     'tailwindcss/classnames-order': ['warn', {

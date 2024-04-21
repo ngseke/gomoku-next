@@ -46,8 +46,7 @@ export function UserPill ({ name, image, emoji, loading, color, active }: {
 
         {loading
           ? <NameSkeleton />
-          : (name && <Name>{name}</Name>)
-        }
+          : (name && <Name>{name}</Name>)}
       </span>
 
       <span
