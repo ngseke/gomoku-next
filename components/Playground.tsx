@@ -55,7 +55,7 @@ export function Playground () {
   const room = useRoomStore()
 
   async function handleClickExitRoom () {
-    await axios.post(`/api/room/${roomId}/exit`)
+    await axios.post('/api/room/exit')
   }
 
   return (

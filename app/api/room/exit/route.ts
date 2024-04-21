@@ -4,7 +4,6 @@ import { parseSessionId } from '@/modules/firebaseAdmin/parseSessionId'
 
 export async function POST (
   request: Request,
-  { params }: { params: { roomId: string } }
 ) {
   const player = await fetchPlayer(request)
   if (!player) return Response.json(null, { status: 403 })
