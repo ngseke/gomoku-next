@@ -18,7 +18,7 @@ import { Button } from './Button'
 import { useRoomStore } from '@/hooks/useRoomStore'
 import { UserPill } from './UserPill'
 import { DebugView } from './DebugView'
-import { GomokuBoard } from './GomokuBoard'
+import { GomokuBoard } from './GomokuBoard/GomokuBoard'
 import { type BoardRecord } from '@/types/BoardRecord'
 import { generateBoard } from '@/modules/generateBoard'
 
