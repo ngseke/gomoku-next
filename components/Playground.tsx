@@ -103,8 +103,8 @@ export function Playground () {
           <SignInPanel />
         </div>
 
-        <div className="flex flex-wrap gap-4">
-          <div className="w-[500px]">
+        <div className="flex flex-wrap gap-6">
+          <div className="w-[550px]">
             <GomokuBoard
               board={generateBoard(boardRecords)}
               highlight={highlight}

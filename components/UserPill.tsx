@@ -34,7 +34,7 @@ export function UserPill ({ name, image, emoji, loading, color, active }: {
         className={cn('inline-flex h-10 max-w-48 animate-flash-outline items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 px-1 outline outline-0 duration-150', {
           'bg-gradient-to-tr from-black to-[#434343]': color === 'black',
           'bg-gradient-to-tr from-[#cfd4d7] to-[#fdfbfb]': color === 'white',
-          'outline-2': active,
+          'outline-[3px]': active,
         })}
       >
         <span className="flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200">
@@ -53,7 +53,7 @@ export function UserPill ({ name, image, emoji, loading, color, active }: {
       </span>
 
       <span
-        className={cn('absolute inset-0 -z-10 scale-90 animate-flash-bg rounded-full opacity-0 blur-md transition-opacity duration-700', { 'opacity-70': active })}
+        className={cn('absolute inset-0 -z-10 scale-90 animate-flash-bg rounded-full opacity-0 blur-lg transition-opacity duration-700', { 'opacity-70': active })}
       />
     </span>
 
