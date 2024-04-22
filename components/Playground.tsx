@@ -21,6 +21,7 @@ import { DebugView } from './DebugView'
 import { GomokuBoard } from './GomokuBoard/GomokuBoard'
 import { type BoardRecord } from '@/types/BoardRecord'
 import { generateBoard } from '@/modules/generateBoard'
+import { formatPosition } from '@/modules/formatPosition'
 
 dayjs.extend(localizedFormat)
 
@@ -87,7 +88,8 @@ export function Playground () {
           <GomokuBoard
             board={generateBoard(boardRecords)}
             highlight={highlight}
-            onPlace={(x, y) => {
+            onHover={(position) => { console.log(formatPosition(position)) }}
+            onPlace={({ x, y }) => {
               setBoardRecords([
                 ...boardRecords,
                 { piece: isBlack.current ? 'black' : 'white', x, y },

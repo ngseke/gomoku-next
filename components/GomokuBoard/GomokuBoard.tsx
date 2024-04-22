@@ -1,19 +1,17 @@
 import { type Board } from '@/types/Board'
 import { Cell } from './Cell'
 import { Piece } from './Piece'
+import { type Position } from '@/types/Position'
 
 const size = 15
 
-export function GomokuBoard ({ board, highlight, disabled, onPlace }: {
+export function GomokuBoard ({ board, highlight, disabled, onPlace, onHover }: {
   board?: Board
   disabled?: boolean
-  highlight?: { x: number, y: number }
-  onPlace?: (x: number, y: number) => void
+  highlight?: Position
+  onPlace?: (position: Position) => void
+  onHover?: (position: Position) => void
 }) {
-  function handleClick (x: number, y: number) {
-    onPlace?.(x, y)
-  }
-
   return (
     <div className="grid w-[500px] max-w-full grid-cols-15">
       {Array.from({ length: size ** 2 }).map((_, index) => {
@@ -30,7 +28,8 @@ export function GomokuBoard ({ board, highlight, disabled, onPlace }: {
             highlight={shouldHighlight}
             x={x}
             y={y}
-            onClick={() => { handleClick(x, y) }}
+            onClick={() => { onPlace?.({ x, y }) }}
+            onHover={() => { onHover?.({ x, y }) }}
           >
             {piece && <Piece color={piece.piece} />}
           </Cell>

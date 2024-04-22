@@ -1,4 +1,5 @@
 import { cn } from '@/modules/cn'
+import { type Position } from '@/types/Position'
 import { type PropsWithChildren } from 'react'
 
 const size = 15
@@ -13,7 +14,7 @@ function StarPoint () {
   )
 }
 
-function Corner ({ x, y }: { x: number, y: number }) {
+function Corner ({ x, y }: Position) {
   const isTopLeft = !x && !y
   const isTopRight = x === size - 1 && !y
   const isBottomLeft = !x && y === size - 1
@@ -31,7 +32,7 @@ function Corner ({ x, y }: { x: number, y: number }) {
   )
 }
 
-function VerticalLine ({ x, y }: { x: number, y: number }) {
+function VerticalLine ({ x, y }: Position) {
   return (
     <span
       className={cn(
@@ -44,7 +45,7 @@ function VerticalLine ({ x, y }: { x: number, y: number }) {
   )
 }
 
-function HorizontalLine ({ x, y }: { x: number, y: number }) {
+function HorizontalLine ({ x, y }: Position) {
   return (
     <span
       className={cn(
@@ -72,12 +73,14 @@ export function Cell ({
   x,
   y,
   onClick,
+  onHover,
   disabled,
   highlight,
 }: PropsWithChildren<{
   x: number
   y: number
   onClick?: () => void
+  onHover?: () => void
   disabled?: boolean
   highlight?: boolean
 }>) {
@@ -94,6 +97,7 @@ export function Cell ({
       className="relative flex aspect-square"
       disabled={disabled}
       onClick={onClick}
+      onMouseOver={onHover}
     >
       {(isCorner)
         ? <Corner x={x} y={y} />
