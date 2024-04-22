@@ -4,10 +4,11 @@ import { Piece } from './Piece'
 
 const size = 15
 
-export function GomokuBoard ({ board, onPlace, disabled }: {
+export function GomokuBoard ({ board, highlight, disabled, onPlace }: {
   board?: Board
-  onPlace?: (x: number, y: number) => void
   disabled?: boolean
+  highlight?: { x: number, y: number }
+  onPlace?: (x: number, y: number) => void
 }) {
   function handleClick (x: number, y: number) {
     onPlace?.(x, y)
@@ -20,11 +21,13 @@ export function GomokuBoard ({ board, onPlace, disabled }: {
         const y = Math.floor(index / size)
 
         const piece = board?.[x]?.[y]
+        const shouldHighlight = highlight?.x === x && highlight?.y === y
 
         return (
           <Cell
             key={index}
             disabled={Boolean(piece) || disabled}
+            highlight={shouldHighlight}
             x={x}
             y={y}
             onClick={() => { handleClick(x, y) }}

@@ -57,11 +57,29 @@ function HorizontalLine ({ x, y }: { x: number, y: number }) {
   )
 }
 
-export function Cell ({ children, x, y, onClick, disabled }: PropsWithChildren<{
+function Highlight ({ show }: { show: boolean }) {
+  return (
+    <span
+      className={cn('absolute left-1/2 top-1/2 size-full -translate-x-1/2 -translate-y-1/2 scale-75 rounded-[25%] bg-neutral-300/70 opacity-0', {
+        'opacity-100 duration-300 scale-100': show,
+      })}
+    />
+  )
+}
+
+export function Cell ({
+  children,
+  x,
+  y,
+  onClick,
+  disabled,
+  highlight,
+}: PropsWithChildren<{
   x: number
   y: number
   onClick?: () => void
   disabled?: boolean
+  highlight?: boolean
 }>) {
   const shouldShowStarPoint = starPointPositions.some(
     position => x === position[0] && y === position[1]
@@ -85,6 +103,8 @@ export function Cell ({ children, x, y, onClick, disabled }: PropsWithChildren<{
         </>}
 
       {shouldShowStarPoint && (<StarPoint />)}
+
+      <Highlight show={Boolean(highlight)} />
 
       <div className="z-10 flex size-full items-center justify-center">
         {children}

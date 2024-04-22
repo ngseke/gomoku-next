@@ -70,6 +70,7 @@ export function Playground () {
     : []
 
   const [boardRecords, setBoardRecords] = useState<BoardRecord[]>([])
+  const [highlight, setHighlight] = useState<{ x: number, y: number }>()
   const isBlack = useRef(true)
 
   return (
@@ -85,12 +86,14 @@ export function Playground () {
         <div>
           <GomokuBoard
             board={generateBoard(boardRecords)}
+            highlight={highlight}
             onPlace={(x, y) => {
               setBoardRecords([
                 ...boardRecords,
                 { piece: isBlack.current ? 'black' : 'white', x, y },
               ])
               isBlack.current = !isBlack.current
+              setHighlight({ x, y })
             }}
           />
         </div>
