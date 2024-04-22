@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { NewRoomButton } from './GradientButton/NewRoomButton'
@@ -72,7 +72,7 @@ export function Playground () {
 
   const [boardRecords, setBoardRecords] = useState<BoardRecord[]>([])
   const [highlight, setHighlight] = useState<{ x: number, y: number }>()
-  const isBlack = useRef(true)
+  const [isBlack, setIsBlack] = useState(true)
 
   return (
     <div className="container max-w-[1000px] px-2 py-8">
@@ -84,17 +84,18 @@ export function Playground () {
           </span>
         </div>
 
-        <div>
+        <div className="max-w-[500px]">
           <GomokuBoard
             board={generateBoard(boardRecords)}
             highlight={highlight}
+            showLabels={!!isBlack}
             onHover={(position) => { console.log(formatPosition(position)) }}
             onPlace={({ x, y }) => {
               setBoardRecords([
                 ...boardRecords,
-                { piece: isBlack.current ? 'black' : 'white', x, y },
+                { piece: isBlack ? 'black' : 'white', x, y },
               ])
-              isBlack.current = !isBlack.current
+              setIsBlack(!isBlack)
               setHighlight({ x, y })
             }}
           />
