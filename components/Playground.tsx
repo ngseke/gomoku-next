@@ -84,23 +84,6 @@ export function Playground () {
           </span>
         </div>
 
-        <div className="max-w-[500px]">
-          <GomokuBoard
-            board={generateBoard(boardRecords)}
-            highlight={highlight}
-            showLabels={!!isBlack}
-            onHover={(position) => { console.log(formatPosition(position)) }}
-            onPlace={({ x, y }) => {
-              setBoardRecords([
-                ...boardRecords,
-                { piece: isBlack ? 'black' : 'white', x, y },
-              ])
-              setIsBlack(!isBlack)
-              setHighlight({ x, y })
-            }}
-          />
-        </div>
-
         <div className="grid grid-cols-3 gap-4">
           <NewRoomButton onClick={handleClickCreateRoom} />
           <div>
@@ -121,15 +104,29 @@ export function Playground () {
         </div>
 
         <div className="flex flex-wrap gap-4">
-          <div className="h-96 w-full max-w-96">
-            <Chat roomId={playerState?.roomId} />
-          </div>
+          <div className="w-[500px]">
+            <GomokuBoard
+              board={generateBoard(boardRecords)}
+              highlight={highlight}
+              showLabels={!!isBlack}
+              onHover={(position) => { console.log(formatPosition(position)) }}
+              onPlace={({ x, y }) => {
+                setBoardRecords([
+                  ...boardRecords,
+                  { piece: isBlack ? 'black' : 'white', x, y },
+                ])
+                setIsBlack(!isBlack)
+                setHighlight({ x, y })
+              }}
+            />
 
-          <div className="flex flex-col gap-4">
+          </div>
+          <div className="flex flex-1 flex-col gap-4">
             <div className="flex gap-2">
-              {roomPlayers?.map(player => (
+              {roomPlayers?.map((player, index) => (
                 <UserPill
                   key={player.id}
+                  active={!!index === isBlack}
                   color={player.piece}
                   emoji={player?.emoji}
                   name={player?.name}
@@ -140,6 +137,10 @@ export function Playground () {
             {playerState?.type === 'game' && (
               <Button onClick={handleClickExitRoom}>Exit Room</Button>
             )}
+
+            <div className="h-96 w-full ">
+              <Chat roomId={playerState?.roomId} />
+            </div>
           </div>
         </div>
 

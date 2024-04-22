@@ -1,6 +1,7 @@
 import { cn } from '@/modules/cn'
 import { type Position } from '@/types/Position'
 import { type PropsWithChildren } from 'react'
+import { PieceGhost } from './Piece'
 
 const size = 15
 
@@ -94,7 +95,7 @@ export function Cell ({
 
   return (
     <button
-      className="relative flex aspect-square"
+      className="group relative flex aspect-square"
       disabled={disabled}
       onClick={onClick}
       onMouseOver={onHover}
@@ -111,7 +112,8 @@ export function Cell ({
       <Highlight show={Boolean(highlight)} />
 
       <div className="z-10 flex size-full items-center justify-center">
-        {children}
+        {children ??
+          <PieceGhost className="opacity-0 group-enabled:group-hover:opacity-100" />}
       </div>
     </button>
   )
