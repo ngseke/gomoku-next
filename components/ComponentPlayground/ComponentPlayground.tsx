@@ -19,6 +19,7 @@ import { Input } from '../Input'
 import { ChatBox } from '../ChatBox'
 import { type Chat } from '@/types/Chat'
 import { mockChats } from './mockChats'
+import { Checkbox } from '../Checkbox'
 
 function Headline (props: ComponentProps<'h2'>) {
   return <h2 className="mt-5 text-3xl font-bold" {...props} />
@@ -146,22 +147,20 @@ function ChatBoxSection () {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <label>
-          <input
-            checked={isDisabled}
-            type="checkbox"
-            onChange={event => { setIsDisabled(event.target.checked) }}
-          />
+        <Checkbox
+          checked={isDisabled}
+          onChange={event => { setIsDisabled(event.target.checked) }}
+        >
           isDisabled
-        </label>
-        <label>
-          <input
-            checked={error}
-            type="checkbox"
-            onChange={event => { setError(event.target.checked) }}
-          />
+        </Checkbox>
+
+        <Checkbox
+          checked={error}
+          onChange={event => { setError(event.target.checked) }}
+        >
           error
-        </label>
+        </Checkbox>
+
         <hr />
         <label>
           My playerId
@@ -170,14 +169,11 @@ function ChatBoxSection () {
             onChange={event => { setPlayerId(event.target.value) }}
           />
         </label>
-        <label>
-          <input
-            checked={isAdmin}
-            type="checkbox"
-            onChange={event => { setIsAdmin(event.target.checked) }}
-          />
-          isAdmin
-        </label>
+        <Checkbox
+          checked={isAdmin}
+          size="sm"
+          onChange={event => { setIsAdmin(event.target.checked) }}
+        >isAdmin</Checkbox>
       </div>
     </div>
   </>)
