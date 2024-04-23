@@ -1,7 +1,8 @@
 import { cn } from '@/modules/cn'
 import { type ReactNode, type ComponentProps } from 'react'
 
-export function Button ({ icon, loading, children, disabled, ...restProps }: ComponentProps<'button'> & {
+export function Button ({ block, icon, loading, children, disabled, ...restProps }: ComponentProps<'button'> & {
+  block?: boolean
   icon?: ReactNode
   loading?: boolean
 }) {
@@ -12,6 +13,7 @@ export function Button ({ icon, loading, children, disabled, ...restProps }: Com
       className={cn('relative h-10 ', {
         'min-w-20': !isIconButton,
         'w-10': isIconButton,
+        'w-full': block,
       })}
     >
       <button
@@ -32,7 +34,7 @@ export function Button ({ icon, loading, children, disabled, ...restProps }: Com
         )}
       </button>
       <span
-        className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-br from-neutral-200 to-neutral-300 opacity-0 blur-lg transition-opacity duration-200 peer-hover:opacity-70"
+        className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-br from-neutral-200 to-neutral-300 opacity-0 blur-lg transition-opacity duration-200 peer-hover:peer-enabled:opacity-70"
       />
     </div>
   )

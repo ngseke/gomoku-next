@@ -2,7 +2,7 @@
 
 import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
 import { useSignOut } from '@/hooks/useSignOut'
-import { UserPill } from './UserPill'
+import { PlayerPill } from './PlayerPill'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGear, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
@@ -29,7 +29,7 @@ export function SignInPanel () {
     <div className="flex flex-wrap items-center gap-2">
       {player ?? isInitializingPlayer
         ? <>
-          <UserPill emoji={player?.emoji} loading={isInitializingPlayer} name={player?.name} />
+          <PlayerPill emoji={player?.emoji} loading={isInitializingPlayer} name={player?.name} />
 
           <Button
             key="setting"

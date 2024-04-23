@@ -20,7 +20,7 @@ function Name ({ dark, ...restProps }: ComponentProps<'span'> & { dark?: boolean
   )
 }
 
-export function UserPill ({ name, image, emoji, loading, color, active }: {
+export function PlayerPill ({ name, image, emoji, loading, color, active }: {
   name?: Nullish<string>
   image?: Nullish<string>
   emoji?: Nullish<string>
@@ -31,7 +31,7 @@ export function UserPill ({ name, image, emoji, loading, color, active }: {
   return (
     <span className="relative flex">
       <span
-        className={cn('inline-flex h-10 max-w-48 animate-flash-outline items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 px-1 outline outline-0 duration-150', {
+        className={cn('inline-flex h-10 max-w-48 animate-flash-outline items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 px-1 outline outline-0 duration-300', {
           'bg-gradient-to-tr from-black to-[#434343]': color === 'black',
           'bg-gradient-to-tr from-[#cfd4d7] to-[#fdfbfb]': color === 'white',
           'outline-[3px]': active,

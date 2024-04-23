@@ -16,7 +16,7 @@ import { useAuthStore } from '@/hooks/useAuthStore'
 import { usePlayerStateStore } from '@/hooks/usePlayerStateStore'
 import { Button } from './Button'
 import { useRoomStore } from '@/hooks/useRoomStore'
-import { UserPill } from './UserPill'
+import { PlayerPill } from './PlayerPill'
 import { DebugView } from './DebugView'
 import { GomokuBoard } from './GomokuBoard/GomokuBoard'
 import { type BoardRecord } from '@/types/BoardRecord'
@@ -84,7 +84,7 @@ export function Playground () {
           </span>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-4 sm:grid-cols-3">
           <NewRoomButton onClick={handleClickCreateRoom} />
           <div>
             <JoinRoomButton onClick={handleClickJoinRoom} />
@@ -124,7 +124,7 @@ export function Playground () {
           <div className="flex flex-1 flex-col gap-4">
             <div className="flex gap-2">
               {roomPlayers?.map((player, index) => (
-                <UserPill
+                <PlayerPill
                   key={player.id}
                   active={!!index === isBlack}
                   color={player.piece}
