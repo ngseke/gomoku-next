@@ -1,3 +1,4 @@
+import { type Chat } from '@/types/Chat'
 import { type Nullish } from '@/types/Nullish'
 import { ref, limitToLast, query, onChildAdded } from 'firebase/database'
 import { produce } from 'immer'
@@ -7,7 +8,7 @@ import { useDatabase } from 'reactfire'
 export function useChats (roomId: Nullish<string>) {
   const database = useDatabase()
 
-  const [chats, setChats] = useState<Record<string, any> | null>(null)
+  const [chats, setChats] = useState<Record<string, Chat> | null>(null)
 
   useEffect(() => {
     if (!roomId) {
