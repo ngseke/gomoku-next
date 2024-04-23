@@ -13,7 +13,7 @@ function AdminChatItem ({ message, timestamp }: {
 
   return (
     <li
-      className="gap-0.5 self-center text-center text-xs text-neutral-600"
+      className="max-w-full gap-0.5 self-center break-words text-center text-xs text-neutral-600"
       title={formattedDate}
     >
       {message}
@@ -40,13 +40,13 @@ function ChatItem ({ name, message, timestamp, hideName, self }: {
     >
       {
         shouldShowName &&
-          <span className="mt-2 text-xs font-medium text-neutral-600">
+          <span className="mt-2 max-w-full truncate text-xs font-medium text-neutral-600" title={name ?? undefined}>
             {name}
           </span>
       }
 
       <span className={cn(
-        "rounded-xl bg-neutral-200 px-2 py-1 text-sm after:opacity-0 empty:after:content-['-']",
+        "max-w-full break-words rounded-xl bg-neutral-200 px-2 py-1 text-sm after:opacity-0 empty:after:content-['-']",
       )}
       >
         {message}
