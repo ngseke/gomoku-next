@@ -4,18 +4,21 @@ import { Input } from './Input'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { type Chat } from '@/types/Chat'
+import { type Nullish } from '@/types/Nullish'
 
 export interface ChatBoxProps {
   chats: Record<string, Chat> | null
+  playerId: Nullish<string>
   message: string
   disabled: boolean
   setMessage: (message: string) => void
-  onSubmit: () => Promise<void>
+  onSubmit?: () => void | Promise<void>
   error: unknown
 }
 
 export function ChatBox ({
   chats,
+  playerId,
   message,
   disabled,
   onSubmit,
@@ -32,7 +35,7 @@ export function ChatBox ({
     event.preventDefault()
     if (!message.trim()) return
 
-    await onSubmit()
+    await onSubmit?.()
     focusInput()
   }
 
@@ -52,7 +55,7 @@ export function ChatBox ({
     <div className="flex h-full flex-col rounded-2xl border border-neutral-200 px-3 pb-3">
       <div ref={scrollableRef} className="-mr-3 flex-1 overflow-auto scroll-smooth">
         <div className="py-4 pr-3">
-          <ChatList chats={chats} />
+          <ChatList chats={chats} playerId={playerId} />
         </div>
       </div>
 

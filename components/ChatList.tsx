@@ -1,4 +1,3 @@
-import { usePlayer } from '@/hooks/usePlayer'
 import { cn } from '@/modules/cn'
 import { type Chat } from '@/types/Chat'
 import { type Nullish } from '@/types/Nullish'
@@ -56,8 +55,14 @@ function ChatItem ({ name, message, timestamp, hideName, self }: {
   )
 }
 
-export function ChatList ({ chats }: { chats: Chats | null }) {
-  const { getIsSelf } = usePlayer()
+export function ChatList ({ chats, playerId }: {
+  chats: Chats | null
+  playerId: Nullish<string>
+}) {
+  function getIsSelf (id: Nullish<string>) {
+    if (!playerId) return false
+    return id === playerId
+  }
 
   const entries = chats ? Object.entries(chats) : []
 
