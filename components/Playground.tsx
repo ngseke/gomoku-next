@@ -10,7 +10,7 @@ import { ProfileButton } from './GradientButton/ProfileButton'
 import { useAxios } from '@/hooks/useAxios'
 import { Input } from './Input'
 import { type Room } from '@/types/Room'
-import { Chat } from './Chat'
+import { ConnectedChatBox } from './ConnectedChatBox'
 import { SignInPanel } from './SignInPanel'
 import { useAuthStore } from '@/hooks/useAuthStore'
 import { usePlayerStateStore } from '@/hooks/usePlayerStateStore'
@@ -139,7 +139,7 @@ export function Playground () {
             )}
 
             <div className="h-96 w-full ">
-              <Chat roomId={playerState?.roomId} />
+              <ConnectedChatBox roomId={playerState?.roomId} />
             </div>
           </div>
         </div>

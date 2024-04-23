@@ -1,19 +1,28 @@
-import { useChats } from '@/hooks/useChats'
 import { type SyntheticEvent, useEffect, useRef, type KeyboardEvent } from 'react'
 import { ChatList } from './ChatList'
 import { Input } from './Input'
-import { useSendChat } from '@/hooks/useSendChat'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { type Nullish } from '@/types/Nullish'
+import { type Chat } from '@/types/Chat'
 
-export function Chat ({ roomId }: { roomId: Nullish<string> }) {
-  const { chats } = useChats(roomId)
+export interface ChatBoxProps {
+  chats: Record<string, Chat> | null
+  message: string
+  disabled: boolean
+  setMessage: (message: string) => void
+  onSubmit: () => Promise<void>
+  error: unknown
+}
 
+export function ChatBox ({
+  chats,
+  message,
+  disabled,
+  onSubmit,
+  setMessage,
+  error,
+}: ChatBoxProps) {
   const inputRef = useRef<HTMLInputElement | null>(null)
-
-  const { message, setMessage, send, isSending, error } =
-    useSendChat(roomId)
 
   function focusInput () {
     setTimeout(() => inputRef.current?.focus(), 0)
@@ -23,7 +32,7 @@ export function Chat ({ roomId }: { roomId: Nullish<string> }) {
     event.preventDefault()
     if (!message.trim()) return
 
-    await send()
+    await onSubmit()
     focusInput()
   }
 
@@ -50,8 +59,8 @@ export function Chat ({ roomId }: { roomId: Nullish<string> }) {
       <form onSubmit={handleSubmit}>
         <Input
           ref={inputRef}
-          disabled={isSending}
-          rightSection={error && (
+          disabled={disabled}
+          rightSection={Boolean(error) && (
             <FontAwesomeIcon
               className="text-rose-500"
               icon={faTriangleExclamation}
