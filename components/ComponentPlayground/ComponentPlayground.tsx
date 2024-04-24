@@ -20,6 +20,7 @@ import { ChatBox } from '../ChatBox'
 import { type Chat } from '@/types/Chat'
 import { mockChats } from './mockChats'
 import { Checkbox } from '../Checkbox'
+import { mockBoardRecords } from './mockBoardRecords'
 
 function Headline (props: ComponentProps<'h2'>) {
   return <h2 className="mt-5 text-3xl font-bold" {...props} />
@@ -180,10 +181,7 @@ function ChatBoxSection () {
 }
 
 function GomokuBoardSection () {
-  const [boardRecords, setBoardRecords] = useState<BoardRecord[]>([
-    { piece: 'black', x: 7, y: 7 },
-    { piece: 'white', x: 8, y: 8 },
-  ])
+  const [boardRecords, setBoardRecords] = useState<BoardRecord[]>(mockBoardRecords)
   const [width, setWidth] = useState(500)
   const [highlight, setHighlight] = useState<{ x: number, y: number }>()
   const [isBlack, setIsBlack] = useState(true)
