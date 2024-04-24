@@ -62,7 +62,7 @@ function HorizontalLine ({ x, y }: Position) {
 function Highlight ({ show }: { show: boolean }) {
   return (
     <span
-      className={cn('absolute left-1/2 top-1/2 size-full -translate-x-1/2 -translate-y-1/2 scale-75 rounded-[25%] bg-neutral-300/70 opacity-0', {
+      className={cn('absolute left-1/2 top-1/2 size-full -translate-x-1/2 -translate-y-1/2 scale-75 rounded-[25%] bg-neutral-300/90 opacity-0', {
         'opacity-100 duration-300 scale-100': show,
       })}
     />

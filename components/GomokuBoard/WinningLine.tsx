@@ -2,17 +2,20 @@ import { type Position } from '@/types/Position'
 import { cn } from '@/modules/cn'
 import { type Nullish } from '@/types/Nullish'
 import { type WinningLine as WinningLineType } from '@/types/WinningLine'
+import { type CSSProperties } from 'react'
 
 export function WinningLine ({ direction, position }: {
   direction?: WinningLineType['direction']
   position?: Nullish<Position>
 }) {
-  if (!position) return null
+  if (!(direction && position)) return null
 
   const leftTopPosition: Position = {
-    x: position.x - 3,
-    y: position.y - 3,
+    x: (position?.x ?? 0) - 3,
+    y: (position?.y ?? 0) - 3,
   }
+
+  const isDiagonal = direction?.includes('Diagonal')
 
   return (
     <div
@@ -23,15 +26,20 @@ export function WinningLine ({ direction, position }: {
       }}
     >
       <div
+        key={[direction, position?.x, position?.y].join()}
         className={cn(
-          'size-[6%] rounded-full bg-gradient-to-b from-[#fcb69f] to-[#ffecd2] opacity-70',
+          'w-[6%] animate-extend rounded-full bg-gradient-to-b from-[#00c6fb] to-[#005bea] opacity-70',
           {
-            'h-full': direction === 'vertical',
-            'w-full bg-gradient-to-r': direction === 'horizontal',
-            'h-[140%] -rotate-45 ': direction === 'majorDiagonal',
-            'h-[140%] rotate-45': direction === 'minorDiagonal',
-          }
+            'rotate-90': direction === 'horizontal',
+            '-rotate-45 ': direction === 'majorDiagonal',
+            'rotate-45': direction === 'minorDiagonal',
+          },
+          isDiagonal ? 'h-[140%]' : 'h-full'
         )}
+        style={{
+          '--from-height': '0%',
+          '--to-height': isDiagonal ? '140%' : '100%',
+        } as CSSProperties}
       />
     </div>
   )

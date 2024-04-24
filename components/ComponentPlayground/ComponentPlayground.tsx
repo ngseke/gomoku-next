@@ -190,7 +190,10 @@ function GomokuBoardSection () {
   const [isDisabled, setIsDisabled] = useState(false)
   const [isShowLabels, setIsShowLabel] = useState(true)
   const [hovered, setHovered] = useState<object>({})
-  const [winningLine, setWinningLine] = useState<WinningLine | null>(null)
+  const [winningLine, setWinningLine] = useState<WinningLine | null>({
+    direction: 'horizontal',
+    position: { x: 9, y: 7 },
+  })
 
   return (<>
     <Headline>Gomoku Board</Headline>
@@ -265,7 +268,7 @@ function GomokuBoardSection () {
               }
 
               setWinningLine(produce(winningLine, (winningLine) => {
-                winningLine ??= { direction, position: { x: 7, y: 7 } }
+                winningLine ??= { direction, position: { x: 9, y: 7 } }
                 winningLine.direction = direction
                 return winningLine
               }))

@@ -21,15 +21,20 @@ const config: Config = {
       animation: {
         'flash-outline': 'flash-outline .5s linear infinite alternate',
         'flash-bg': 'flash-bg .5s linear infinite alternate',
+        extend: 'extend 1s cubic-bezier(1, 0.8, 0.3, 1) normal forwards',
       },
       keyframes: {
         'flash-outline': {
-          '0%': { 'outline-color': '#f78ca0' },
-          '100%': { 'outline-color': '#fcb69f' },
+          '0%': { outlineColor: '#f78ca0' },
+          '100%': { outlineColor: '#fcb69f' },
         },
         'flash-bg': {
-          '0%': { 'background-color': '#f78ca0' },
-          '100%': { 'background-color': '#fcb69f' },
+          '0%': { backgroundColor: '#f78ca0' },
+          '100%': { backgroundColor: '#fcb69f' },
+        },
+        extend: {
+          '0%': { height: 'var(--from-height)' },
+          '100%': { height: 'var(--to-height)' },
         },
       },
     },
