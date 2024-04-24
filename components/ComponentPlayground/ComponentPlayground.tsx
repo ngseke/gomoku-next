@@ -138,7 +138,7 @@ function ChatBoxSection () {
   return (<>
     <Headline>Chat Box</Headline>
     <div className="flex flex-wrap gap-4">
-      <div className="size-96">
+      <div className="size-96 max-w-full">
         <ChatBox
           chats={chats}
           disabled={isDisabled}
