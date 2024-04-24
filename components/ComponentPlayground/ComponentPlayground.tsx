@@ -21,6 +21,8 @@ import { type Chat } from '@/types/Chat'
 import { mockChats } from './mockChats'
 import { Checkbox } from '../Checkbox'
 import { mockBoardRecords } from './mockBoardRecords'
+import { type WinningLine } from '@/types/WinningLine'
+import { produce } from 'immer'
 
 function Headline (props: ComponentProps<'h2'>) {
   return <h2 className="mt-5 text-3xl font-bold" {...props} />
@@ -185,8 +187,10 @@ function GomokuBoardSection () {
   const [width, setWidth] = useState(500)
   const [highlight, setHighlight] = useState<{ x: number, y: number }>()
   const [isBlack, setIsBlack] = useState(true)
+  const [isDisabled, setIsDisabled] = useState(false)
   const [isShowLabels, setIsShowLabel] = useState(true)
   const [hovered, setHovered] = useState<object>({})
+  const [winningLine, setWinningLine] = useState<WinningLine | null>(null)
 
   return (<>
     <Headline>Gomoku Board</Headline>
@@ -194,8 +198,10 @@ function GomokuBoardSection () {
       <div style={{ width: `${width}px` }}>
         <GomokuBoard
           board={generateBoard(boardRecords)}
+          disabled={isDisabled}
           highlight={highlight}
           showLabels={isShowLabels}
+          winningLine={winningLine}
           onHover={(position) => { setHovered(formatPosition(position)) }}
           onPlace={({ x, y }) => {
             setBoardRecords([
@@ -213,12 +219,14 @@ function GomokuBoardSection () {
           Hovered:
           <code>{JSON.stringify(hovered)}</code>
         </div>
-        Width
-        <Input
-          type="number"
-          value={width}
-          onChange={event => { setWidth(+event.target.value) }}
-        />
+        <label>
+          Width
+          <Input
+            type="number"
+            value={width}
+            onChange={event => { setWidth(+event.target.value) }}
+          />
+        </label>
         <Checkbox
           checked={isBlack}
           onChange={event => { setIsBlack(event.target.checked) }}
@@ -231,12 +239,73 @@ function GomokuBoardSection () {
         >
           isShowLabels
         </Checkbox>
+        <Checkbox
+          checked={isDisabled}
+          onChange={event => { setIsDisabled(event.target.checked) }}
+        >
+          isDisabled
+        </Checkbox>
 
         <Button onClick={() => {
           setBoardRecords([])
           setHighlight(undefined)
         }}
         >Clear</Button>
+
+        Winning Line
+        <label>
+          Direction
+          <select
+            value={winningLine?.direction ?? ''}
+            onChange={event => {
+              const direction = event.target.value as WinningLine['direction']
+              if (!direction) {
+                setWinningLine(null)
+                return
+              }
+
+              setWinningLine(produce(winningLine, (winningLine) => {
+                winningLine ??= { direction, position: { x: 7, y: 7 } }
+                winningLine.direction = direction
+                return winningLine
+              }))
+            }}
+          >
+            <option value="">-</option>
+            {['vertical', 'horizontal', 'majorDiagonal', 'minorDiagonal']
+              .map(value => (
+                <option key={value} value={value}>{value}</option>
+              ))}
+          </select>
+        </label>
+        <label>
+          X
+          <Input
+            type="number"
+            value={winningLine?.position.x ?? 3}
+            onChange={event => {
+              if (!winningLine) return
+              const value = +event.target.value
+              setWinningLine(produce(winningLine, (winningLine) => {
+                winningLine.position.x = value
+              }))
+            }}
+          />
+        </label>
+        <label>
+          Y
+          <Input
+            type="number"
+            value={winningLine?.position.y ?? 3}
+            onChange={event => {
+              if (!winningLine) return
+              const value = +event.target.value
+              setWinningLine(produce(winningLine, (winningLine) => {
+                winningLine.position.y = value
+              }))
+            }}
+          />
+        </label>
       </div>
     </div>
   </>)
