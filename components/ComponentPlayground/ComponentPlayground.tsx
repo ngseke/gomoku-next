@@ -179,11 +179,72 @@ function ChatBoxSection () {
   </>)
 }
 
-export function ComponentPlayground () {
-  const [boardRecords, setBoardRecords] = useState<BoardRecord[]>([])
+function GomokuBoardSection () {
+  const [boardRecords, setBoardRecords] = useState<BoardRecord[]>([
+    { piece: 'black', x: 7, y: 7 },
+    { piece: 'white', x: 8, y: 8 },
+  ])
+  const [width, setWidth] = useState(500)
   const [highlight, setHighlight] = useState<{ x: number, y: number }>()
   const [isBlack, setIsBlack] = useState(true)
+  const [isShowLabels, setIsShowLabel] = useState(true)
+  const [hovered, setHovered] = useState<object>({})
 
+  return (<>
+    <Headline>Gomoku Board</Headline>
+    <div className="flex flex-wrap gap-6">
+      <div style={{ width: `${width}px` }}>
+        <GomokuBoard
+          board={generateBoard(boardRecords)}
+          highlight={highlight}
+          showLabels={isShowLabels}
+          onHover={(position) => { setHovered(formatPosition(position)) }}
+          onPlace={({ x, y }) => {
+            setBoardRecords([
+              ...boardRecords,
+              { piece: isBlack ? 'black' : 'white', x, y },
+            ])
+            setIsBlack(!isBlack)
+            setHighlight({ x, y })
+          }}
+        />
+      </div>
+
+      <div className="flex w-72 flex-col gap-2">
+        <div>
+          Hovered:
+          <code>{JSON.stringify(hovered)}</code>
+        </div>
+        Width
+        <Input
+          type="number"
+          value={width}
+          onChange={event => { setWidth(+event.target.value) }}
+        />
+        <Checkbox
+          checked={isBlack}
+          onChange={event => { setIsBlack(event.target.checked) }}
+        >
+          isBlack
+        </Checkbox>
+        <Checkbox
+          checked={isShowLabels}
+          onChange={event => { setIsShowLabel(event.target.checked) }}
+        >
+          isShowLabels
+        </Checkbox>
+
+        <Button onClick={() => {
+          setBoardRecords([])
+          setHighlight(undefined)
+        }}
+        >Clear</Button>
+      </div>
+    </div>
+  </>)
+}
+
+export function ComponentPlayground () {
   return (
     <div className="container flex max-w-[1000px] flex-col gap-6 px-2 py-4">
       <LogoSection />
@@ -192,25 +253,7 @@ export function ComponentPlayground () {
       <ButtonSection />
       <InputSection />
       <ChatBoxSection />
-
-      <div className="flex flex-wrap gap-6">
-        <div className="w-[550px]">
-          <GomokuBoard
-            board={generateBoard(boardRecords)}
-            highlight={highlight}
-            showLabels={!!isBlack}
-            onHover={(position) => { console.log(formatPosition(position)) }}
-            onPlace={({ x, y }) => {
-              setBoardRecords([
-                ...boardRecords,
-                { piece: isBlack ? 'black' : 'white', x, y },
-              ])
-              setIsBlack(!isBlack)
-              setHighlight({ x, y })
-            }}
-          />
-        </div>
-      </div>
+      <GomokuBoardSection />
     </div>
   )
 }
