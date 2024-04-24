@@ -32,6 +32,7 @@ export function Checkbox ({
       })}
       >
         <input
+          checked={checked}
           className={cn(
             'peer size-full flex-1 appearance-none items-center rounded-lg border border-neutral-200 bg-transparent bg-gradient-to-br from-[#fdfbfb] from-50% to-[#ebedee] px-2 outline-none outline outline-1 outline-transparent duration-150 checked:from-[#434343] checked:to-[#000] focus-within:outline-[#fcb69f]',
           )}
