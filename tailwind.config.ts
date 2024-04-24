@@ -22,6 +22,7 @@ const config: Config = {
         'flash-outline': 'flash-outline .5s linear infinite alternate',
         'flash-bg': 'flash-bg .5s linear infinite alternate',
         extend: 'extend 1s cubic-bezier(1, 0.8, 0.3, 1) normal forwards',
+        piece: 'piece .4s normal forwards',
       },
       keyframes: {
         'flash-outline': {
@@ -35,6 +36,12 @@ const config: Config = {
         extend: {
           '0%': { height: 'var(--from-height)' },
           '100%': { height: 'var(--to-height)' },
+        },
+        piece: {
+          'from, to': { transform: 'scale(1, 1)' },
+          '25%': { transform: 'scale(0.9)' },
+          '50%': { transform: 'scale(1.1)' },
+          '75%': { transform: 'scale(0.95)' },
         },
       },
     },
