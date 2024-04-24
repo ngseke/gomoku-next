@@ -113,7 +113,7 @@ export function Cell ({
 
       <div className="z-10 flex size-full items-center justify-center">
         {children ??
-          <PieceGhost className="opacity-0 group-enabled:group-hover:opacity-100" />}
+          <PieceGhost className="opacity-0 group-enabled:group-hover:opacity-100 group-enabled:group-focus:opacity-100" />}
       </div>
     </button>
   )
