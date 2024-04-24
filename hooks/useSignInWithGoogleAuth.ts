@@ -1,4 +1,4 @@
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { GoogleAuthProvider, signInWithRedirect } from 'firebase/auth'
 import { useAuth } from 'reactfire'
 
 export function useSignInWithGoogleAuth () {
@@ -6,7 +6,7 @@ export function useSignInWithGoogleAuth () {
 
   async function signIn () {
     try {
-      await signInWithPopup(auth, new GoogleAuthProvider())
+      await signInWithRedirect(auth, new GoogleAuthProvider())
     } catch (err) {
       console.error(err)
     }
