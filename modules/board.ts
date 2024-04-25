@@ -84,3 +84,22 @@ export function getAvailablePositions (board: Board) {
 
   return list
 }
+
+export function getNextAvailablePiece (board: Board) {
+  let blackCount = 0
+  let whiteCount = 0
+
+  for (let x = 0; x < size; x++) {
+    for (let y = 0; y < size; y++) {
+      const target = board[x][y]
+      if (!target) continue
+
+      if (target.piece === 'black') blackCount++
+      if (target.piece === 'white') whiteCount++
+    }
+  }
+  if (!blackCount && !whiteCount) return 'black'
+  if (blackCount > whiteCount) return 'white'
+
+  return 'black'
+}

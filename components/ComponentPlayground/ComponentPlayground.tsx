@@ -1,6 +1,6 @@
 'use client'
 
-import { type ComponentProps, useState, useEffect } from 'react'
+import { type ComponentProps, useState, useEffect, useMemo } from 'react'
 import { NewRoomButton } from '../GradientButton/NewRoomButton'
 import { JoinRoomButton } from '../GradientButton/JoinRoomButton'
 import { Logo } from '../LogoText'
@@ -23,7 +23,7 @@ import { Checkbox } from '../Checkbox'
 import { mockBoardRecords } from './mockBoardRecords'
 import { type WinningLine } from '@/types/WinningLine'
 import { produce } from 'immer'
-import { getAvailablePositions, judgeResult } from '@/modules/board'
+import { getAvailablePositions, getNextAvailablePiece, judgeResult } from '@/modules/board'
 import { type Position } from '@/types/Position'
 
 function Headline (props: ComponentProps<'h2'>) {
@@ -188,34 +188,31 @@ function GomokuBoardSection () {
   const [boardRecords, setBoardRecords] = useState<BoardRecord[]>(mockBoardRecords)
   const [width, setWidth] = useState(500)
   const [highlight, setHighlight] = useState<{ x: number, y: number }>()
-  const [isBlack, setIsBlack] = useState(true)
   const [isDisabled, setIsDisabled] = useState(false)
   const [isShowLabels, setIsShowLabel] = useState(true)
   const [hovered, setHovered] = useState<object>({})
-  const [winningLine, setWinningLine] = useState<WinningLine | null>({
-    direction: 'horizontal',
-    position: { x: 9, y: 7 },
-  })
+  const [winningLine, setWinningLine] = useState<WinningLine | null>(null)
+
+  const board = useMemo(() => generateBoard(boardRecords), [boardRecords])
 
   useEffect(() => {
-    const board = generateBoard(boardRecords)
     const result = judgeResult(board)
 
     if (result === 'fair') return
     setWinningLine(result)
-  }, [boardRecords])
+  }, [board, boardRecords])
+
+  const nextAvailablePiece = getNextAvailablePiece(board)
 
   function handlePlace ({ x, y }: Position) {
     setBoardRecords([
       ...boardRecords,
-      { piece: isBlack ? 'black' : 'white', x, y },
+      { piece: nextAvailablePiece, x, y },
     ])
-    setIsBlack(!isBlack)
     setHighlight({ x, y })
   }
 
   function placeRandomly () {
-    const board = generateBoard(boardRecords)
     const availablePositions = getAvailablePositions(board)
     const position = availablePositions[Math.floor(Math.random() * availablePositions.length)]
     if (!position) return
@@ -242,6 +239,10 @@ function GomokuBoardSection () {
           Hovered:
           <code>{JSON.stringify(hovered)}</code>
         </div>
+        <div>
+          nextAvailablePiece
+          <code>{JSON.stringify(nextAvailablePiece)}</code>
+        </div>
         <label>
           Width
           <Input
@@ -250,12 +251,6 @@ function GomokuBoardSection () {
             onChange={event => { setWidth(+event.target.value) }}
           />
         </label>
-        <Checkbox
-          checked={isBlack}
-          onChange={event => { setIsBlack(event.target.checked) }}
-        >
-          isBlack
-        </Checkbox>
         <Checkbox
           checked={isShowLabels}
           onChange={event => { setIsShowLabel(event.target.checked) }}
