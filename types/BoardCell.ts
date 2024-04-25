@@ -1,4 +1,4 @@
-import { type Piece } from './PieceType'
+import { type Piece } from './Piece'
 import { type Position } from './Position'
 
 export interface BoardCell extends Position {

@@ -1,4 +1,4 @@
-import { type Piece } from './PieceType'
+import { type Piece } from './Piece'
 import { type Player } from './Player'
 
 export interface RoomPlayer extends Player {

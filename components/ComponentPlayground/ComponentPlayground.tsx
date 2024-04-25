@@ -1,6 +1,6 @@
 'use client'
 
-import { type ComponentProps, useState } from 'react'
+import { type ComponentProps, useState, useEffect } from 'react'
 import { NewRoomButton } from '../GradientButton/NewRoomButton'
 import { JoinRoomButton } from '../GradientButton/JoinRoomButton'
 import { Logo } from '../LogoText'
@@ -23,6 +23,8 @@ import { Checkbox } from '../Checkbox'
 import { mockBoardRecords } from './mockBoardRecords'
 import { type WinningLine } from '@/types/WinningLine'
 import { produce } from 'immer'
+import { getAvailablePositions, judgeResult } from '@/modules/board'
+import { type Position } from '@/types/Position'
 
 function Headline (props: ComponentProps<'h2'>) {
   return <h2 className="mt-5 text-3xl font-bold" {...props} />
@@ -195,6 +197,31 @@ function GomokuBoardSection () {
     position: { x: 9, y: 7 },
   })
 
+  useEffect(() => {
+    const board = generateBoard(boardRecords)
+    const result = judgeResult(board)
+
+    if (result === 'fair') return
+    setWinningLine(result)
+  }, [boardRecords])
+
+  function handlePlace ({ x, y }: Position) {
+    setBoardRecords([
+      ...boardRecords,
+      { piece: isBlack ? 'black' : 'white', x, y },
+    ])
+    setIsBlack(!isBlack)
+    setHighlight({ x, y })
+  }
+
+  function placeRandomly () {
+    const board = generateBoard(boardRecords)
+    const availablePositions = getAvailablePositions(board)
+    const position = availablePositions[Math.floor(Math.random() * availablePositions.length)]
+    if (!position) return
+    handlePlace(position)
+  }
+
   return (<>
     <Headline>Gomoku Board</Headline>
     <div className="flex flex-wrap gap-6">
@@ -206,14 +233,7 @@ function GomokuBoardSection () {
           showLabels={isShowLabels}
           winningLine={winningLine}
           onHover={(position) => { setHovered(formatPosition(position)) }}
-          onPlace={({ x, y }) => {
-            setBoardRecords([
-              ...boardRecords,
-              { piece: isBlack ? 'black' : 'white', x, y },
-            ])
-            setIsBlack(!isBlack)
-            setHighlight({ x, y })
-          }}
+          onPlace={handlePlace}
         />
       </div>
 
@@ -248,6 +268,8 @@ function GomokuBoardSection () {
         >
           isDisabled
         </Checkbox>
+
+        <Button onClick={placeRandomly}>placeRandomly</Button>
 
         <Button onClick={() => {
           setBoardRecords([])
