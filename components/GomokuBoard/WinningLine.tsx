@@ -11,8 +11,8 @@ export function WinningLine ({ direction, position }: {
   if (!(direction && position)) return null
 
   const leftTopPosition: Position = {
-    x: (position?.x ?? 0) - 3,
-    y: (position?.y ?? 0) - 3,
+    x: (position?.x ?? 0) - 2,
+    y: (position?.y ?? 0) - 2,
   }
 
   const isDiagonal = direction?.includes('Diagonal')
