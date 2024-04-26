@@ -62,10 +62,10 @@ function PlayerPillSection () {
       <PlayerPill emoji="🍌️" name="Sean Huang" />
       <PlayerPill active emoji="🦒" name="Long Long Sean Huang" />
       <div className="w-full" />
-      <PlayerPill color="black" emoji="🐨" name="張三" />
+      <PlayerPill color="black" emoji="🐻️" name="張三" />
       <PlayerPill color="white" emoji="🐻‍❄️" name="李四" />
       <PlayerPill active={isActive} color="black" emoji="🗿" name="楊淑芬" />
-      <PlayerPill active={!isActive} color="white" emoji="🈲" name="陳金發" />
+      <PlayerPill active={!isActive} color="white" emoji="🎃️" name="陳金發" />
     </div>
   </>)
 }

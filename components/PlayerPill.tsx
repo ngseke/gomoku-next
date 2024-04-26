@@ -38,9 +38,16 @@ export function PlayerPill ({ name, image, emoji, loading, color, active }: {
             'bg-gradient-to-tr from-black to-[#434343]': color === 'black',
             'bg-gradient-to-tr from-[#cfd4d7] to-[#fdfbfb] dark:text-neutral-800': color === 'white',
             'outline-[3px]': active,
-          })}
+          }
+        )}
       >
-        <span className="flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200 transition-colors duration-300 dark:bg-neutral-800">
+        <span className={cn(
+          'flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200',
+          {
+            'bg-neutral-800': color === 'black',
+          }
+        )}
+        >
           {image && (
             <img alt="Avatar" className="size-full object-cover" src={image} />
           )}
