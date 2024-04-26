@@ -8,6 +8,7 @@ export function JoinRoomButton (
   return (
     <GradientButton
       colors={['#00f2fe', '#4facfe']}
+      colorsDark={['#00dae5', '#2e9cfe']}
       text="Join"
       {...props}
     />

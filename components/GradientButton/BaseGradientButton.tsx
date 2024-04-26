@@ -2,6 +2,7 @@ import { type ComponentProps, type MouseEvent, useState, type CSSProperties, use
 
 type BaseGradientButtonProps = ComponentProps<'button'> & {
   colors?: string[]
+  colorsDark?: string[]
 }
 
 const initialPercent = [100, 0]
@@ -9,6 +10,7 @@ const initialPercent = [100, 0]
 export function BaseGradientButton ({
   children,
   colors = ['#fff', '#e9ecef'],
+  colorsDark = ['#241f1a', '#1a1a1a'],
   onClick,
   ...restProps
 }: BaseGradientButtonProps) {
@@ -16,13 +18,18 @@ export function BaseGradientButton ({
 
   const [[xPercent, yPercent], setPercent] = useState(initialPercent)
 
-  const style = {
-    '--bg': `
+  function getBackground (colors: string[]) {
+    return `
       radial-gradient(
         circle 600px at ${xPercent}% ${yPercent}%,
         ${colors.join(',')}
       )
-    `,
+    `
+  }
+
+  const style = {
+    '--bg': getBackground(colors),
+    '--bg-dark': getBackground(colorsDark),
   } as CSSProperties
 
   function handleMouseMove (event: MouseEvent<HTMLButtonElement>) {
@@ -42,7 +49,7 @@ export function BaseGradientButton ({
     <div className="group relative h-32 w-full transition active:scale-[98%]">
       <button
         ref={ref}
-        className="peer relative block size-full overflow-hidden rounded-2xl bg-[image:var(--bg)] transition duration-500"
+        className="peer relative block size-full overflow-hidden rounded-2xl bg-[image:var(--bg)] transition duration-500 dark:bg-[image:var(--bg-dark)]"
         style={style}
         type="button"
         onClick={onClick}
@@ -52,7 +59,7 @@ export function BaseGradientButton ({
         {children}
       </button>
       <span
-        className="absolute inset-0 -z-10 rounded-2xl bg-[image:var(--bg)] opacity-30 blur-xl transition-opacity duration-500 peer-hover:opacity-80"
+        className="absolute inset-0 -z-10 rounded-2xl bg-[image:var(--bg)] opacity-30 blur-xl transition-opacity duration-500 peer-hover:opacity-80 dark:bg-[image:var(--bg-dark)]"
         style={style}
       />
     </div>

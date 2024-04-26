@@ -7,8 +7,8 @@ export function Piece ({
   return (
     <div
       className={cn('size-10/12 animate-piece rounded-full border border-transparent bg-gradient-to-tr from-neutral-200 to-neutral-200', {
-        'from-[#000] to-[#434343] bg-gradient-to-tr border-neutral-700/50': color === 'black',
-        'from-[#cfd4d7] to-[#fdfbfb] border-neutral-400/50': color === 'white',
+        'from-[#000] to-[#434343] bg-gradient-to-tr border-neutral-700/50 dark:border-neutral-500/50': color === 'black',
+        'from-[#cfd4d7] to-[#fdfbfb] border-neutral-400/50 dark:border-neutral-600/50': color === 'white',
       })}
     />
   )

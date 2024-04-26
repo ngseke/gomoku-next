@@ -17,10 +17,13 @@ export function Button ({ block, icon, loading, children, disabled, ...restProps
       })}
     >
       <button
-        className={cn('peer inline-flex size-full items-center justify-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 text-sm font-bold outline outline-1 outline-transparent duration-150 enabled:active:scale-[97%]', {
-          'px-3': !isIconButton,
-          'opacity-50': disabled,
-        })}
+        className={cn(
+          'peer inline-flex size-full items-center justify-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 text-sm font-bold outline outline-1 outline-transparent duration-150 enabled:active:scale-[97%]',
+          'dark:border-neutral-800 dark:bg-neutral-900',
+          {
+            'px-3': !isIconButton,
+            'opacity-50': disabled,
+          })}
         disabled={disabled}
         type="button"
         {...restProps}
@@ -34,7 +37,7 @@ export function Button ({ block, icon, loading, children, disabled, ...restProps
         )}
       </button>
       <span
-        className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-br from-neutral-200 to-neutral-300 opacity-0 blur-lg transition-opacity duration-200 peer-hover:peer-enabled:opacity-70"
+        className="absolute inset-0 -z-10 rounded-lg bg-gradient-to-br from-neutral-200 to-neutral-300 opacity-0 blur-lg transition-opacity duration-200 peer-hover:peer-enabled:opacity-70 dark:from-neutral-800 dark:to-neutral-700"
       />
     </div>
   )
