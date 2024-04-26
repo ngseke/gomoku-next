@@ -168,13 +168,11 @@ function ChatBoxSection () {
         </Checkbox>
 
         <hr />
-        <label>
-          My playerId
-          <Input
-            value={playerId}
-            onChange={event => { setPlayerId(event.target.value) }}
-          />
-        </label>
+        <Input
+          label="My Player Id"
+          value={playerId}
+          onChange={event => { setPlayerId(event.target.value) }}
+        />
         <Checkbox
           checked={isAdmin}
           size="sm"
@@ -244,14 +242,12 @@ function GomokuBoardSection () {
           nextAvailablePiece
           <code>{JSON.stringify(nextAvailablePiece)}</code>
         </div>
-        <label>
-          Width
-          <Input
-            type="number"
-            value={width}
-            onChange={event => { setWidth(+event.target.value) }}
-          />
-        </label>
+        <Input
+          label="Width"
+          type="number"
+          value={width}
+          onChange={event => { setWidth(+event.target.value) }}
+        />
         <Checkbox
           checked={isShowLabels}
           onChange={event => { setIsShowLabel(event.target.checked) }}
@@ -299,34 +295,31 @@ function GomokuBoardSection () {
               ))}
           </select>
         </label>
-        <label>
-          X
-          <Input
-            type="number"
-            value={winningLine?.position.x ?? 3}
-            onChange={event => {
-              if (!winningLine) return
-              const value = +event.target.value
-              setWinningLine(produce(winningLine, (winningLine) => {
-                winningLine.position.x = value
-              }))
-            }}
-          />
-        </label>
-        <label>
-          Y
-          <Input
-            type="number"
-            value={winningLine?.position.y ?? 3}
-            onChange={event => {
-              if (!winningLine) return
-              const value = +event.target.value
-              setWinningLine(produce(winningLine, (winningLine) => {
-                winningLine.position.y = value
-              }))
-            }}
-          />
-        </label>
+
+        <Input
+          label="X"
+          type="number"
+          value={winningLine?.position.x ?? 3}
+          onChange={event => {
+            if (!winningLine) return
+            const value = +event.target.value
+            setWinningLine(produce(winningLine, (winningLine) => {
+              winningLine.position.x = value
+            }))
+          }}
+        />
+        <Input
+          label="Y"
+          type="number"
+          value={winningLine?.position.y ?? 3}
+          onChange={event => {
+            if (!winningLine) return
+            const value = +event.target.value
+            setWinningLine(produce(winningLine, (winningLine) => {
+              winningLine.position.y = value
+            }))
+          }}
+        />
       </div>
     </div>
   </>)

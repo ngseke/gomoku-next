@@ -88,13 +88,11 @@ export function Playground () {
           <NewRoomButton onClick={handleClickCreateRoom} />
           <div>
             <JoinRoomButton onClick={handleClickJoinRoom} />
-            <label>
-              roomId:
-              <Input
-                value={roomId}
-                onChange={event => { setRoomId(event.target.value) }}
-              />
-            </label>
+            <Input
+              label="Room Id"
+              value={roomId}
+              onChange={event => { setRoomId(event.target.value) }}
+            />
           </div>
           <ProfileButton />
         </div>
