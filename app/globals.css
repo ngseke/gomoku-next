@@ -7,11 +7,8 @@ html {
 }
 
 body {
-  @apply antialiased h-full;
+  @apply antialiased h-full bg-gradient-to-tr bg-cover bg-fixed transition-colors duration-300;
 
-  @apply text-neutral-800;
-  @apply from-[#fdfbfb] to-[#ebedee] bg-gradient-to-tr bg-cover bg-fixed;
-
-  @apply dark:from-[#020404] dark:to-[#141211];
-  @apply dark:text-neutral-100;
+  @apply text-neutral-800 bg-[#fdfbfb];
+  @apply dark:text-neutral-100 dark:bg-[#020404];
 }

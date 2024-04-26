@@ -3,6 +3,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { type ComponentProps } from 'react'
 import { InputShadow } from './InputShadow'
+import { inputClassNames } from '@/modules/classNames'
 
 type CheckboxProps = Omit<ComponentProps<'input'>, 'size'> & {
   size?: 'md' | 'sm'
@@ -28,14 +29,14 @@ export function Checkbox ({
       >
         <input
           checked={checked}
-          className={cn('dark:focus-within:outline-[#fb9877 peer size-full flex-1 appearance-none items-center rounded-lg border border-neutral-200 bg-transparent bg-gradient-to-br from-[#fdfbfb] from-50% to-[#ebedee] px-2 outline-none outline outline-1 outline-transparent duration-150  focus-within:outline-[#fcb69f] dark:border-neutral-800 dark:from-[#141211] dark:to-[#020404]')}
+          className={cn('peer size-full flex-1 appearance-none items-center px-2 ', inputClassNames)}
           disabled={disabled}
           type="checkbox"
           {...restProps}
         />
         <InputShadow />
 
-        <span className={cn('absolute inset-0 flex translate-y-0.5 items-center justify-center opacity-0 duration-200', {
+        <span className={cn('absolute inset-0 flex translate-y-0.5 items-center justify-center opacity-0 duration-100', {
           'opacity-100 translate-y-0': checked,
         })}
         >

@@ -1,6 +1,7 @@
 import { cn } from '@/modules/cn'
 import { type ReactNode, forwardRef, type ComponentProps } from 'react'
 import { InputShadow } from './InputShadow'
+import { inputClassNames } from '@/modules/classNames'
 
 type InputProps = Omit<ComponentProps<'input'>, 'size'> & {
   size?: 'md' | 'sm'
@@ -20,7 +21,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input ({
         'h-8': size === 'sm',
       })}
     >
-      <div className="peer flex size-full items-center rounded-lg border border-neutral-200 bg-gradient-to-br from-[#fdfbfb] from-50% to-[#ebedee] px-2 outline outline-1 outline-transparent duration-150 focus-within:outline-[#fcb69f] dark:border-neutral-800 dark:from-[#141211] dark:to-[#020404] dark:focus-within:outline-[#fb9877]">
+      <div className={cn('peer flex size-full items-center px-2 ', inputClassNames)}>
         <input
           ref={ref}
           className={cn(

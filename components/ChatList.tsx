@@ -33,14 +33,14 @@ function ChatItem ({ name, message, timestamp, hideName, self }: {
 
   return (
     <li
-      className={cn('flex max-w-[80%] flex-col items-start gap-0.5', {
+      className={cn('flex max-w-[80%] flex-col items-start gap-0.5 ', {
         'self-end items-end': self,
       })}
       title={formattedDate}
     >
       {
         shouldShowName &&
-          <span className="mt-2 max-w-full truncate text-xs font-medium text-neutral-600 dark:text-neutral-400" title={name ?? undefined}>
+          <span className="mt-2 max-w-full truncate text-xs font-medium text-neutral-600 dark:text-neutral-400 " title={name ?? undefined}>
             {name}
           </span>
       }

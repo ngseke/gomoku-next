@@ -4,7 +4,7 @@ import { type ComponentProps } from 'react'
 
 function NameSkeleton () {
   return (
-    <span className="mr-2 inline-block h-4 w-14 rounded-md bg-neutral-200 dark:bg-neutral-800" />
+    <span className="mr-2 inline-block h-4 w-14 rounded-md bg-neutral-200 transition-colors duration-300 dark:bg-neutral-800" />
   )
 }
 
@@ -32,7 +32,7 @@ export function PlayerPill ({ name, image, emoji, loading, color, active }: {
     <span className="relative flex">
       <span
         className={cn(
-          'inline-flex h-10 max-w-48 animate-flash-outline items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100  px-1 outline outline-0 duration-300',
+          'inline-flex h-10 max-w-48 animate-flash-outline items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 px-1 outline outline-0 duration-300',
           'dark:border-neutral-800 dark:bg-neutral-900',
           {
             'bg-gradient-to-tr from-black to-[#434343]': color === 'black',
@@ -40,7 +40,7 @@ export function PlayerPill ({ name, image, emoji, loading, color, active }: {
             'outline-[3px]': active,
           })}
       >
-        <span className="flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800">
+        <span className="flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200 transition-colors duration-300 dark:bg-neutral-800">
           {image && (
             <img alt="Avatar" className="size-full object-cover" src={image} />
           )}
