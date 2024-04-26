@@ -25,6 +25,7 @@ import { type WinningLine } from '@/types/WinningLine'
 import { produce } from 'immer'
 import { getAvailablePositions, getNextAvailablePiece, judgeResult } from '@/modules/board'
 import { type Position } from '@/types/Position'
+import { ThemeToggle } from './ThemeToggle'
 
 function Headline (props: ComponentProps<'h2'>) {
   return <h2 className="mt-5 text-3xl font-bold" {...props} />
@@ -334,6 +335,7 @@ function GomokuBoardSection () {
 export function ComponentPlayground () {
   return (
     <div className="container flex max-w-[1000px] flex-col gap-6 px-2 py-4">
+      <ThemeToggle />
       <LogoSection />
       <GradientButtonSection />
       <PlayerPillSection />
