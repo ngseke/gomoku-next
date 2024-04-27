@@ -20,9 +20,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input ({
   const id = useId()
 
   return (
-    <div className="grid w-full gap-1.5">
+    <div className="grid w-full gap-1">
       {label && (
-        <label className="font-bold" htmlFor={id}>{label}</label>
+        <label className="font-medium text-sm" htmlFor={id}>{label}</label>
       )}
       <div
         className={cn('relative h-10 w-full min-w-0', {

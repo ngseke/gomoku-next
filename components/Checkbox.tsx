@@ -44,7 +44,7 @@ export function Checkbox ({
         </span>
       </div>
 
-      <span className="font-bold">
+      <span className="font-medium">
         {children}
       </span>
     </label>
