@@ -1,7 +1,7 @@
-import { Playground } from '@/components/Playground'
+import { Lobby } from '@/components/Lobby'
 
 export default async function Home () {
   return (<>
-    <Playground />
+    <Lobby />
   </>)
 }

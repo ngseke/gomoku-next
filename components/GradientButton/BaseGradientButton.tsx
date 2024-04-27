@@ -49,7 +49,7 @@ export function BaseGradientButton ({
     <div className="group relative h-32 w-full transition active:scale-[98%]">
       <button
         ref={ref}
-        className="peer relative block size-full overflow-hidden rounded-2xl bg-[image:var(--bg)] transition duration-500 dark:bg-[image:var(--bg-dark)]"
+        className="peer relative block size-full overflow-hidden rounded-2xl bg-[image:var(--bg)] transition duration-500 disabled:opacity-50 dark:bg-[image:var(--bg-dark)]"
         style={style}
         type="button"
         onClick={onClick}

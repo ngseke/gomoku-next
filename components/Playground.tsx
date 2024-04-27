@@ -11,7 +11,7 @@ import { useAxios } from '@/hooks/useAxios'
 import { Input } from './Input'
 import { type Room } from '@/types/Room'
 import { ConnectedChatBox } from './ConnectedChatBox'
-import { SignInPanel } from './SignInPanel'
+import { PlayerPanel } from './PlayerPanel'
 import { useAuthStore } from '@/hooks/useAuthStore'
 import { usePlayerStateStore } from '@/hooks/usePlayerStateStore'
 import { Button } from './Button'
@@ -98,7 +98,7 @@ export function Playground () {
         </div>
 
         <div className="flex justify-center">
-          <SignInPanel />
+          <PlayerPanel />
         </div>
 
         <div className="flex flex-wrap gap-6">

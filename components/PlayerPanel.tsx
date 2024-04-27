@@ -9,12 +9,13 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { Button } from './Button'
 import { useSignInAnonymously } from '@/hooks/useSignInAnonymously '
 import { useAuthStore } from '@/hooks/useAuthStore'
+import { ThemeButton } from './ThemeButton'
 
 function Divider () {
-  return <hr className="h-6 border-l border-neutral-200" />
+  return <hr className="h-6 border-l border-neutral-200 dark:border-neutral-800" />
 }
 
-export function SignInPanel () {
+export function PlayerPanel () {
   const { signIn } = useSignInWithGoogleAuth()
 
   const { signInAnonymously, isSigningInAnonymously } = useSignInAnonymously()
@@ -36,10 +37,7 @@ export function SignInPanel () {
             icon={<FontAwesomeIcon icon={faGear} />}
           />
 
-          {/* <UserPill />
-          <UserPill loading />
-          <UserPill loading={isInitializingUser} name={player?.name} />
-          <UserPill loading={isInitializingUser} name={player?.name?.repeat(5)} /> */}
+          <ThemeButton />
 
           <Divider />
 
@@ -50,8 +48,8 @@ export function SignInPanel () {
           />
         </>
         : <>
-          <span className="font-medium text-neutral-600">
-            Sign in with
+          <span className="font-medium opacity-60">
+            Sign in
           </span>
 
           <Button
@@ -61,16 +59,16 @@ export function SignInPanel () {
           >
             Google
           </Button>
-
-          <Divider />
-
           <Button
             disabled={shouldDisableButton}
             icon={<FontAwesomeIcon icon={faUser} />}
             onClick={signInAnonymously}
           >
-            Sign in as Guest
+            as Guest
           </Button>
+
+          <Divider />
+          <ThemeButton />
         </>}
     </div>
   )
