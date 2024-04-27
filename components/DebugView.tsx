@@ -3,7 +3,7 @@ import { useRoomStore } from '@/hooks/useRoomStore'
 import { type ComponentProps } from 'react'
 
 function Title (props: ComponentProps<'h2'>) {
-  return <h2 className="text-lg font-bold" {...props} />
+  return <h2 className="text-xs font-bold" {...props} />
 }
 
 export function DebugView () {
@@ -11,7 +11,7 @@ export function DebugView () {
   const room = useRoomStore()
 
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-2 gap-2 text-xs">
       <div>
         <Title>playerState</Title>
         <pre>{JSON.stringify(playerState, null, 2)}</pre>

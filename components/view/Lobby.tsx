@@ -1,17 +1,18 @@
 'use client'
 
 import { type SyntheticEvent, useState } from 'react'
-import { NewRoomButton } from './GradientButton/NewRoomButton'
-import { JoinRoomButton } from './GradientButton/JoinRoomButton'
-import { Logo } from './LogoText'
-import { ProfileButton } from './GradientButton/ProfileButton'
+import { NewRoomButton } from '../GradientButton/NewRoomButton'
+import { JoinRoomButton } from '../GradientButton/JoinRoomButton'
+import { Logo } from '../LogoText'
+import { ProfileButton } from '../GradientButton/ProfileButton'
 import { useAxios } from '@/hooks/useAxios'
 import { type Room } from '@/types/Room'
-import { PlayerPanel } from './PlayerPanel'
+import { PlayerPanel } from '../PlayerPanel'
 import { useAuthStore } from '@/hooks/useAuthStore'
-import { Dialog } from './Dialog'
-import { Button } from './Button'
-import { Input } from './Input'
+import { Dialog } from '../Dialog'
+import { Button } from '../Button'
+import { Input } from '../Input'
+import { DebugView } from '../DebugView'
 
 export function Lobby () {
   const axios = useAxios()
@@ -55,10 +56,10 @@ export function Lobby () {
   const { player } = useAuthStore()
 
   return (
-    <div className="container flex min-h-full max-w-[1000px] items-center px-2 py-8">
+    <div className="container flex min-h-full max-w-[1000px] items-center px-4 py-8">
       <div className="flex w-full flex-col gap-8">
         <div>
-          <Logo />
+          <Logo size="lg" />
         </div>
 
         <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
@@ -72,6 +73,8 @@ export function Lobby () {
         <div className="flex">
           <PlayerPanel />
         </div>
+
+        <DebugView />
       </div>
 
       <Dialog
@@ -92,6 +95,7 @@ export function Lobby () {
           </Button>
         </form>
       </Dialog>
+
     </div>
   )
 }

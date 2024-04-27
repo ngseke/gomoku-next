@@ -19,6 +19,7 @@ export function useOnDisconnect () {
   const { isSessionMatched } = useMatchedSession()
 
   useEffect(() => {
+    console.log('useOnDisconnect', { isSessionMatched })
     if (!isSessionMatched) return
 
     const playerStateRef = ref(database, `playerStates/${playerId}`)
