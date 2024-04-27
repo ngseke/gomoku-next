@@ -48,6 +48,7 @@ export function Lobby () {
 
     try {
       await joinRoom(roomId)
+      setIsOpen(false)
     } catch (err) {
       console.error(err)
     }

@@ -5,10 +5,9 @@ export function useMatchedSession () {
   const { sessionId } = useAuthStore()
   const playerState = usePlayerStateStore()
 
-  const isSessionMatched = Boolean(
-    playerState?.sessionId &&
-      sessionId === playerState?.sessionId
-  )
+  const isSessionMatched = playerState?.sessionId
+    ? sessionId === playerState?.sessionId
+    : null
 
   return {
     isSessionMatched,
