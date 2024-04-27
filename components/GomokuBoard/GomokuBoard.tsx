@@ -28,7 +28,7 @@ export function GomokuBoard ({
 }) {
   return (
     <GridWithLabel showLabels={showLabels}>
-      <div className="relative grid max-w-full grid-cols-15">
+      <div className="relative grid w-full grid-cols-15">
         {Array.from({ length: size ** 2 }).map((_, index) => {
           const x = index % size
           const y = Math.floor(index / size)

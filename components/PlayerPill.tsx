@@ -29,10 +29,10 @@ export function PlayerPill ({ name, image, emoji, loading, color, active }: {
   active?: boolean
 }) {
   return (
-    <span className="relative flex">
+    <span className="relative inline-flex max-w-full">
       <span
         className={cn(
-          'inline-flex h-10 max-w-48 animate-flash-outline items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 px-1 outline outline-0 duration-300',
+          'inline-flex h-10 w-full max-w-48 animate-flash-outline items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 px-1 outline outline-0 duration-300',
           'dark:border-neutral-800 dark:bg-neutral-900',
           {
             'bg-gradient-to-tr from-black to-[#434343]': color === 'black',

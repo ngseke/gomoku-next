@@ -44,7 +44,7 @@ export function GridWithLabel ({
 
   return (
     <div
-      className="grid duration-300"
+      className="grid aspect-square duration-300"
       style={{
         gridTemplate: `
           "files board" 1fr
