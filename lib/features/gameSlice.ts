@@ -5,11 +5,13 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface GameState {
   playerState: PlayerState | null
+  isPlayerStateInitialized: boolean
   room: Room | null
 }
 
 const initialState: GameState = {
   playerState: null,
+  isPlayerStateInitialized: false,
   room: null,
 }
 
@@ -19,6 +21,7 @@ export const gameSlice = createSlice({
   reducers: {
     setPlayerState (state, action: PayloadAction<PlayerState | null>) {
       state.playerState = action.payload
+      state.isPlayerStateInitialized = true
     },
 
     setRoom (state, action: PayloadAction<Room | null>) {
