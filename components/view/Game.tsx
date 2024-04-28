@@ -12,6 +12,8 @@ import { useRoomPlayers } from '@/hooks/useRoomPlayers'
 import { PlayerPillWithLabel } from '../PlayerPillWithLabel'
 import { useBoard } from '@/hooks/useBoard'
 import { useIsCurrentSession } from '@/hooks/useIsCurrentSession'
+import { ThemeButton } from '../ThemeButton'
+import { RoomIdHashtag } from '../RoomIdHashtag'
 
 export function Game () {
   const axios = useAxios()
@@ -48,9 +50,14 @@ export function Game () {
       }
 
       <div className="flex size-full flex-col gap-8">
-        <div className="flex-none">
-          <Logo />
-          {room?.name}
+        <div className="flex flex-none justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <Logo />
+
+            <RoomIdHashtag>{room?.id}</RoomIdHashtag>
+          </div>
+
+          <ThemeButton />
         </div>
 
         <div className="flex h-full flex-1 flex-wrap items-center gap-x-8 sm:flex-nowrap">

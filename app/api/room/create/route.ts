@@ -2,8 +2,8 @@ import { createBoard } from '@/modules/firebaseAdmin/createBoard'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
+import { generateRoomId } from '@/modules/generateRoomId'
 import { type Room } from '@/types/Room'
-import { nanoid } from '@reduxjs/toolkit'
 import { ServerValue } from 'firebase-admin/database'
 
 export async function POST (
@@ -14,7 +14,7 @@ export async function POST (
 
   const body = await request.json()
 
-  const roomId = nanoid(6)
+  const roomId = generateRoomId()
   const roomRef = firebaseAdminDatabase.ref(`rooms/${roomId}`)
 
   const name = body.name?.trim() || `Room ${roomId}`
@@ -32,7 +32,7 @@ export async function POST (
 
   await roomRef.set(room)
 
-  const message = `${name} has been created`
+  const message = `The room has been created (${roomId})`
 
   await createChat(roomId, {
     message,
