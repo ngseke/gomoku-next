@@ -3,11 +3,13 @@ import { type Board } from '@/types/Board'
 import { type Nullish } from '@/types/Nullish'
 import { type Position } from '@/types/Position'
 import { ref, onValue } from 'firebase/database'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useDatabase } from 'reactfire'
 import { useAxios } from './useAxios'
 import { generateBoardGrid } from '@/modules/generateBoard'
 import { getNextAvailablePiece } from '@/modules/boardGrid'
+import { type BoardRecord } from '@/types/BoardRecord'
+import { type Piece } from '@/types/Piece'
 
 export function useBoard (boardId: Nullish<string>) {
   const database = useDatabase()
@@ -44,22 +46,37 @@ export function useBoard (boardId: Nullish<string>) {
   const axios = useAxios()
 
   const [isPlacing, setIsPlacing] = useState(false)
+  const [placedPiece, setPlacedPiece] = useState<BoardRecord | null>(null)
 
   /** Place a new piece. */
-  async function place (position: Position) {
-    if (!boardId || isPlacing) return
+  async function place (position: Position, piece?: Piece) {
+    if (!boardId || isPlacing || !piece) return
 
     setIsPlacing(true)
+    setPlacedPiece({ ...position, piece, createdAt: +new Date() })
+
     try {
       await axios.post(`/api/board/${boardId}/place`, position)
     } finally {
       setIsPlacing(false)
+      setPlacedPiece(null)
     }
   }
+
+  const optimisticRecords = useMemo(() => {
+    const newRecords = structuredClone(records) ?? []
+    if (placedPiece) {
+      newRecords.push(placedPiece)
+    }
+    return newRecords
+  }, [placedPiece, records])
+
+  const optimisticBoardGrid = generateBoardGrid(optimisticRecords)
 
   return {
     board,
     boardGrid,
+    optimisticBoardGrid,
     records,
     result,
     nextAvailablePiece,

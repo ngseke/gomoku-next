@@ -19,6 +19,7 @@ import { useToggle } from 'usehooks-ts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faListOl, faShare } from '@fortawesome/free-solid-svg-icons'
 import { ResultOverlay } from '../ResultOverlay'
+import { type Position } from '@/types/Position'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -40,7 +41,7 @@ export function Game () {
     result,
     winningLine,
     place,
-    boardGrid,
+    optimisticBoardGrid,
     nextAvailablePiece,
   } = useBoard(boardId)
 
@@ -48,7 +49,11 @@ export function Game () {
   const myPiece = myRoomPlayer?.piece
   const isMyTurn = myPiece === nextAvailablePiece && isCurrentSession
 
-  const [isShowLabels, toggleIsShowLabels] = useToggle()
+  const [isShowLabels, toggleIsShowLabels] = useToggle(true)
+
+  async function handlePlace (position: Position) {
+    await place(position, myPiece)
+  }
 
   return (
     <div className="container flex min-h-screen max-w-[1000px] items-center px-4 py-8">
@@ -83,11 +88,11 @@ export function Game () {
         <div className="-mx-4 flex h-full flex-1 flex-wrap items-center sm:flex-nowrap">
           <div className="relative w-full px-4 md:w-[55%]">
             <GomokuBoard
-              boardGrid={boardGrid}
+              boardGrid={optimisticBoardGrid}
               disabled={!isMyTurn || !isCurrentSession}
               showLabels={isShowLabels}
               winningLine={winningLine}
-              onPlace={place}
+              onPlace={handlePlace}
             />
 
             <ResultOverlay
