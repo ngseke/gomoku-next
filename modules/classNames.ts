@@ -1,4 +1,5 @@
 export const inputClassNames = `
+  z-10 relative
   rounded-lg
   outline outline-1 outline-transparent
   border border-neutral-200

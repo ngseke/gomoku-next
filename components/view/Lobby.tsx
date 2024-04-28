@@ -1,61 +1,16 @@
 'use client'
 
-import { type SyntheticEvent, useState, useEffect } from 'react'
+import { type SyntheticEvent, useState, useEffect, useRef } from 'react'
 import { NewRoomButton } from '../GradientButton/NewRoomButton'
 import { JoinRoomButton } from '../GradientButton/JoinRoomButton'
 import { Logo } from '../LogoText'
 import { ProfileButton } from '../GradientButton/ProfileButton'
-import { useAxios } from '@/hooks/useAxios'
-import { type Room } from '@/types/Room'
 import { PlayerPanel } from '../PlayerPanel'
 import { useAuthStore } from '@/hooks/useAuthStore'
 import { Dialog } from '../Dialog'
 import { Button } from '../Button'
 import { Input } from '../Input'
-import { useSignInAnonymously } from '@/hooks/useSignInAnonymously '
-
-function useCreateOrJoinRoom () {
-  const axios = useAxios()
-  const { player } = useAuthStore()
-
-  const [isCreatingOrJoiningRoom, setIsCreatingOrJoiningRoom] = useState(false)
-
-  const { signInAnonymously } = useSignInAnonymously()
-
-  async function ensurePlayer () {
-    if (player) return
-    await signInAnonymously()
-  }
-
-  async function createRoom () {
-    setIsCreatingOrJoiningRoom(true)
-
-    try {
-      await ensurePlayer()
-      const { data } = await axios.post<Room>('/api/room/create', {})
-      return data
-    } finally {
-      setIsCreatingOrJoiningRoom(false)
-    }
-  }
-
-  async function joinRoom (id: string) {
-    setIsCreatingOrJoiningRoom(true)
-
-    try {
-      await ensurePlayer()
-      await axios.post(`/api/room/${id}/join`)
-    } finally {
-      setIsCreatingOrJoiningRoom(false)
-    }
-  }
-
-  return {
-    createRoom,
-    joinRoom,
-    isCreatingOrJoiningRoom,
-  }
-}
+import { useCreateOrJoinRoom } from '@/hooks/useCreateOrJoinRoom'
 
 export function Lobby () {
   const {
@@ -64,6 +19,7 @@ export function Lobby () {
     isCreatingOrJoiningRoom,
   } = useCreateOrJoinRoom()
 
+  const roomIdInputRef = useRef<HTMLInputElement | null>(null)
   const [roomId, setRoomId] = useState('')
 
   async function handleClickCreateRoom () {
@@ -73,9 +29,13 @@ export function Lobby () {
 
   const [isOpen, setIsOpen] = useState(false)
 
-  useEffect(function resetRoomId () {
+  useEffect(function resetRoomIdAndFocus () {
     if (!isOpen) return
+
     setRoomId('')
+    setTimeout(() => {
+      roomIdInputRef.current?.focus()
+    }, 0)
   }, [isOpen])
 
   function handleCloseDialog () {
@@ -132,6 +92,7 @@ export function Lobby () {
             Enter the room ID to join
           </p>
           <Input
+            ref={roomIdInputRef}
             value={roomId}
             onChange={event => { setRoomId(event.target.value) }}
           />
