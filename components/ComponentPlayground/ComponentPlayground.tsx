@@ -204,6 +204,8 @@ function GomokuBoardSection () {
   const nextAvailablePiece = getNextAvailablePiece(boardGrid)
 
   function handlePlace ({ x, y }: Position) {
+    if (!nextAvailablePiece) return
+
     setBoardRecords([
       ...boardRecords,
       { piece: nextAvailablePiece, x, y },
