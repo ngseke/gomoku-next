@@ -13,7 +13,7 @@ function AdminChatItem ({ message, timestamp }: {
 
   return (
     <li
-      className="max-w-full gap-0.5 self-center break-words text-center text-xs text-neutral-600 dark:text-neutral-400"
+      className="max-w-full gap-0.5 self-center break-words py-0.5 text-center text-xs text-neutral-600 dark:text-neutral-400"
       title={formattedDate}
     >
       {message}
