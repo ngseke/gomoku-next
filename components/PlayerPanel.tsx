@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGear, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { Button } from './Button'
-import { useSignInAnonymously } from '@/hooks/useSignInAnonymously '
+import { useSignInAnonymously } from '@/hooks/useSignInAnonymously'
 import { useAuthStore } from '@/hooks/useAuthStore'
 import { ThemeButton } from './ThemeButton'
 

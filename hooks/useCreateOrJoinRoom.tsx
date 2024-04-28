@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useAxios } from '@/hooks/useAxios'
 import { type Room } from '@/types/Room'
 import { useAuthStore } from '@/hooks/useAuthStore'
-import { useSignInAnonymously } from '@/hooks/useSignInAnonymously '
+import { useSignInAnonymously } from '@/hooks/useSignInAnonymously'
 
 export function useCreateOrJoinRoom () {
   const axios = useAxios()
