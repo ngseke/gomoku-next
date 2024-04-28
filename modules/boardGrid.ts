@@ -72,7 +72,7 @@ export function judgeResult (boardGrid: BoardGrid): BoardResult | null {
   }
 
   return {
-    type: 'fair',
+    type: 'draw',
   }
 }
 

@@ -6,6 +6,6 @@ export type BoardResult = (WinningLine & {
   piece: Piece
   createdAt?: number
 }) | {
-  type: 'fair'
+  type: 'draw'
   createdAt?: number
 }

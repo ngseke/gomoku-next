@@ -197,7 +197,7 @@ function GomokuBoardSection () {
   useEffect(() => {
     const result = judgeResult(boardGrid)
 
-    if (result?.type === 'fair') return
+    if (result?.type === 'draw') return
     setWinningLine(result)
   }, [boardGrid, boardRecords])
 

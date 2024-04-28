@@ -9,6 +9,7 @@ import { fetchBoard } from '@/modules/firebaseAdmin/fetchBoard'
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { fetchAndJudgeBoard } from '@/modules/firebaseAdmin/fetchAndJudgeBoard'
 import { createBoardResult } from '@/modules/firebaseAdmin/createBoardResult'
+import { createChat } from '@/modules/firebaseAdmin/createChat'
 
 export async function POST (
   request: Request,
@@ -76,6 +77,17 @@ export async function POST (
   const result = await fetchAndJudgeBoard(boardId)
   if (result) {
     await createBoardResult(boardId, result)
+    if (result.type === 'win') {
+      await createChat(roomId, {
+        message: `The winner is ${result.piece}`,
+        isAdmin: true,
+      })
+    } else {
+      await createChat(roomId, {
+        message: 'It\'s a draw',
+        isAdmin: true,
+      })
+    }
   }
 
   return new Response(null, { status: 204 })
