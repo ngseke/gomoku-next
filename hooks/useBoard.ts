@@ -1,9 +1,11 @@
 import { convertToArray } from '@/modules/convertToArray'
 import { type BoardState } from '@/types/BoardState'
 import { type Nullish } from '@/types/Nullish'
+import { type Position } from '@/types/Position'
 import { ref, onValue } from 'firebase/database'
 import { useEffect, useState } from 'react'
 import { useDatabase } from 'reactfire'
+import { useAxios } from './useAxios'
 
 export function useBoard (boardId: Nullish<string>) {
   const database = useDatabase()
@@ -31,7 +33,16 @@ export function useBoard (boardId: Nullish<string>) {
     return unsubscribe
   }, [boardId, database])
 
+  const axios = useAxios()
+
+  async function place (position: Position) {
+    if (!boardId) return
+
+    await axios.post(`/api/board/${boardId}/place`, position)
+  }
+
   return {
     boardState,
+    place,
   }
 }

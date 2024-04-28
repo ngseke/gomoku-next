@@ -12,7 +12,6 @@ import { useRoomPlayers } from '@/hooks/useRoomPlayers'
 import { PlayerPillWithLabel } from '../PlayerPillWithLabel'
 import { useBoard } from '@/hooks/useBoard'
 import { generateBoard } from '@/modules/generateBoard'
-import { type Position } from '@/types/Position'
 
 export function Game () {
   const axios = useAxios()
@@ -27,13 +26,9 @@ export function Game () {
   const roomPlayers = useRoomPlayers()
 
   const boardId = room?.boardId
-  const { boardState } = useBoard(boardId)
+  const { boardState, place } = useBoard(boardId)
 
   const board = generateBoard(boardState?.records)
-
-  async function place (position: Position) {
-    await axios.post(`/api/board/${boardId}/place`, position)
-  }
 
   return (
     <div className="container flex min-h-screen max-w-[1000px] items-center px-4 py-8">
