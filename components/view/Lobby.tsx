@@ -96,7 +96,7 @@ export function Lobby () {
             value={roomId}
             onChange={event => { setRoomId(event.target.value) }}
           />
-          <Button block type="submit">
+          <Button block disabled={isCreatingOrJoiningRoom} type="submit">
             Join
           </Button>
         </form>
