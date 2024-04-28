@@ -1,7 +1,6 @@
 'use client'
 
 import { Logo } from '../LogoText'
-import { Button } from '../Button'
 import { useAxios } from '@/hooks/useAxios'
 import { GomokuBoard } from '../GomokuBoard/GomokuBoard'
 import { ConnectedChatBox } from '../ConnectedChatBox'
@@ -14,6 +13,7 @@ import { useBoard } from '@/hooks/useBoard'
 import { useIsCurrentSession } from '@/hooks/useIsCurrentSession'
 import { ThemeButton } from '../ThemeButton'
 import { RoomIdHashtag } from '../RoomIdHashtag'
+import { BackIconButton } from '../BackIconButton'
 
 export function Game () {
   const axios = useAxios()
@@ -52,8 +52,9 @@ export function Game () {
       <div className="flex size-full flex-col gap-8">
         <div className="flex flex-none justify-between gap-3">
           <div className="flex items-center gap-3">
-            <Logo />
 
+            <BackIconButton onClick={handleClickExitRoom} />
+            <Logo />
             <RoomIdHashtag>{room?.id}</RoomIdHashtag>
           </div>
 
@@ -96,7 +97,6 @@ export function Game () {
                 roomId={playerState?.roomId}
               />
             </div>
-            <Button onClick={handleClickExitRoom}>Exit Room</Button>
           </div>
         </div>
       </div>
