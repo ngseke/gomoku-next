@@ -23,14 +23,18 @@ function CloseButton (props: ComponentProps<'button'>) {
 
 export type DialogProps = PropsWithChildren<{
   open: boolean
-  onClose: () => void
+  onClose?: () => void
   title?: ReactNode
 }>
 
 export function Dialog ({ open, onClose, title, children }: DialogProps) {
   return (
     <Transition appear as={Fragment} show={open}>
-      <BaseDialog as="div" className="relative z-20" onClose={onClose}>
+      <BaseDialog
+        as="div"
+        className="relative z-20"
+        onClose={onClose ?? (() => {})}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -59,7 +63,7 @@ export function Dialog ({ open, onClose, title, children }: DialogProps) {
                 >
                   {title}
 
-                  <CloseButton onClick={onClose} />
+                  {onClose && <CloseButton onClick={onClose} />}
                 </BaseDialog.Title>
 
                 {children}

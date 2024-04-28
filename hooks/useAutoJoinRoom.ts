@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { useAppSelector } from '@/lib/hooks'
 
 export function useAutoJoinRoom () {
-  const { joinRoom } = useCreateOrJoinRoom()
+  const { joinRoom, isCreatingOrJoiningRoom } = useCreateOrJoinRoom()
   const isPlayerStateInitialized =
     useAppSelector((state) => state.game.isPlayerStateInitialized)
 
@@ -26,4 +26,8 @@ export function useAutoJoinRoom () {
 
     void joinRoom(roomId)
   }, [isPlayerStateInitialized, joinRoom, router, slugs])
+
+  return {
+    isAutoJoiningRoom: isCreatingOrJoiningRoom,
+  }
 }
