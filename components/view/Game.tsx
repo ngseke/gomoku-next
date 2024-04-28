@@ -61,8 +61,8 @@ export function Game () {
           <ThemeButton />
         </div>
 
-        <div className="flex h-full flex-1 flex-wrap items-center gap-x-8 sm:flex-nowrap">
-          <div className="w-full sm:w-[60%]">
+        <div className="-mx-4 flex h-full flex-1 flex-wrap items-center sm:flex-nowrap">
+          <div className="w-full px-4 md:w-[55%]">
             <GomokuBoard
               showLabels
               boardGrid={boardGrid}
@@ -72,8 +72,8 @@ export function Game () {
             />
           </div>
 
-          <div className="flex flex-1 flex-col gap-3">
-            <div className="-mx-2 flex w-full">
+          <div className="flex w-full flex-col gap-3 px-4 md:w-[45%]">
+            <div className="-mx-2 flex">
               {roomPlayers?.map((roomPlayer) => {
                 const isActive = roomPlayer?.piece === nextAvailablePiece
 
@@ -91,7 +91,7 @@ export function Game () {
               })}
             </div>
 
-            <div className="h-[350px]">
+            <div className="h-[350px] w-full max-w-full flex-none">
               <ConnectedChatBox
                 disabled={!isCurrentSession}
                 roomId={playerState?.roomId}
