@@ -1,7 +1,6 @@
 'use client'
 
 import { Logo } from '../LogoText'
-import { useAxios } from '@/hooks/useAxios'
 import { GomokuBoard } from '../GomokuBoard/GomokuBoard'
 import { ConnectedChatBox } from '../ConnectedChatBox'
 import { usePlayerStateStore } from '@/hooks/usePlayerStateStore'
@@ -14,17 +13,24 @@ import { useIsCurrentSession } from '@/hooks/useIsCurrentSession'
 import { ThemeButton } from '../ThemeButton'
 import { RoomIdHashtag } from '../RoomIdHashtag'
 import { BackIconButton } from '../BackIconButton'
+import { useRoomActions } from '@/hooks/useRoom'
+import { Button } from '../Button'
+import { useState } from 'react'
+import { useToggle } from 'usehooks-ts'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faListOl, faShare } from '@fortawesome/free-solid-svg-icons'
 
 export function Game () {
-  const axios = useAxios()
   const { player } = useAuthStore()
   const playerState = usePlayerStateStore()
   const { isCurrentSession } = useIsCurrentSession()
 
   const room = useRoomStore()
 
+  const { exitRoom, createNewBoard } = useRoomActions()
+
   async function handleClickExitRoom () {
-    await axios.post('/api/room/exit')
+    await exitRoom()
   }
 
   const { roomPlayers, rawRoomPlayers } = useRoomPlayers()
@@ -40,6 +46,8 @@ export function Game () {
   const myRoomPlayer = player?.id ? rawRoomPlayers?.[player?.id] : null
   const isMyTurn = myRoomPlayer?.piece === nextAvailablePiece && isCurrentSession
 
+  const [isShowLabels, toggleIsShowLabels] = useToggle()
+
   return (
     <div className="container flex min-h-screen max-w-[1000px] items-center px-4 py-8">
       {
@@ -51,22 +59,33 @@ export function Game () {
 
       <div className="flex size-full flex-col gap-8">
         <div className="flex flex-none justify-between gap-3">
-          <div className="flex items-center gap-3">
-
+          <div className="flex flex-none items-center gap-3">
             <BackIconButton onClick={handleClickExitRoom} />
             <Logo />
             <RoomIdHashtag>{room?.id}</RoomIdHashtag>
           </div>
 
-          <ThemeButton />
+
+            <div className="flex gap-2 overflow-auto">
+              <Button
+                icon={isShowLabels
+                  ? <FontAwesomeIcon icon={faListOl} />
+                  : <FontAwesomeIcon icon={faListOl} />}
+                onClick={toggleIsShowLabels}
+              >{isShowLabels ? 'Hide' : 'Show'} Labels</Button>
+              <Button icon={<FontAwesomeIcon icon={faShare} />} />
+              <ThemeButton />
+            </div>
+
+
         </div>
 
         <div className="-mx-4 flex h-full flex-1 flex-wrap items-center sm:flex-nowrap">
           <div className="w-full px-4 md:w-[55%]">
             <GomokuBoard
-              showLabels
               boardGrid={boardGrid}
               disabled={!isMyTurn || !isCurrentSession}
+              showLabels={isShowLabels}
               winningLine={winningLine}
               onPlace={place}
             />
@@ -97,6 +116,10 @@ export function Game () {
                 roomId={playerState?.roomId}
               />
             </div>
+
+            <Button onClick={createNewBoard}>
+              Play Another Round
+            </Button>
           </div>
         </div>
       </div>

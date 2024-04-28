@@ -10,7 +10,7 @@ export function Button ({ block, icon, loading, children, disabled, ...restProps
 
   return (
     <div
-      className={cn('relative inline-block h-10', {
+      className={cn('relative inline-block h-10 flex-none', {
         'min-w-20': !isIconButton,
         'w-10': isIconButton,
         'w-full': block,
