@@ -1,6 +1,6 @@
 'use client'
 
-import { type SyntheticEvent, useState } from 'react'
+import { type SyntheticEvent, useState, useEffect } from 'react'
 import { NewRoomButton } from '../GradientButton/NewRoomButton'
 import { JoinRoomButton } from '../GradientButton/JoinRoomButton'
 import { Logo } from '../LogoText'
@@ -12,32 +12,75 @@ import { useAuthStore } from '@/hooks/useAuthStore'
 import { Dialog } from '../Dialog'
 import { Button } from '../Button'
 import { Input } from '../Input'
-import { DebugView } from '../DebugView'
+import { useSignInAnonymously } from '@/hooks/useSignInAnonymously '
 
-export function Lobby () {
+function useCreateOrJoinRoom () {
   const axios = useAxios()
+  const { player } = useAuthStore()
 
-  const [roomId, setRoomId] = useState('')
+  const [isCreatingOrJoiningRoom, setIsCreatingOrJoiningRoom] = useState(false)
+
+  const { signInAnonymously } = useSignInAnonymously()
+
+  async function ensurePlayer () {
+    if (player) return
+    await signInAnonymously()
+  }
 
   async function createRoom () {
-    const { data } = await axios.post<Room>('/api/room/create', {})
-    setRoomId(data.id)
+    setIsCreatingOrJoiningRoom(true)
 
-    return data
+    try {
+      await ensurePlayer()
+      const { data } = await axios.post<Room>('/api/room/create', {})
+      return data
+    } finally {
+      setIsCreatingOrJoiningRoom(false)
+    }
   }
 
-  async function joinRoom (roomId: string) {
-    await axios.post(`/api/room/${roomId}/join`)
+  async function joinRoom (id: string) {
+    setIsCreatingOrJoiningRoom(true)
+
+    try {
+      await ensurePlayer()
+      await axios.post(`/api/room/${id}/join`)
+    } finally {
+      setIsCreatingOrJoiningRoom(false)
+    }
   }
+
+  return {
+    createRoom,
+    joinRoom,
+    isCreatingOrJoiningRoom,
+  }
+}
+
+export function Lobby () {
+  const {
+    createRoom,
+    joinRoom,
+    isCreatingOrJoiningRoom,
+  } = useCreateOrJoinRoom()
+
+  const [roomId, setRoomId] = useState('')
 
   async function handleClickCreateRoom () {
     const { id } = await createRoom()
     await joinRoom(id)
-
-    setRoomId(id)
   }
 
   const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(function resetRoomId () {
+    if (!isOpen) return
+    setRoomId('')
+  }, [isOpen])
+
+  function handleCloseDialog () {
+    setIsOpen(false)
+  }
 
   async function handleClickJoinRoom () {
     setIsOpen(true)
@@ -48,7 +91,6 @@ export function Lobby () {
 
     try {
       await joinRoom(roomId)
-      setIsOpen(false)
     } catch (err) {
       console.error(err)
     }
@@ -64,24 +106,26 @@ export function Lobby () {
         </div>
 
         <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
-          <NewRoomButton onClick={handleClickCreateRoom} />
-          <div>
-            <JoinRoomButton onClick={handleClickJoinRoom} />
-          </div>
-          <ProfileButton disabled={!player} />
+          <NewRoomButton
+            disabled={isCreatingOrJoiningRoom}
+            onClick={handleClickCreateRoom}
+          />
+          <JoinRoomButton
+            disabled={isCreatingOrJoiningRoom}
+            onClick={handleClickJoinRoom}
+          />
+          <ProfileButton disabled={isCreatingOrJoiningRoom || !player} />
         </div>
 
         <div className="flex">
           <PlayerPanel />
         </div>
-
-        <DebugView />
       </div>
 
       <Dialog
         open={isOpen}
         title="Join Room"
-        onClose={() => { setIsOpen(false) }}
+        onClose={handleCloseDialog}
       >
         <form className="flex flex-col gap-4" onSubmit={handleSubmitJoinRoom}>
           <p className="text-sm opacity-60">
@@ -96,7 +140,6 @@ export function Lobby () {
           </Button>
         </form>
       </Dialog>
-
     </div>
   )
 }

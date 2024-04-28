@@ -1,11 +1,25 @@
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Transition, Dialog as BaseDialog } from '@headlessui/react'
-import { Fragment, type ReactNode, forwardRef, type PropsWithChildren } from 'react'
+import { Fragment, type ReactNode, forwardRef, type PropsWithChildren, type ComponentProps } from 'react'
 
 const Overlay = forwardRef<HTMLDivElement>(function Overlay (_props, ref) {
   return (
     <div ref={ref} className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
   )
 })
+
+function CloseButton (props: ComponentProps<'button'>) {
+  return (
+    <button
+      className="aspect-square px-2 text-neutral-600 dark:text-neutral-400"
+      type="button"
+      {...props}
+    >
+      <FontAwesomeIcon icon={faXmark} />
+    </button>
+  )
+}
 
 export type DialogProps = PropsWithChildren<{
   open: boolean
@@ -41,9 +55,11 @@ export function Dialog ({ open, onClose, title, children }: DialogProps) {
               <BaseDialog.Panel className="w-full max-w-md overflow-hidden rounded-2xl border border-neutral-200 bg-[#fdfbfb] p-6 text-left align-middle shadow-xl transition-all dark:border-neutral-800 dark:bg-[#020404]">
                 <BaseDialog.Title
                   as="h3"
-                  className="mb-2 text-lg font-bold"
+                  className="mb-2 flex justify-between text-lg font-bold"
                 >
                   {title}
+
+                  <CloseButton onClick={onClose} />
                 </BaseDialog.Title>
 
                 {children}

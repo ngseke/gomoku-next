@@ -42,9 +42,10 @@ export function PlayerPill ({ name, image, emoji, loading, color, active }: {
         )}
       >
         <span className={cn(
-          'flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200',
+          'flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800',
           {
             'bg-neutral-800': color === 'black',
+            'dark:bg-neutral-200': color === 'white',
           }
         )}
         >
