@@ -89,6 +89,8 @@ export function getAvailablePositions (boardGrid: BoardGrid) {
 }
 
 export function getNextAvailablePiece (boardGrid: BoardGrid) {
+  if (judgeResult(boardGrid)) return null
+
   let blackCount = 0
   let whiteCount = 0
 

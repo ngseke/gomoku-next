@@ -2,12 +2,16 @@ import { useRoomStore } from './useRoomStore'
 
 export function useRoomPlayers () {
   const room = useRoomStore()
+  const rawRoomPlayers = room?.players ?? null
 
-  const roomPlayers = room?.players
-    ? Object.values(room?.players).sort((a, b) => (
+  const roomPlayers = rawRoomPlayers
+    ? Object.values(rawRoomPlayers).sort((a, b) => (
       a.piece?.localeCompare(b.piece)
     ))
     : []
 
-  return roomPlayers
+  return {
+    rawRoomPlayers,
+    roomPlayers,
+  }
 }

@@ -6,11 +6,19 @@ import { ref, onValue } from 'firebase/database'
 import { useEffect, useState } from 'react'
 import { useDatabase } from 'reactfire'
 import { useAxios } from './useAxios'
+import { generateBoardGrid } from '@/modules/generateBoard'
+import { getNextAvailablePiece } from '@/modules/boardGrid'
 
 export function useBoard (boardId: Nullish<string>) {
   const database = useDatabase()
 
   const [board, setBoard] = useState<Board | null>(null)
+
+  const records = board?.records ?? null
+  const result = board?.result ?? null
+  const boardGrid = generateBoardGrid(records)
+  const winningLine = result?.type === 'win' ? result : null
+  const nextAvailablePiece = getNextAvailablePiece(boardGrid)
 
   useEffect(() => {
     if (!boardId) {
@@ -35,6 +43,7 @@ export function useBoard (boardId: Nullish<string>) {
 
   const axios = useAxios()
 
+  /** Place a new piece. */
   async function place (position: Position) {
     if (!boardId) return
 
@@ -43,6 +52,11 @@ export function useBoard (boardId: Nullish<string>) {
 
   return {
     board,
+    boardGrid,
+    records,
+    result,
+    nextAvailablePiece,
+    winningLine,
     place,
   }
 }

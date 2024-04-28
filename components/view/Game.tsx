@@ -11,7 +11,6 @@ import { useAuthStore } from '@/hooks/useAuthStore'
 import { useRoomPlayers } from '@/hooks/useRoomPlayers'
 import { PlayerPillWithLabel } from '../PlayerPillWithLabel'
 import { useBoard } from '@/hooks/useBoard'
-import { generateBoardGrid } from '@/modules/generateBoard'
 
 export function Game () {
   const axios = useAxios()
@@ -23,14 +22,20 @@ export function Game () {
     await axios.post('/api/room/exit')
   }
 
-  const roomPlayers = useRoomPlayers()
+  const { roomPlayers, rawRoomPlayers } = useRoomPlayers()
 
   const boardId = room?.boardId
-  const { board, place } = useBoard(boardId)
+  const {
+    records,
+    result,
+    winningLine,
+    place,
+    boardGrid,
+    nextAvailablePiece,
+  } = useBoard(boardId)
 
-  const boardGrid = generateBoardGrid(board?.records)
-
-  const winningLine = board?.result?.type === 'win' ? board.result : null
+  const myRoomPlayer = player?.id ? rawRoomPlayers?.[player?.id] : null
+  const isMyTurn = myRoomPlayer?.piece === nextAvailablePiece
 
   return (
     <div className="container flex min-h-screen max-w-[1000px] items-center px-4 py-8">
@@ -45,6 +50,7 @@ export function Game () {
             <GomokuBoard
               showLabels
               boardGrid={boardGrid}
+              disabled={!isMyTurn}
               winningLine={winningLine}
               onPlace={place}
             />
@@ -52,17 +58,21 @@ export function Game () {
 
           <div className="flex flex-1 flex-col gap-3">
             <div className="-mx-2 flex w-full">
-              {roomPlayers?.map((roomPlayer) => (
-                <div key={roomPlayer.id} className="max-w-[50%] flex-none px-2">
-                  <PlayerPillWithLabel
-                    active={true}
-                    color={roomPlayer.piece}
-                    emoji={roomPlayer?.emoji}
-                    label={roomPlayer.id === player?.id ? 'You' : 'Opponent'}
-                    name={roomPlayer?.name}
-                  />
-                </div>
-              ))}
+              {roomPlayers?.map((roomPlayer) => {
+                const isActive = roomPlayer?.piece === nextAvailablePiece
+
+                return (
+                  <div key={roomPlayer.id} className="max-w-[50%] flex-none px-2">
+                    <PlayerPillWithLabel
+                      active={isActive}
+                      color={roomPlayer.piece}
+                      emoji={roomPlayer?.emoji}
+                      label={roomPlayer.id === player?.id ? 'You' : 'Opponent'}
+                      name={roomPlayer?.name}
+                    />
+                  </div>
+                )
+              })}
             </div>
 
             <div className="h-[350px]">
@@ -73,7 +83,8 @@ export function Game () {
         </div>
 
         <div>
-          {JSON.stringify(board)}
+          <code>{JSON.stringify(records)}</code>
+          <code>{JSON.stringify(result)}</code>
         </div>
       </div>
     </div>
