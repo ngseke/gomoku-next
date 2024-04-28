@@ -65,7 +65,7 @@ export function Lobby () {
           <Logo size="lg" />
         </div>
 
-        <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-3">
           <NewRoomButton
             disabled={isCreatingOrJoiningRoom}
             onClick={handleClickCreateRoom}
