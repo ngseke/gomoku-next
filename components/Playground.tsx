@@ -20,7 +20,7 @@ import { PlayerPill } from './PlayerPill'
 import { DebugView } from './DebugView'
 import { GomokuBoard } from './GomokuBoard/GomokuBoard'
 import { type BoardRecord } from '@/types/BoardRecord'
-import { generateBoard } from '@/modules/generateBoard'
+import { generateBoardGrid } from '@/modules/generateBoard'
 import { formatPosition } from '@/modules/formatPosition'
 
 dayjs.extend(localizedFormat)
@@ -104,7 +104,7 @@ export function Playground () {
         <div className="flex flex-wrap gap-6">
           <div className="w-[550px]">
             <GomokuBoard
-              board={generateBoard(boardRecords)}
+              boardGrid={generateBoardGrid(boardRecords)}
               highlight={highlight}
               showLabels={!!isBlack}
               onHover={(position) => { console.log(formatPosition(position)) }}

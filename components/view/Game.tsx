@@ -11,7 +11,7 @@ import { useAuthStore } from '@/hooks/useAuthStore'
 import { useRoomPlayers } from '@/hooks/useRoomPlayers'
 import { PlayerPillWithLabel } from '../PlayerPillWithLabel'
 import { useBoard } from '@/hooks/useBoard'
-import { generateBoard } from '@/modules/generateBoard'
+import { generateBoardGrid } from '@/modules/generateBoard'
 
 export function Game () {
   const axios = useAxios()
@@ -28,7 +28,7 @@ export function Game () {
   const boardId = room?.boardId
   const { boardState, place } = useBoard(boardId)
 
-  const board = generateBoard(boardState?.records)
+  const boardGrid = generateBoardGrid(boardState?.records)
 
   return (
     <div className="container flex min-h-screen max-w-[1000px] items-center px-4 py-8">
@@ -42,7 +42,7 @@ export function Game () {
           <div className="w-full sm:w-[60%]">
             <GomokuBoard
               showLabels
-              board={board}
+              boardGrid={boardGrid}
               onPlace={place}
             />
           </div>

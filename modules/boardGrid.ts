@@ -1,4 +1,4 @@
-import { type Board } from '@/types/Board'
+import { type BoardGrid } from '@/types/BoardGrid'
 import { type BoardResult } from '@/types/BoardResult'
 import { type Position } from '@/types/Position'
 
@@ -12,11 +12,11 @@ function isInRange (
   return min <= value && value <= max
 }
 
-export function judgeCanPlace (board: Board, position: Position) {
+export function judgeCanPlace (boardGrid: BoardGrid, position: Position) {
   return (
     isInRange(position.x) &&
     isInRange(position.y) &&
-    board[position.x][position.y] == null
+    boardGrid[position.x][position.y] == null
   )
 }
 
@@ -36,15 +36,15 @@ const patterns = [
   { offsets: minorDiagonalOffsets, direction: 'minorDiagonal' },
 ] as const
 
-export function judgeResult (board: Board) {
+export function judgeResult (boardGrid: BoardGrid) {
   for (let x = 0; x < size; x++) {
     for (let y = 0; y < size; y++) {
-      if (!board[x][y]) continue
+      if (!boardGrid[x][y]) continue
 
       for (const { offsets, direction } of patterns) {
         const line = []
         for (const [dx, dy] of offsets) {
-          const target = board[x + dx]?.[y + dy]
+          const target = boardGrid[x + dx]?.[y + dy]
           if (!target) break
           if (line.length && target.piece !== line[0]?.piece) break
 
@@ -66,32 +66,32 @@ export function judgeResult (board: Board) {
 
   for (let x = 0; x < size; x++) {
     for (let y = 0; y < size; y++) {
-      if (!board[x][y]) return null
+      if (!boardGrid[x][y]) return null
     }
   }
 
   return 'fair'
 }
 
-export function getAvailablePositions (board: Board) {
+export function getAvailablePositions (boardGrid: BoardGrid) {
   const list: Position[] = []
 
   for (let x = 0; x < size; x++) {
     for (let y = 0; y < size; y++) {
-      if (!board[x][y]) list.push({ x, y })
+      if (!boardGrid[x][y]) list.push({ x, y })
     }
   }
 
   return list
 }
 
-export function getNextAvailablePiece (board: Board) {
+export function getNextAvailablePiece (boardGrid: BoardGrid) {
   let blackCount = 0
   let whiteCount = 0
 
   for (let x = 0; x < size; x++) {
     for (let y = 0; y < size; y++) {
-      const target = board[x][y]
+      const target = boardGrid[x][y]
       if (!target) continue
 
       if (target.piece === 'black') blackCount++

@@ -10,7 +10,7 @@ import { Button } from '../Button'
 import { PlayerPill } from '../PlayerPill'
 import { GomokuBoard } from '../GomokuBoard/GomokuBoard'
 import { type BoardRecord } from '@/types/BoardRecord'
-import { generateBoard } from '@/modules/generateBoard'
+import { generateBoardGrid } from '@/modules/generateBoard'
 import { formatPosition } from '@/modules/formatPosition'
 import { faGear, faRightFromBracket, faTriangleExclamation, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -23,7 +23,7 @@ import { Checkbox } from '../Checkbox'
 import { mockBoardRecords } from './mockBoardRecords'
 import { type WinningLine } from '@/types/WinningLine'
 import { produce } from 'immer'
-import { getAvailablePositions, getNextAvailablePiece, judgeResult } from '@/modules/board'
+import { getAvailablePositions, getNextAvailablePiece, judgeResult } from '@/modules/boardGrid'
 import { type Position } from '@/types/Position'
 import { ThemeToggle } from './ThemeToggle'
 
@@ -192,16 +192,16 @@ function GomokuBoardSection () {
   const [hovered, setHovered] = useState<object>({})
   const [winningLine, setWinningLine] = useState<WinningLine | null>(null)
 
-  const board = useMemo(() => generateBoard(boardRecords), [boardRecords])
+  const boardGrid = useMemo(() => generateBoardGrid(boardRecords), [boardRecords])
 
   useEffect(() => {
-    const result = judgeResult(board)
+    const result = judgeResult(boardGrid)
 
     if (result === 'fair') return
     setWinningLine(result)
-  }, [board, boardRecords])
+  }, [boardGrid, boardRecords])
 
-  const nextAvailablePiece = getNextAvailablePiece(board)
+  const nextAvailablePiece = getNextAvailablePiece(boardGrid)
 
   function handlePlace ({ x, y }: Position) {
     setBoardRecords([
@@ -212,7 +212,7 @@ function GomokuBoardSection () {
   }
 
   function placeRandomly () {
-    const availablePositions = getAvailablePositions(board)
+    const availablePositions = getAvailablePositions(boardGrid)
     const position = availablePositions[Math.floor(Math.random() * availablePositions.length)]
     if (!position) return
     handlePlace(position)
@@ -223,7 +223,7 @@ function GomokuBoardSection () {
     <div className="flex flex-wrap gap-6">
       <div style={{ width: `${width}px` }}>
         <GomokuBoard
-          board={generateBoard(boardRecords)}
+          boardGrid={generateBoardGrid(boardRecords)}
           disabled={isDisabled}
           highlight={highlight}
           showLabels={isShowLabels}

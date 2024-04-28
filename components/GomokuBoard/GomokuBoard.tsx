@@ -1,4 +1,4 @@
-import { type Board } from '@/types/Board'
+import { type BoardGrid } from '@/types/BoardGrid'
 import { Cell } from './Cell'
 import { Piece } from './Piece'
 import { type Position } from '@/types/Position'
@@ -10,7 +10,7 @@ import { type WinningLine as WinningLineType } from '@/types/WinningLine'
 const size = 15
 
 export function GomokuBoard ({
-  board,
+  boardGrid,
   highlight,
   winningLine,
   disabled,
@@ -18,7 +18,7 @@ export function GomokuBoard ({
   onPlace,
   onHover,
 }: {
-  board?: Nullish<Board>
+  boardGrid?: Nullish<BoardGrid>
   disabled?: boolean
   showLabels?: boolean
   highlight?: Nullish<Position>
@@ -33,7 +33,7 @@ export function GomokuBoard ({
           const x = index % size
           const y = Math.floor(index / size)
 
-          const piece = board?.[x]?.[y]
+          const piece = boardGrid?.[x]?.[y]
           const shouldHighlight = highlight?.x === x && highlight?.y === y
 
           return (
