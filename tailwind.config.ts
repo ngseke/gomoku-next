@@ -44,6 +44,14 @@ const config: Config = {
           '50%': { transform: 'scale(1.1)' },
           '75%': { transform: 'scale(0.95)' },
         },
+        'result-sign': {
+          '0%': { opacity: '0%', transform: 'scale(1.75)' },
+          '100%': { opacity: '100%' },
+        },
+        'result-actions': {
+          '0%': { opacity: '0%' },
+          '100%': { opacity: '100%' },
+        },
       },
     },
   },

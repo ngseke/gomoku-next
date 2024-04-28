@@ -18,6 +18,7 @@ import { Button } from '../Button'
 import { useToggle } from 'usehooks-ts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faListOl, faShare } from '@fortawesome/free-solid-svg-icons'
+import { ResultOverlay } from '../ResultOverlay'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -36,6 +37,7 @@ export function Game () {
 
   const boardId = room?.boardId
   const {
+    result,
     winningLine,
     place,
     boardGrid,
@@ -43,7 +45,8 @@ export function Game () {
   } = useBoard(boardId)
 
   const myRoomPlayer = player?.id ? rawRoomPlayers?.[player?.id] : null
-  const isMyTurn = myRoomPlayer?.piece === nextAvailablePiece && isCurrentSession
+  const myPiece = myRoomPlayer?.piece
+  const isMyTurn = myPiece === nextAvailablePiece && isCurrentSession
 
   const [isShowLabels, toggleIsShowLabels] = useToggle()
 
@@ -78,13 +81,19 @@ export function Game () {
         </div>
 
         <div className="-mx-4 flex h-full flex-1 flex-wrap items-center sm:flex-nowrap">
-          <div className="w-full px-4 md:w-[55%]">
+          <div className="relative w-full px-4 md:w-[55%]">
             <GomokuBoard
               boardGrid={boardGrid}
               disabled={!isMyTurn || !isCurrentSession}
               showLabels={isShowLabels}
               winningLine={winningLine}
               onPlace={place}
+            />
+
+            <ResultOverlay
+              piece={myPiece}
+              result={result}
+              onClickNewRound={createNewBoard}
             />
           </div>
 
@@ -114,9 +123,6 @@ export function Game () {
               />
             </div>
 
-            <Button onClick={createNewBoard}>
-              Play Another Round
-            </Button>
           </div>
         </div>
       </div>
