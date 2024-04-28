@@ -18,7 +18,7 @@ export function GomokuBoard ({
   onPlace,
   onHover,
 }: {
-  board?: Board
+  board?: Nullish<Board>
   disabled?: boolean
   showLabels?: boolean
   highlight?: Nullish<Position>

@@ -15,4 +15,5 @@ export interface Room {
   createdAt: number
   name: string
   players?: RoomPlayers
+  boardId?: string
 }

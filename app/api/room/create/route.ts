@@ -1,3 +1,4 @@
+import { createBoard } from '@/modules/firebaseAdmin/createBoard'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
@@ -19,11 +20,14 @@ export async function POST (
   const name = body.name?.trim() || `Room ${roomId}`
   const createdAt = ServerValue.TIMESTAMP as number
 
+  const boardId = await createBoard()
+
   const room = {
     id: roomId,
     name,
     createdAt,
     createdBy: player.id,
+    boardId,
   } satisfies Room
 
   await roomRef.set(room)

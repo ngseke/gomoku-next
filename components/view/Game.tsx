@@ -10,6 +10,9 @@ import { useRoomStore } from '@/hooks/useRoomStore'
 import { useAuthStore } from '@/hooks/useAuthStore'
 import { useRoomPlayers } from '@/hooks/useRoomPlayers'
 import { PlayerPillWithLabel } from '../PlayerPillWithLabel'
+import { useBoard } from '@/hooks/useBoard'
+import { generateBoard } from '@/modules/generateBoard'
+import { type Position } from '@/types/Position'
 
 export function Game () {
   const axios = useAxios()
@@ -23,6 +26,15 @@ export function Game () {
 
   const roomPlayers = useRoomPlayers()
 
+  const boardId = room?.boardId
+  const { boardState } = useBoard(boardId)
+
+  const board = generateBoard(boardState?.records)
+
+  async function place (position: Position) {
+    await axios.post(`/api/board/${boardId}/place`, position)
+  }
+
   return (
     <div className="container flex min-h-screen max-w-[1000px] items-center px-4 py-8">
       <div className="flex size-full flex-col gap-8">
@@ -32,8 +44,12 @@ export function Game () {
         </div>
 
         <div className="flex h-full flex-1 flex-wrap items-center gap-x-8 sm:flex-nowrap">
-          <div className="w-full max-w-[550px]">
-            <GomokuBoard showLabels />
+          <div className="w-full sm:w-[60%]">
+            <GomokuBoard
+              showLabels
+              board={board}
+              onPlace={place}
+            />
           </div>
 
           <div className="flex flex-1 flex-col gap-3">
@@ -45,7 +61,7 @@ export function Game () {
                     color={roomPlayer.piece}
                     emoji={roomPlayer?.emoji}
                     label={roomPlayer.id === player?.id ? 'You' : 'Opponent'}
-                    name={roomPlayer?.name?.repeat(1)}
+                    name={roomPlayer?.name}
                   />
                 </div>
               ))}
