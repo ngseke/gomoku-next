@@ -3,6 +3,7 @@ import { firebaseAdminDatabase } from './firebaseAdmin'
 import { parseAuthorization } from './parseAuthorization'
 import * as emoji from 'node-emoji'
 import { ServerValue } from 'firebase-admin/database'
+import { generatePlayerName } from '../generatePlayerName'
 
 export async function resetPlayer (
   request: Request,
@@ -13,7 +14,7 @@ export async function resetPlayer (
 
   if (!id) throw new Error('No auth id')
 
-  const name = auth?.name ?? `Player ${id.slice(0, 5)}`
+  const name = auth?.name ?? generatePlayerName()
 
   const player = {
     id,
