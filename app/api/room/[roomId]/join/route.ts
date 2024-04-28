@@ -83,10 +83,6 @@ export async function POST (
     message: `${player.name} has joined`,
     isAdmin: true,
   })
-  await createChat(roomId, {
-    message: '[Do not send any sensitive personal information as the chat room is public]',
-    isAdmin: true,
-  })
 
   return new Response(null, { status: 204 })
 }
