@@ -1,5 +1,5 @@
 import { convertToArray } from '@/modules/convertToArray'
-import { type BoardState } from '@/types/BoardState'
+import { type Board } from '@/types/Board'
 import { type Nullish } from '@/types/Nullish'
 import { type Position } from '@/types/Position'
 import { ref, onValue } from 'firebase/database'
@@ -10,7 +10,7 @@ import { useAxios } from './useAxios'
 export function useBoard (boardId: Nullish<string>) {
   const database = useDatabase()
 
-  const [boardState, setBoard] = useState<BoardState | null>(null)
+  const [boardState, setBoard] = useState<Board | null>(null)
 
   useEffect(() => {
     if (!boardId) {

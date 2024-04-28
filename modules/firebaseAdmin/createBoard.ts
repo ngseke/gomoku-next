@@ -1,6 +1,6 @@
 import { ServerValue } from 'firebase-admin/database'
 import { firebaseAdminDatabase } from './firebaseAdmin'
-import { type BoardState } from '@/types/BoardState'
+import { type Board } from '@/types/Board'
 
 export async function createBoard () {
   const boardsRef = firebaseAdminDatabase.ref('boards')
@@ -10,7 +10,7 @@ export async function createBoard () {
     createdAt,
     records: [],
     result: null,
-  } satisfies BoardState)
+  } satisfies Board)
 
   if (!key) throw Error('Failed to get board key!')
 

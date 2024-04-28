@@ -1,7 +1,7 @@
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { type BoardRecord } from '@/types/BoardRecord'
-import { type BoardState } from '@/types/BoardState'
+import { type Board } from '@/types/Board'
 import { type Nullish } from '@/types/Nullish'
 import { ServerValue } from 'firebase-admin/database'
 
@@ -15,7 +15,7 @@ export async function POST (
   const { x, y } = await request.json()
 
   const boardRef = firebaseAdminDatabase.ref(`boards/${boardId}`)
-  const board = (await boardRef.get()).val() as Nullish<BoardState>
+  const board = (await boardRef.get()).val() as Nullish<Board>
   if (!board) {
     return Response.json(`Cannot find board \`${boardId}\`!`, { status: 400 })
   }
