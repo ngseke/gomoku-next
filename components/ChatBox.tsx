@@ -5,6 +5,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { type Chat } from '@/types/Chat'
 import { type Nullish } from '@/types/Nullish'
+import { chatMessageMaxLength } from '@/modules/chatMessageMaxLength'
 
 export interface ChatBoxProps {
   chats: Record<string, Chat> | null
@@ -63,6 +64,7 @@ export function ChatBox ({
         <Input
           ref={inputRef}
           disabled={disabled}
+          maxLength={chatMessageMaxLength}
           rightSection={Boolean(error) && (
             <FontAwesomeIcon
               className="text-rose-500"

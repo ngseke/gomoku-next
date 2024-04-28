@@ -1,3 +1,4 @@
+import { chatMessageMaxLength } from '@/modules/chatMessageMaxLength'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 
@@ -11,8 +12,10 @@ export async function POST (
   const { roomId } = params
   const { message } = await request.json()
 
+  const slicedMessage = (message as string).slice(0, chatMessageMaxLength)
+
   const chat = await createChat(roomId, {
-    message,
+    message: slicedMessage,
     createdBy: player.id,
     playerName: player.name,
   })
