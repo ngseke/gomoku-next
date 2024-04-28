@@ -15,7 +15,6 @@ import { RoomIdHashtag } from '../RoomIdHashtag'
 import { BackIconButton } from '../BackIconButton'
 import { useRoomActions } from '@/hooks/useRoom'
 import { Button } from '../Button'
-import { useState } from 'react'
 import { useToggle } from 'usehooks-ts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faListOl, faShare } from '@fortawesome/free-solid-svg-icons'
@@ -65,18 +64,16 @@ export function Game () {
             <RoomIdHashtag>{room?.id}</RoomIdHashtag>
           </div>
 
-
-            <div className="flex gap-2 overflow-auto">
-              <Button
-                icon={isShowLabels
-                  ? <FontAwesomeIcon icon={faListOl} />
-                  : <FontAwesomeIcon icon={faListOl} />}
-                onClick={toggleIsShowLabels}
-              >{isShowLabels ? 'Hide' : 'Show'} Labels</Button>
-              <Button icon={<FontAwesomeIcon icon={faShare} />} />
-              <ThemeButton />
-            </div>
-
+          <div className="flex gap-2">
+            <Button
+              icon={isShowLabels
+                ? <FontAwesomeIcon icon={faListOl} />
+                : <FontAwesomeIcon icon={faListOl} />}
+              onClick={toggleIsShowLabels}
+            >{isShowLabels ? 'Hide' : 'Show'} Labels</Button>
+            <Button icon={<FontAwesomeIcon icon={faShare} />} />
+            <ThemeButton />
+          </div>
 
         </div>
 
