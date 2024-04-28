@@ -6,6 +6,7 @@ import { useInitializeSessionId } from './hooks/useInitializeSessionId'
 import { useInitializeUser } from './hooks/useInitializeUser'
 import { useListenRoom } from './hooks/useListenRoom'
 import { useOnDisconnect } from './hooks/useOnDisconnect'
+import { useUpdateUrlParams } from './hooks/useUpdateUrlParams'
 
 export function InitializeStoreProvider ({ children }: PropsWithChildren) {
   useInitializeUser()
@@ -15,6 +16,7 @@ export function InitializeStoreProvider ({ children }: PropsWithChildren) {
   useListenRoom()
 
   useOnDisconnect()
+  useUpdateUrlParams()
 
   return children
 }
