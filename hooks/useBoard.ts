@@ -43,11 +43,18 @@ export function useBoard (boardId: Nullish<string>) {
 
   const axios = useAxios()
 
+  const [isPlacing, setIsPlacing] = useState(false)
+
   /** Place a new piece. */
   async function place (position: Position) {
-    if (!boardId) return
+    if (!boardId || isPlacing) return
 
-    await axios.post(`/api/board/${boardId}/place`, position)
+    setIsPlacing(true)
+    try {
+      await axios.post(`/api/board/${boardId}/place`, position)
+    } finally {
+      setIsPlacing(false)
+    }
   }
 
   return {
