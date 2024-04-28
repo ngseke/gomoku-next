@@ -11,11 +11,14 @@ import { useAuthStore } from '@/hooks/useAuthStore'
 import { useRoomPlayers } from '@/hooks/useRoomPlayers'
 import { PlayerPillWithLabel } from '../PlayerPillWithLabel'
 import { useBoard } from '@/hooks/useBoard'
+import { useIsCurrentSession } from '@/hooks/useIsCurrentSession'
 
 export function Game () {
   const axios = useAxios()
   const { player } = useAuthStore()
   const playerState = usePlayerStateStore()
+  const { isCurrentSession } = useIsCurrentSession()
+
   const room = useRoomStore()
 
   async function handleClickExitRoom () {
@@ -26,8 +29,6 @@ export function Game () {
 
   const boardId = room?.boardId
   const {
-    records,
-    result,
     winningLine,
     place,
     boardGrid,
@@ -35,10 +36,17 @@ export function Game () {
   } = useBoard(boardId)
 
   const myRoomPlayer = player?.id ? rawRoomPlayers?.[player?.id] : null
-  const isMyTurn = myRoomPlayer?.piece === nextAvailablePiece
+  const isMyTurn = myRoomPlayer?.piece === nextAvailablePiece && isCurrentSession
 
   return (
     <div className="container flex min-h-screen max-w-[1000px] items-center px-4 py-8">
+      {
+        !isCurrentSession &&
+          <div className=" fixed left-4 top-4 bg-red-500">
+            Warning: Not current session!
+          </div>
+      }
+
       <div className="flex size-full flex-col gap-8">
         <div className="flex-none">
           <Logo />
@@ -50,7 +58,7 @@ export function Game () {
             <GomokuBoard
               showLabels
               boardGrid={boardGrid}
-              disabled={!isMyTurn}
+              disabled={!isMyTurn || !isCurrentSession}
               winningLine={winningLine}
               onPlace={place}
             />
@@ -76,15 +84,13 @@ export function Game () {
             </div>
 
             <div className="h-[350px]">
-              <ConnectedChatBox roomId={playerState?.roomId} />
+              <ConnectedChatBox
+                disabled={!isCurrentSession}
+                roomId={playerState?.roomId}
+              />
             </div>
             <Button onClick={handleClickExitRoom}>Exit Room</Button>
           </div>
-        </div>
-
-        <div>
-          <code>{JSON.stringify(records)}</code>
-          <code>{JSON.stringify(result)}</code>
         </div>
       </div>
     </div>
