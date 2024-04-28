@@ -22,7 +22,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input ({
   return (
     <div className="grid w-full gap-1">
       {label && (
-        <label className="font-medium text-sm" htmlFor={id}>{label}</label>
+        <label className="text-sm font-medium" htmlFor={id}>{label}</label>
       )}
       <div
         className={cn('relative h-10 w-full min-w-0', {

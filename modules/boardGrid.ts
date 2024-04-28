@@ -36,7 +36,7 @@ const patterns = [
   { offsets: minorDiagonalOffsets, direction: 'minorDiagonal' },
 ] as const
 
-export function judgeResult (boardGrid: BoardGrid) {
+export function judgeResult (boardGrid: BoardGrid): BoardResult | null {
   for (let x = 0; x < size; x++) {
     for (let y = 0; y < size; y++) {
       if (!boardGrid[x][y]) continue
@@ -55,10 +55,11 @@ export function judgeResult (boardGrid: BoardGrid) {
           const center = line[2]
 
           return {
+            type: 'win',
             piece: center.piece,
             position: { x: center.x, y: center.y },
             direction,
-          } satisfies BoardResult
+          }
         }
       }
     }
@@ -70,7 +71,9 @@ export function judgeResult (boardGrid: BoardGrid) {
     }
   }
 
-  return 'fair'
+  return {
+    type: 'fair',
+  }
 }
 
 export function getAvailablePositions (boardGrid: BoardGrid) {

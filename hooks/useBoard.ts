@@ -10,7 +10,7 @@ import { useAxios } from './useAxios'
 export function useBoard (boardId: Nullish<string>) {
   const database = useDatabase()
 
-  const [boardState, setBoard] = useState<Board | null>(null)
+  const [board, setBoard] = useState<Board | null>(null)
 
   useEffect(() => {
     if (!boardId) {
@@ -42,7 +42,7 @@ export function useBoard (boardId: Nullish<string>) {
   }
 
   return {
-    boardState,
+    board,
     place,
   }
 }

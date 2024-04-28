@@ -2,11 +2,13 @@ import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { type BoardRecord } from '@/types/BoardRecord'
 import { ServerValue } from 'firebase-admin/database'
 import { generateBoardGrid } from '@/modules/generateBoard'
-import { getNextAvailablePiece } from '@/modules/boardGrid'
+import { getNextAvailablePiece, judgeCanPlace } from '@/modules/boardGrid'
 import { fetchPlayerState } from '@/modules/firebaseAdmin/fetchPlayerState'
 import { fetchRoomPlayers } from '@/modules/firebaseAdmin/fetchRoomPlayers'
 import { fetchBoard } from '@/modules/firebaseAdmin/fetchBoard'
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
+import { fetchAndJudgeBoard } from '@/modules/firebaseAdmin/fetchAndJudgeBoard'
+import { createBoardResult } from '@/modules/firebaseAdmin/createBoardResult'
 
 export async function POST (
   request: Request,
@@ -41,12 +43,20 @@ export async function POST (
   }
 
   const boardGrid = generateBoardGrid(board.records)
+
   const nextAvailablePiece = getNextAvailablePiece(boardGrid)
   const isPieceMatched = nextAvailablePiece !== roomPlayer.piece
-
   if (isPieceMatched) {
     return Response.json(
       `It's not your turn yet! Expected piece: ${nextAvailablePiece}, your piece: ${roomPlayer.piece}.`,
+      { status: 400 }
+    )
+  }
+
+  const canPlace = judgeCanPlace(boardGrid, { x, y })
+  if (!canPlace) {
+    return Response.json(
+      `You cannot place on the position \`${JSON.stringify({ x, y })}\`.`,
       { status: 400 }
     )
   }
@@ -62,6 +72,11 @@ export async function POST (
   }
 
   await recordsRef.push(newRecord)
+
+  const result = await fetchAndJudgeBoard(boardId)
+  if (result) {
+    await createBoardResult(boardId, result)
+  }
 
   return new Response(null, { status: 204 })
 }

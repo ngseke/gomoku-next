@@ -26,9 +26,11 @@ export function Game () {
   const roomPlayers = useRoomPlayers()
 
   const boardId = room?.boardId
-  const { boardState, place } = useBoard(boardId)
+  const { board, place } = useBoard(boardId)
 
-  const boardGrid = generateBoardGrid(boardState?.records)
+  const boardGrid = generateBoardGrid(board?.records)
+
+  const winningLine = board?.result?.type === 'win' ? board.result : null
 
   return (
     <div className="container flex min-h-screen max-w-[1000px] items-center px-4 py-8">
@@ -43,6 +45,7 @@ export function Game () {
             <GomokuBoard
               showLabels
               boardGrid={boardGrid}
+              winningLine={winningLine}
               onPlace={place}
             />
           </div>
@@ -67,6 +70,10 @@ export function Game () {
             </div>
             <Button onClick={handleClickExitRoom}>Exit Room</Button>
           </div>
+        </div>
+
+        <div>
+          {JSON.stringify(board)}
         </div>
       </div>
     </div>
