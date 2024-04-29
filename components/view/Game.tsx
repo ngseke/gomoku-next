@@ -1,6 +1,6 @@
 'use client'
 
-import { Logo } from '../LogoText'
+import { LogoText } from '../LogoText'
 import { GomokuBoard } from '../GomokuBoard/GomokuBoard'
 import { ConnectedChatBox } from '../ConnectedChatBox'
 import { usePlayerStateStore } from '@/hooks/usePlayerStateStore'
@@ -74,7 +74,7 @@ export function Game () {
               loading={isExitingRoom}
               onClick={handleClickExitRoom}
             />
-            <Logo />
+            <LogoText />
             <RoomIdHashtag>{room?.id}</RoomIdHashtag>
           </div>
 

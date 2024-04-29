@@ -3,7 +3,7 @@
 import { type ComponentProps, useState, useEffect, useMemo } from 'react'
 import { NewRoomButton } from '../GradientButton/NewRoomButton'
 import { JoinRoomButton } from '../GradientButton/JoinRoomButton'
-import { Logo } from '../LogoText'
+import { LogoText } from '../LogoText'
 import { ProfileButton } from '../GradientButton/ProfileButton'
 import { useInterval } from 'usehooks-ts'
 import { Button } from '../Button'
@@ -34,7 +34,7 @@ function Headline (props: ComponentProps<'h2'>) {
 function LogoSection () {
   return (<>
     <Headline>Logo</Headline>
-    <Logo />
+    <LogoText />
   </>)
 }
 

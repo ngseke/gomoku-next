@@ -5,7 +5,7 @@ type LogoProps = ComponentProps<'span'> & {
   size?: 'md' | 'lg'
 }
 
-export function Logo ({
+export function LogoText ({
   className,
   size = 'md',
   ...restProps
