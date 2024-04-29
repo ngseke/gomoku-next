@@ -23,10 +23,18 @@ export function View () {
 
     <Dialog
       open={isAutoJoiningRoom}
-      title="Joining The Room"
+      title={
+        <div className="flex w-full flex-col gap-3 text-center">
+          <FontAwesomeIcon spin className="text-4xl text-neutral-600 dark:text-neutral-400" icon={faCircleNotch} />
+          <span>
+            Joining The Room
+          </span>
+        </div>
+      }
     >
-      <FontAwesomeIcon spin className="mr-2 text-lg text-neutral-600 dark:text-neutral-400" icon={faCircleNotch} />
-      Almost there...
+      <div className="text-center text-neutral-600 dark:text-neutral-400">
+        Almost there...
+      </div>
     </Dialog>
   </>)
 }
