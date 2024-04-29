@@ -51,7 +51,7 @@ export function Lobby () {
 
     try {
       if (!roomId) return
-      await joinRoom(roomId)
+      await joinRoom(roomId.trim())
     } catch (err) {
       console.error(err)
     }
