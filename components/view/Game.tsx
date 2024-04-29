@@ -102,6 +102,9 @@ export function Game () {
             <div className="-mx-2 flex">
               {roomPlayers?.map((roomPlayer) => {
                 const isActive = roomPlayer?.piece === nextAvailablePiece
+                const isWinner =
+                  result?.type === 'win' &&
+                  result.piece === roomPlayer.piece
 
                 return (
                   <div key={roomPlayer.id} className="max-w-[50%] flex-none px-2">
@@ -109,6 +112,7 @@ export function Game () {
                       active={isActive}
                       color={roomPlayer.piece}
                       emoji={roomPlayer?.emoji}
+                      isWinner={isWinner}
                       label={roomPlayer.id === player?.id ? 'You' : 'Opponent'}
                       name={roomPlayer?.name}
                     />
