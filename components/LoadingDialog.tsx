@@ -11,16 +11,17 @@ export function LoadingDialog (
       {...restProps}
       title={
         <div className="flex w-full flex-col gap-4 text-center">
-          <FontAwesomeIcon spin className="text-4xl text-neutral-600 dark:text-neutral-400" icon={faCircleNotch} />
+          <FontAwesomeIcon spin className="mt-2 text-4xl text-neutral-600 dark:text-neutral-400" icon={faCircleNotch} />
           <span>
             {title}
           </span>
         </div>
       }
     >
-      <div className="text-center text-neutral-600 dark:text-neutral-400">
-        {children}
-      </div>
+      {children &&
+        <div className="text-center text-neutral-600 dark:text-neutral-400">
+          {children}
+        </div>}
     </Dialog>
   )
 }

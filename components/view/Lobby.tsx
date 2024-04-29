@@ -28,13 +28,17 @@ export function Lobby () {
 
   const [isOpen, setIsOpen] = useState(false)
 
+  function focusInput () {
+    setTimeout(() => {
+      roomIdInputRef.current?.focus()
+    }, 0)
+  }
+
   useEffect(function resetRoomIdAndFocus () {
     if (!isOpen) return
 
     setRoomId('')
-    setTimeout(() => {
-      roomIdInputRef.current?.focus()
-    }, 0)
+    focusInput()
   }, [isOpen])
 
   function handleCloseDialog () {
@@ -52,7 +56,7 @@ export function Lobby () {
       if (!roomId) return
       await joinRoom(roomId.trim())
     } catch (err) {
-      console.error(err)
+
     }
   }
 
@@ -104,9 +108,10 @@ export function Lobby () {
         </form>
       </Dialog>
 
-      <LoadingDialog open={isCreatingOrJoiningRoom} title="Joining The Room">
-        Almost there...
-      </LoadingDialog>
+      <LoadingDialog
+        open={isCreatingOrJoiningRoom && !isOpen}
+        title="Creating a New Room"
+      />
     </div>
   )
 }
