@@ -28,7 +28,7 @@ export function WinningLine ({ direction, position }: {
       <div
         key={[direction, position?.x, position?.y].join()}
         className={cn(
-          'w-[6%] animate-extend rounded-full bg-gradient-to-b from-[#00c6fb] to-[#005bea] opacity-70',
+          'w-[6%] animate-extend rounded-full bg-gradient-to-b from-[#00c6fb] to-[#005bea] opacity-80 shadow-[0_-.25rem_.75rem_#00c6fb,0_.25rem_1.25rem_#005bea]',
           {
             'rotate-90': direction === 'horizontal',
             '-rotate-45 ': direction === 'majorDiagonal',
