@@ -21,6 +21,7 @@ import { faListOl, faShare } from '@fortawesome/free-solid-svg-icons'
 import { ResultOverlay } from '../ResultOverlay'
 import { type Position } from '@/types/Position'
 import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
+import { useState } from 'react'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -29,10 +30,16 @@ export function Game () {
 
   const room = useRoomStore()
 
+  const [isExitingRoom, setIsExitingRoom] = useState(false)
   const { exitRoom, createNewBoard } = useRoomActions()
 
   async function handleClickExitRoom () {
-    await exitRoom()
+    setIsExitingRoom(true)
+    try {
+      await exitRoom()
+    } finally {
+      setIsExitingRoom(false)
+    }
   }
 
   const { roomPlayers, rawRoomPlayers } = useRoomPlayers()
@@ -63,7 +70,10 @@ export function Game () {
       <div className="flex size-full flex-col gap-8">
         <div className="flex flex-none justify-between gap-3">
           <div className="flex flex-none items-center gap-3">
-            <BackIconButton onClick={handleClickExitRoom} />
+            <BackIconButton
+              loading={isExitingRoom}
+              onClick={handleClickExitRoom}
+            />
             <Logo />
             <RoomIdHashtag>{room?.id}</RoomIdHashtag>
           </div>
@@ -127,7 +137,6 @@ export function Game () {
                 roomId={playerState?.roomId}
               />
             </div>
-
           </div>
         </div>
       </div>

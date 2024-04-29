@@ -12,7 +12,7 @@ export function Button ({ block, icon, loading, children, disabled, readonly, cl
   const isIconButton = Boolean(icon && !children)
 
   const body = loading
-    ? <FontAwesomeIcon spin icon={faCircleNotch} />
+    ? <FontAwesomeIcon spin className="text-lg" icon={faCircleNotch} />
     : <>
       {icon && <span className="text-base">{icon}</span>}
       {children && (

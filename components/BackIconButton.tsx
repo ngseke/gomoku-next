@@ -1,15 +1,14 @@
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { type ComponentProps } from 'react'
+import { Button } from './Button'
 
-export function BackIconButton (props: ComponentProps<'button'>) {
+export function BackIconButton (props: ComponentProps<typeof Button>) {
   return (
-    <button
-      className="aspect-square px-2 text-3xl text-neutral-600 enabled:hover:opacity-90 dark:text-neutral-400"
-      type="button"
+    <Button
+      className="text-neutral-600 dark:text-neutral-400"
       {...props}
-    >
-      <FontAwesomeIcon icon={faCaretLeft} />
-    </button>
+      icon={<FontAwesomeIcon icon={faCaretLeft} />}
+    />
   )
 }
