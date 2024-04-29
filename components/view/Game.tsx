@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faListOl, faShare } from '@fortawesome/free-solid-svg-icons'
 import { ResultOverlay } from '../ResultOverlay'
 import { type Position } from '@/types/Position'
+import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -57,12 +58,7 @@ export function Game () {
 
   return (
     <div className="container flex min-h-screen max-w-[1000px] items-center px-4 py-8">
-      {
-        !isCurrentSession &&
-          <div className=" fixed left-4 top-4 bg-red-500">
-            Warning: Not current session!
-          </div>
-      }
+      <NotCurrentSessionDialog open={!isCurrentSession} />
 
       <div className="flex size-full flex-col gap-8">
         <div className="flex flex-none justify-between gap-3">

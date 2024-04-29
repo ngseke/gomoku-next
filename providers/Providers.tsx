@@ -6,7 +6,6 @@ import { FirebaseAppProvider } from 'reactfire'
 import { ThemeProvider } from 'next-themes'
 import { FirebaseProviders } from './FirebaseProviders'
 import { StoreProvider } from './StoreProvider'
-import { InitializeStoreProvider } from './InitializeStoreProvider'
 
 export function Providers ({ children }: PropsWithChildren) {
   return (
@@ -14,9 +13,7 @@ export function Providers ({ children }: PropsWithChildren) {
       <FirebaseAppProvider firebaseConfig={firebaseConfig}>
         <FirebaseProviders>
           <StoreProvider>
-            <InitializeStoreProvider>
-              {children}
-            </InitializeStoreProvider>
+            {children}
           </StoreProvider>
         </FirebaseProviders>
       </FirebaseAppProvider>

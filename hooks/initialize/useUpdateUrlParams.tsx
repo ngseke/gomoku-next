@@ -19,9 +19,6 @@ export function useUpdateUrlParams () {
 
     if (type === 'game') {
       router.replace(`/game/${roomId}`)
-      return
     }
-
-    router.replace('/')
   }, [isPlayerStateInitialized, roomId, router, type])
 }

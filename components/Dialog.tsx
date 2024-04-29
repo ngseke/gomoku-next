@@ -57,14 +57,15 @@ export function Dialog ({ open, onClose, title, children }: DialogProps) {
               leaveTo="opacity-0 scale-95"
             >
               <BaseDialog.Panel className="w-full max-w-md overflow-hidden rounded-2xl border border-neutral-200 bg-[#fdfbfb] p-6 text-left align-middle shadow-xl transition-all dark:border-neutral-800 dark:bg-[#020404]">
-                <BaseDialog.Title
-                  as="h3"
-                  className="mb-2 flex justify-between text-lg font-bold"
-                >
-                  {title}
+                {(title ?? onClose) &&
+                  <BaseDialog.Title
+                    as="h3"
+                    className="mb-2 flex justify-between text-lg font-bold"
+                  >
+                    {title}
 
-                  {onClose && <CloseButton onClick={onClose} />}
-                </BaseDialog.Title>
+                    {onClose && <CloseButton onClick={onClose} />}
+                  </BaseDialog.Title>}
 
                 {children}
               </BaseDialog.Panel>

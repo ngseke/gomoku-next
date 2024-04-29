@@ -7,8 +7,11 @@ import { useAutoJoinRoom } from '@/hooks/useAutoJoinRoom'
 import { Dialog } from '../Dialog'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import { useInitializeStore } from '@/hooks/useInitializeStore'
 
 export function View () {
+  useInitializeStore()
+
   const playerState = usePlayerStateStore()
 
   const isInGame = playerState?.type === 'game'
