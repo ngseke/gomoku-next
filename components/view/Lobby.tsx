@@ -9,6 +9,7 @@ import { Dialog } from '../Dialog'
 import { Button } from '../Button'
 import { Input } from '../Input'
 import { useCreateOrJoinRoom } from '@/hooks/useCreateOrJoinRoom'
+import { LoadingDialog } from '../LoadingDialog'
 
 export function Lobby () {
   const {
@@ -102,6 +103,10 @@ export function Lobby () {
           </Button>
         </form>
       </Dialog>
+
+      <LoadingDialog open={isCreatingOrJoiningRoom} title="Joining The Room">
+        Almost there...
+      </LoadingDialog>
     </div>
   )
 }
