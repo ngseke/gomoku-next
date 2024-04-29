@@ -2,6 +2,7 @@ import { type Player } from '@/types/Player'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { type User } from 'firebase/auth'
+import { nanoid } from 'nanoid'
 
 export interface AuthState {
   user: User | null
@@ -42,8 +43,11 @@ export const authSlice = createSlice({
       state.isInitializingPlayer = false
     },
 
-    setSessionId (state, action: PayloadAction<string | null>) {
-      state.sessionId = action.payload
+    initializeSessionId (state) {
+      if (state.sessionId) return
+
+      const sessionId = nanoid(4)
+      state.sessionId = sessionId
     },
   },
 })
@@ -52,7 +56,7 @@ export const {
   setUser,
   setPlayer,
   clearAuth,
-  setSessionId,
+  initializeSessionId,
 } = authSlice.actions
 
 export const authReducer = authSlice.reducer
