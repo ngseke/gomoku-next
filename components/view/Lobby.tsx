@@ -50,6 +50,7 @@ export function Lobby () {
     event.preventDefault()
 
     try {
+      if (!roomId) return
       await joinRoom(roomId)
     } catch (err) {
       console.error(err)
@@ -96,7 +97,12 @@ export function Lobby () {
             value={roomId}
             onChange={event => { setRoomId(event.target.value) }}
           />
-          <Button block disabled={isCreatingOrJoiningRoom} type="submit">
+          <Button
+            block
+            disabled={!roomId}
+            loading={isCreatingOrJoiningRoom}
+            type="submit"
+          >
             Join
           </Button>
         </form>

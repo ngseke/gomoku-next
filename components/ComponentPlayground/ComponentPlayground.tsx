@@ -84,6 +84,11 @@ function ButtonSection () {
       <Button disabled icon={<FontAwesomeIcon icon={faUser} />}>
         Sign in as Guest
       </Button>
+      <Button loading icon={<FontAwesomeIcon icon={faUser} />}>
+        Loading
+      </Button>
+      <Button loading icon={<FontAwesomeIcon icon={faUser} />} />
+
       <Button block>Block</Button>
     </div>
   </>)

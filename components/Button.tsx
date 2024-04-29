@@ -1,4 +1,6 @@
 import { cn } from '@/modules/cn'
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { type ReactNode, type ComponentProps } from 'react'
 
 export function Button ({ block, icon, loading, children, disabled, readonly, className, ...restProps }: ComponentProps<'button'> & {
@@ -8,6 +10,17 @@ export function Button ({ block, icon, loading, children, disabled, readonly, cl
   loading?: boolean
 }) {
   const isIconButton = Boolean(icon && !children)
+
+  const body = loading
+    ? <FontAwesomeIcon spin icon={faCircleNotch} />
+    : <>
+      {icon && <span className="text-base">{icon}</span>}
+      {children && (
+        <span className="shrink-0">
+          {children}
+        </span>
+      )}
+    </>
 
   return (
     <div
@@ -23,21 +36,15 @@ export function Button ({ block, icon, loading, children, disabled, readonly, cl
           'dark:border-neutral-800 dark:bg-neutral-900',
           {
             'px-4': !isIconButton,
-            'opacity-50': disabled,
+            'opacity-50': Boolean(disabled) || Boolean(loading),
           },
           className
         )}
-        disabled={Boolean(disabled) || Boolean(readonly)}
+        disabled={Boolean(disabled) || Boolean(readonly) || Boolean(loading)}
         type="button"
         {...restProps}
       >
-        {icon && <span className="text-base">{icon}</span>}
-
-        {children && (
-          <span className="shrink-0">
-            {children}
-          </span>
-        )}
+        {body}
       </button>
     </div>
   )
