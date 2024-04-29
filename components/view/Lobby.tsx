@@ -4,9 +4,7 @@ import { type SyntheticEvent, useState, useEffect, useRef } from 'react'
 import { NewRoomButton } from '../GradientButton/NewRoomButton'
 import { JoinRoomButton } from '../GradientButton/JoinRoomButton'
 import { Logo } from '../LogoText'
-import { ProfileButton } from '../GradientButton/ProfileButton'
 import { PlayerPanel } from '../PlayerPanel'
-import { useAuthStore } from '@/hooks/useAuthStore'
 import { Dialog } from '../Dialog'
 import { Button } from '../Button'
 import { Input } from '../Input'
@@ -57,8 +55,6 @@ export function Lobby () {
     }
   }
 
-  const { player } = useAuthStore()
-
   return (
     <div className="container flex min-h-full max-w-[1000px] items-center px-4 py-8">
       <div className="flex w-full flex-col gap-8">
@@ -66,7 +62,7 @@ export function Lobby () {
           <Logo size="lg" />
         </div>
 
-        <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
           <NewRoomButton
             disabled={isCreatingOrJoiningRoom}
             onClick={handleClickCreateRoom}
@@ -75,7 +71,6 @@ export function Lobby () {
             disabled={isCreatingOrJoiningRoom}
             onClick={handleClickJoinRoom}
           />
-          <ProfileButton disabled={isCreatingOrJoiningRoom || !player} />
         </div>
 
         <div className="flex">
