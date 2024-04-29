@@ -46,7 +46,7 @@ export function GomokuBoard ({
               onClick={() => { onPlace?.({ x, y }) }}
               onHover={() => { onHover?.({ x, y }) }}
             >
-              {piece && <Piece color={piece.piece} />}
+              {piece && <Piece className="animate-piece" color={piece.piece} />}
             </Cell>
           )
         })}
