@@ -23,8 +23,10 @@ export function Lobby () {
   const [roomId, setRoomId] = useState('')
 
   async function handleClickCreateRoom () {
-    const { id } = await createRoom()
-    await joinRoom(id)
+    const room = await createRoom()
+    if (!room) return
+
+    await joinRoom(room.id)
   }
 
   const [isOpen, setIsOpen] = useState(false)

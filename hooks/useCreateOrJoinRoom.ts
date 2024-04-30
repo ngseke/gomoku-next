@@ -7,7 +7,7 @@ import { useSignInAnonymously } from '@/hooks/useSignInAnonymously'
 
 export function useCreateOrJoinRoom () {
   const axios = useAxios()
-  const { player } = useAuthStore()
+  const { player, isInitializingPlayer } = useAuthStore()
 
   const [isCreatingOrJoiningRoom, setIsCreatingOrJoiningRoom] = useState(false)
 
@@ -19,6 +19,8 @@ export function useCreateOrJoinRoom () {
   }
 
   async function createRoom () {
+    if (isInitializingPlayer) return
+
     setIsCreatingOrJoiningRoom(true)
 
     try {
@@ -31,6 +33,8 @@ export function useCreateOrJoinRoom () {
   }
 
   async function joinRoom (id: string) {
+    if (isInitializingPlayer) return
+
     setIsCreatingOrJoiningRoom(true)
 
     try {
