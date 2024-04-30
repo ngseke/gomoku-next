@@ -28,6 +28,7 @@
     ".next/types/**/*.ts",
     ".eslintrc.cjs",
     "postcss.config.cjs",
+    "next.config.mjs",
     "tailwind.config.ts"
   ],
   "exclude": ["node_modules"]
