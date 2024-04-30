@@ -4,7 +4,7 @@ import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
 import { useSignOut } from '@/hooks/useSignOut'
 import { PlayerPill } from './PlayerPill'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGear, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { Button } from './Button'
 import { useSignInAnonymously } from '@/hooks/useSignInAnonymously'
@@ -33,19 +33,14 @@ export function PlayerPanel () {
           <PlayerPill emoji={player?.emoji} loading={isInitializingPlayer} name={player?.name} />
 
           <Button
-            key="setting"
-            icon={<FontAwesomeIcon icon={faGear} />}
-          />
-
-          <ThemeButton />
-
-          <Divider />
-
-          <Button
             key="signOut"
             icon={<FontAwesomeIcon icon={faRightFromBracket} />}
             onClick={signOut}
           />
+
+          <Divider />
+
+          <ThemeButton />
         </>
         : <>
           <span className="font-medium opacity-60">
