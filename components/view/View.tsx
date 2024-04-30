@@ -19,8 +19,6 @@ export function View () {
   return (<>
     {isInGame ? <Game /> : <Lobby />}
 
-    <LoadingDialog open={isAutoJoiningRoom} title="Joining The Room">
-      Almost there...
-    </LoadingDialog>
+    <LoadingDialog open={isAutoJoiningRoom} title="Joining The Room" />
   </>)
 }

@@ -15,22 +15,22 @@ export function ThemeButton () {
   }, [])
 
   if (!isMounted) return null
-  const isDark = (theme === 'dark')
+
+  const icon = theme
+    ? {
+        dark: <FontAwesomeIcon icon={faSun} />,
+        light: <FontAwesomeIcon icon={faMoon} />,
+        system: <FontAwesomeIcon className="opacity-50" icon={faSun} />,
+      }[theme]
+    : null
 
   function handleClick () {
-    if (isDark) {
+    if (theme !== 'light') {
       setTheme('light')
     } else {
       setTheme('dark')
     }
   }
 
-  return (
-    <Button
-      icon={isDark
-        ? <FontAwesomeIcon icon={faSun} />
-        : <FontAwesomeIcon icon={faMoon} />}
-      onClick={handleClick}
-    />
-  )
+  return <Button icon={icon} onClick={handleClick} />
 }
