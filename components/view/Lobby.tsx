@@ -10,6 +10,7 @@ import { Button } from '../Button'
 import { Input } from '../Input'
 import { useCreateOrJoinRoom } from '@/hooks/useCreateOrJoinRoom'
 import { LoadingDialog } from '../LoadingDialog'
+import { LogoIcon } from '../LogoIcon'
 
 export function Lobby () {
   const {
@@ -63,7 +64,8 @@ export function Lobby () {
   return (
     <div className="container flex min-h-full max-w-[1000px] items-center px-4 py-8">
       <div className="flex w-full flex-col gap-8">
-        <div>
+        <div className="flex items-center gap-3">
+          <LogoIcon />
           <LogoText size="lg" />
         </div>
 
