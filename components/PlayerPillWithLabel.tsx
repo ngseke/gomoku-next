@@ -31,11 +31,11 @@ export function PlayerPillWithLabel ({
 }) {
   return (
     <div
-      className="relative inline-flex max-w-full flex-col items-center gap-1"
+      className="relative inline-flex max-w-full flex-col items-center gap-1.5"
     >
       <Crown show={Boolean(isWinner)} />
       <PlayerPill {...restProps} />
-      <span className="text-sm font-medium opacity-60">
+      <span className="text-xs font-medium opacity-60">
         {label}
       </span>
     </div>
