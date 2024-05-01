@@ -25,7 +25,7 @@ export function GomokuBoardSection () {
   const [isShowLabels, setIsShowLabel] = useState(true)
   const [hovered, setHovered] = useState<object>({})
   const [result, setResult] = useState<BoardResult | null>(null)
-
+  const [myPiece, setMyPiece] = useState<Piece>('black')
   const boardGrid = useMemo(() => generateBoardGrid(boardRecords), [boardRecords])
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export function GomokuBoardSection () {
           onPlace={handlePlace}
         />
         <ResultOverlay
-          piece={nextAvailablePiece}
+          piece={myPiece}
           result={result}
           onClickNewRound={clear}
         />
@@ -145,19 +145,12 @@ export function GomokuBoardSection () {
           </select>
         </label>
         <label>
-          Result Piece
+          My Piece
           <select
-            value={result?.type === 'win' ? result?.piece : ''}
+            value={myPiece}
             onChange={event => {
               const piece = event.target.value as Piece
-              if (!piece) return
-
-              setResult(produce(result, (result) => {
-                if (result?.type === 'win') {
-                  result.piece = piece
-                }
-                return result
-              }))
+              setMyPiece(piece)
             }}
           >
             {['black', 'white'].map(value => (
