@@ -21,7 +21,7 @@ export function Tabs ({ tabs, ...restProps }: TabsProps) {
             key={index}
             className={({ selected }) => cn(
               'flex w-full items-center justify-center gap-2 rounded-lg py-1.5 text-sm font-medium',
-              'ring-white/60 ring-offset-2 ring-offset-transparent focus:outline-none focus:ring-2',
+              'ring-neutral-300 ring-white/60 ring-offset-2 ring-offset-transparent focus:outline-none focus:ring-2 dark:ring-neutral-700 ',
               selected
                 ? 'bg-neutral-100 dark:bg-neutral-900'
                 : ''
