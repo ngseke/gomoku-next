@@ -24,6 +24,7 @@ import { useHasUnreadChat } from '@/hooks/useHasUnreadChat'
 import { BoardRecordBox } from '../BoardRecordBox'
 import { GameNavbar } from '../GameNavbar'
 import { type BoardRecord } from '@/types/BoardRecord'
+import { useShareUrl } from '@/hooks/useShareUrl'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -120,10 +121,13 @@ export function Game () {
     },
   ]
 
+  const { shareUrl } = useShareUrl()
+
   return (<>
     <GameNavbar
       isBackIconButtonLoading={isExitingRoom}
       isShowLabels={isShowLabels}
+      shareUrl={shareUrl}
       onClickBackIconButton={handleClickExitRoom}
       onClickToggleIsShowLabels={toggleIsShowLabels}
     />

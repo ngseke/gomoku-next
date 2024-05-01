@@ -1,21 +1,24 @@
-import { faListOl, faShareNodes } from '@fortawesome/free-solid-svg-icons'
+import { faListOl } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { BackIconButton } from './BackIconButton'
 import { Button } from './Button'
 import { LogoText } from './LogoText'
 import { Navbar } from './Navbar'
 import { ThemeButton } from './ThemeButton'
+import { ShareButton } from './ShareButton'
 
 export function GameNavbar ({
   isBackIconButtonLoading,
   onClickBackIconButton,
   isShowLabels,
   onClickToggleIsShowLabels,
+  shareUrl,
 }: {
   isBackIconButtonLoading: boolean
   onClickBackIconButton: () => void
   isShowLabels: boolean
   onClickToggleIsShowLabels: () => void
+  shareUrl?: string
 }) {
   return (
     <Navbar>
@@ -35,7 +38,8 @@ export function GameNavbar ({
               : <FontAwesomeIcon icon={faListOl} />}
             onClick={onClickToggleIsShowLabels}
           >{isShowLabels ? 'Hide' : 'Show'} Labels</Button>
-          <Button icon={<FontAwesomeIcon icon={faShareNodes} />} />
+
+          <ShareButton url={shareUrl} />
           <ThemeButton />
         </div>
       </div>
