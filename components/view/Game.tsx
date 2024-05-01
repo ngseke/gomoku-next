@@ -68,7 +68,7 @@ export function Game () {
       <NotCurrentSessionDialog open={!isCurrentSession} />
 
       <div className="flex size-full flex-col gap-8">
-        <div className="flex flex-none justify-between gap-3">
+        <header className="flex flex-none justify-between gap-3">
           <div className="flex flex-none items-center gap-3">
             <BackIconButton
               loading={isExitingRoom}
@@ -78,7 +78,7 @@ export function Game () {
             <RoomIdHashtag>{room?.id}</RoomIdHashtag>
           </div>
 
-          <div className="flex gap-2">
+          <nav className="flex gap-2">
             <Button
               icon={isShowLabels
                 ? <FontAwesomeIcon icon={faListOl} />
@@ -87,28 +87,33 @@ export function Game () {
             >{isShowLabels ? 'Hide' : 'Show'} Labels</Button>
             <Button icon={<FontAwesomeIcon icon={faShare} />} />
             <ThemeButton />
+          </nav>
+        </header>
+
+        <main className="-mx-4 flex h-full flex-1 flex-wrap items-center sm:flex-nowrap">
+          <div className="flex w-full flex-col gap-2 px-4 sm:w-[55%]">
+            <div>
+              Board
+            </div>
+
+            <div className="relative aspect-square">
+              <GomokuBoard
+                boardGrid={optimisticBoardGrid}
+                disabled={!isMyTurn || !isCurrentSession}
+                showLabels={isShowLabels}
+                winningLine={winningLine}
+                onPlace={handlePlace}
+              />
+
+              <ResultOverlay
+                piece={myPiece}
+                result={result}
+                onClickNewRound={createNewBoard}
+              />
+            </div>
           </div>
 
-        </div>
-
-        <div className="-mx-4 flex h-full flex-1 flex-wrap items-center sm:flex-nowrap">
-          <div className="relative w-full px-4 md:w-[55%]">
-            <GomokuBoard
-              boardGrid={optimisticBoardGrid}
-              disabled={!isMyTurn || !isCurrentSession}
-              showLabels={isShowLabels}
-              winningLine={winningLine}
-              onPlace={handlePlace}
-            />
-
-            <ResultOverlay
-              piece={myPiece}
-              result={result}
-              onClickNewRound={createNewBoard}
-            />
-          </div>
-
-          <div className="flex w-full flex-col gap-3 px-4 md:w-[45%]">
+          <div className="flex w-full flex-col gap-3 px-4 sm:w-[45%]">
             <div className="-mx-2 flex">
               {roomPlayers?.map((roomPlayer) => {
                 const isActive = roomPlayer?.piece === nextAvailablePiece
@@ -138,7 +143,7 @@ export function Game () {
               />
             </div>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   )
