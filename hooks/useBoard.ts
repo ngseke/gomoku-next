@@ -8,8 +8,9 @@ import { useDatabase } from 'reactfire'
 import { useAxios } from './useAxios'
 import { generateBoardGrid } from '@/modules/generateBoard'
 import { getNextAvailablePiece } from '@/modules/boardGrid'
-import { type BoardRecord } from '@/types/BoardRecord'
+import { type BoardRecordWithId } from '@/types/BoardRecord'
 import { type Piece } from '@/types/Piece'
+import { nanoid } from 'nanoid'
 
 export function useBoard (boardId: Nullish<string>) {
   const database = useDatabase()
@@ -46,14 +47,19 @@ export function useBoard (boardId: Nullish<string>) {
   const axios = useAxios()
 
   const [isPlacing, setIsPlacing] = useState(false)
-  const [placedPiece, setPlacedPiece] = useState<BoardRecord | null>(null)
+  const [placedPiece, setPlacedPiece] = useState<BoardRecordWithId | null>(null)
 
   /** Place a new piece. */
   async function place (position: Position, piece?: Piece) {
     if (!boardId || isPlacing || !piece) return
 
     setIsPlacing(true)
-    setPlacedPiece({ ...position, piece, createdAt: +new Date() })
+    setPlacedPiece({
+      ...position,
+      piece,
+      createdAt: +new Date(),
+      id: nanoid(),
+    })
 
     try {
       await axios.post(`/api/board/${boardId}/place`, position)

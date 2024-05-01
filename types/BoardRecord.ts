@@ -5,3 +5,7 @@ export interface BoardRecord extends BoardCell {
   createdBy?: string
   createdAt?: number
 }
+
+export type BoardRecordWithId = BoardRecord & {
+  id: string
+}

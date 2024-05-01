@@ -1,5 +1,8 @@
-export function convertToArray<Type> (object: Type) {
+export function convertToArray<
+  Type extends object
+> (object: Record<string, Type>) {
   if (!object) return null
 
-  return Object.values(object)
+  return Object.entries(object)
+    .map<Type & { id: string }>(([id, value]) => ({ id, ...value }))
 }
