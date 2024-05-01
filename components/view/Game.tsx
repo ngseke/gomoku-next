@@ -23,6 +23,7 @@ import { type Position } from '@/types/Position'
 import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
 import { useState } from 'react'
 import { Navbar } from '../Navbar'
+import { Tabs } from '../Tabs'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -65,6 +66,28 @@ export function Game () {
     await place(position, myPiece)
   }
 
+  const tabs = [
+    {
+      name: 'Chat',
+      panel: (
+        <div className="h-[350px] w-full max-w-full flex-none">
+          <ConnectedChatBox
+            disabled={!isCurrentSession}
+            roomId={playerState?.roomId}
+          />
+        </div>
+      ),
+    },
+    {
+      name: 'Moves',
+      panel: (
+        <div className="h-[350px] w-full max-w-full flex-none">
+          Moves
+        </div>
+      ),
+    },
+  ]
+
   return (<>
     <Navbar>
       <div className="flex w-full justify-between">
@@ -93,7 +116,7 @@ export function Game () {
       <NotCurrentSessionDialog open={!isCurrentSession} />
 
       <div className="flex size-full flex-col gap-8">
-        <main className="-mx-4 flex h-full flex-1 flex-wrap items-center sm:flex-nowrap">
+        <main className="-mx-4 flex h-full flex-1 flex-wrap gap-y-8 sm:flex-nowrap">
           <div className="flex w-full flex-col gap-2 px-4 sm:w-[55%]">
             <div className="flex gap-2">
               <RoomIdHashtag>{room?.id}</RoomIdHashtag>
@@ -117,7 +140,7 @@ export function Game () {
             </div>
           </div>
 
-          <div className="flex w-full flex-col gap-3 px-4 sm:w-[45%]">
+          <div className="flex w-full flex-col gap-3 px-4 pt-4 sm:w-[45%]">
             <div className="-mx-2 flex">
               {roomPlayers?.map((roomPlayer) => {
                 const isActive = roomPlayer?.piece === nextAvailablePiece
@@ -140,12 +163,7 @@ export function Game () {
               })}
             </div>
 
-            <div className="h-[350px] w-full max-w-full flex-none">
-              <ConnectedChatBox
-                disabled={!isCurrentSession}
-                roomId={playerState?.roomId}
-              />
-            </div>
+            <Tabs tabs={tabs} />
           </div>
         </main>
       </div>
