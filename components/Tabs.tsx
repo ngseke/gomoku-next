@@ -1,15 +1,19 @@
 import { cn } from '@/modules/cn'
 import { Tab as BaseTab } from '@headlessui/react'
-import { type ReactNode } from 'react'
+import { type ComponentProps, type ReactNode } from 'react'
 
 interface Tab {
   name: ReactNode
   panel: ReactNode
 }
 
-export function Tabs ({ tabs }: { tabs: Tab[] }) {
+type TabsProps = ComponentProps<typeof BaseTab.Group> & {
+  tabs: Tab[]
+}
+
+export function Tabs ({ tabs, ...restProps }: TabsProps) {
   return (
-    <BaseTab.Group>
+    <BaseTab.Group {...restProps}>
       <BaseTab.List className="flex space-x-1 rounded-xl bg-neutral-200 p-1 dark:bg-neutral-800">
         {tabs.map(({ name }, index) => (
           <BaseTab

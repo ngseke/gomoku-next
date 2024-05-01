@@ -24,6 +24,8 @@ import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
 import { useState } from 'react'
 import { Navbar } from '../Navbar'
 import { Tabs } from '../Tabs'
+import { TextWithIndicator } from '../TextWithIndicator'
+import { useHasUnreadChat } from '@/hooks/useHasUnreadChat'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -66,9 +68,22 @@ export function Game () {
     await place(position, myPiece)
   }
 
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const { hasUnreadChat, setHasUnreadChat } = useHasUnreadChat({
+    active: selectedIndex !== 0,
+  })
+
+  function handleChangeTab (index: number) {
+    if (index === 0) setHasUnreadChat(false)
+    setSelectedIndex(index)
+  }
   const tabs = [
     {
-      name: 'Chat',
+      name: (
+        <TextWithIndicator active={hasUnreadChat}>
+          Chat
+        </TextWithIndicator>
+      ),
       panel: (
         <div className="h-[350px] w-full max-w-full flex-none">
           <ConnectedChatBox
@@ -163,7 +178,11 @@ export function Game () {
               })}
             </div>
 
-            <Tabs tabs={tabs} />
+            <Tabs
+              selectedIndex={selectedIndex}
+              tabs={tabs}
+              onChange={handleChangeTab}
+            />
           </div>
         </main>
       </div>
