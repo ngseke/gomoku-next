@@ -1,7 +1,8 @@
 import { cn } from '@/modules/cn'
 import { type Position } from '@/types/Position'
-import { type PropsWithChildren } from 'react'
+import { Fragment, type PropsWithChildren } from 'react'
 import { PieceGhost } from './Piece'
+import { Transition } from '@headlessui/react'
 
 const size = 15
 
@@ -61,11 +62,19 @@ function HorizontalLine ({ x, y }: Position) {
 
 function Highlight ({ show }: { show: boolean }) {
   return (
-    <span
-      className={cn('absolute left-1/2 top-1/2 size-full -translate-x-1/2 -translate-y-1/2 scale-75 rounded-[25%] bg-neutral-300/90 opacity-0 dark:bg-neutral-700/90', {
-        'opacity-100 duration-300 scale-100': show,
-      })}
-    />
+    <Transition
+      as={Fragment}
+      enter="duration-300"
+      enterFrom="opacity-0 scale-75"
+      enterTo="opacity-100"
+      show={Boolean(show)}
+    >
+      <span className="absolute inset-0 flex items-center justify-center">
+        <span
+          className="size-full animate-pulse rounded-[25%] bg-neutral-300/90 dark:bg-neutral-700/90"
+        />
+      </span>
+    </Transition>
   )
 }
 
@@ -113,7 +122,9 @@ export function Cell ({
 
       <div className="z-10 flex size-full items-center justify-center">
         {children ??
-          <PieceGhost className="opacity-0 group-enabled:group-hover:opacity-100 " />}
+          <PieceGhost
+            className="opacity-0 group-enabled:group-hover:opacity-100"
+          />}
       </div>
     </button>
   )
