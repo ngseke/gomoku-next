@@ -4,7 +4,7 @@ import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
 import { useSignOut } from '@/hooks/useSignOut'
 import { PlayerPill } from './PlayerPill'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faFlask, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { Button } from './Button'
 import { useSignInAnonymously } from '@/hooks/useSignInAnonymously'
@@ -27,7 +27,7 @@ export function PlayerPanel () {
   const shouldDisableButton = isSigningInAnonymously
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <nav className="flex flex-wrap items-center gap-2">
       {player ?? isInitializingPlayer
         ? <>
           <PlayerPill emoji={player?.emoji} loading={isInitializingPlayer} name={player?.name} />
@@ -65,6 +65,11 @@ export function PlayerPanel () {
           <Divider />
           <ThemeButton />
         </>}
-    </div>
+
+      <Button
+        href="/playground"
+        icon={<FontAwesomeIcon icon={faFlask} />}
+      />
+    </nav>
   )
 }
