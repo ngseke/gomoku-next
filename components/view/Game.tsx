@@ -17,7 +17,7 @@ import { useRoomActions } from '@/hooks/useRoomActions'
 import { Button } from '../Button'
 import { useToggle } from 'usehooks-ts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faListOl, faShare } from '@fortawesome/free-solid-svg-icons'
+import { faClockRotateLeft, faComment, faListOl, faShare } from '@fortawesome/free-solid-svg-icons'
 import { ResultOverlay } from '../ResultOverlay'
 import { type Position } from '@/types/Position'
 import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
@@ -86,6 +86,7 @@ export function Game () {
           Chat
         </TextWithIndicator>
       ),
+      icon: <FontAwesomeIcon icon={faComment} />,
       panel: (
         <div className="h-[350px] w-full max-w-full flex-none">
           <ConnectedChatBox
@@ -96,7 +97,8 @@ export function Game () {
       ),
     },
     {
-      name: 'Moves',
+      name: 'History',
+      icon: <FontAwesomeIcon icon={faClockRotateLeft} />,
       panel: (
         <div className="h-[350px] w-full max-w-full flex-none">
           <BoardRecordBox records={records} />
