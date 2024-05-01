@@ -26,6 +26,10 @@ import { produce } from 'immer'
 import { getAvailablePositions, getNextAvailablePiece, judgeResult } from '@/modules/boardGrid'
 import { type Position } from '@/types/Position'
 import { ThemeToggle } from './ThemeToggle'
+import { PlayerPillWithLabel } from '../PlayerPillWithLabel'
+import { ResultOverlay } from '../ResultOverlay'
+import { type BoardResult } from '@/types/BoardResult'
+import { type Piece } from '@/types/Piece'
 
 function Headline (props: ComponentProps<'h2'>) {
   return <h2 className="mt-5 text-3xl font-bold" {...props} />
@@ -51,7 +55,7 @@ function GradientButtonSection () {
 
 function PlayerPillSection () {
   const [isActive, setIsActive] = useState(true)
-  useInterval(() => { setIsActive(!isActive) }, 1500)
+  useInterval(() => { setIsActive(!isActive) }, 3000)
 
   return (<>
     <Headline>Player Pill</Headline>
@@ -66,6 +70,13 @@ function PlayerPillSection () {
       <PlayerPill color="white" emoji="🐻‍❄️" name="李四" />
       <PlayerPill active={isActive} color="black" emoji="🗿" name="楊淑芬" />
       <PlayerPill active={!isActive} color="white" emoji="🎃️" name="陳金發" />
+    </div>
+
+    <Headline>Player Pill With Label</Headline>
+    <div className="flex flex-wrap gap-2">
+      <div className="w-full" />
+      <PlayerPillWithLabel color="black" emoji="🤨" isWinner={isActive} label="你" name="楊淑芬" />
+      <PlayerPillWithLabel color="white" emoji="😈️" isWinner={!isActive} label="對手" name="陳金發" />
     </div>
   </>)
 }
@@ -195,7 +206,7 @@ function GomokuBoardSection () {
   const [isDisabled, setIsDisabled] = useState(false)
   const [isShowLabels, setIsShowLabel] = useState(true)
   const [hovered, setHovered] = useState<object>({})
-  const [winningLine, setWinningLine] = useState<WinningLine | null>(null)
+  const [result, setResult] = useState<BoardResult | null>(null)
 
   const boardGrid = useMemo(() => generateBoardGrid(boardRecords), [boardRecords])
 
@@ -203,7 +214,7 @@ function GomokuBoardSection () {
     const result = judgeResult(boardGrid)
 
     if (result?.type === 'draw') return
-    setWinningLine(result)
+    setResult(result)
   }, [boardGrid, boardRecords])
 
   const nextAvailablePiece = getNextAvailablePiece(boardGrid)
@@ -225,22 +236,32 @@ function GomokuBoardSection () {
     handlePlace(position)
   }
 
+  function clear () {
+    setBoardRecords([])
+    setHighlight(undefined)
+  }
+
   return (<>
     <Headline>Gomoku Board</Headline>
     <div className="flex flex-wrap gap-6">
-      <div style={{ width: `${width}px` }}>
+      <div className="relative" style={{ width: `${width}px` }}>
         <GomokuBoard
           boardGrid={generateBoardGrid(boardRecords)}
           disabled={isDisabled}
           highlight={highlight}
           showLabels={isShowLabels}
-          winningLine={winningLine}
+          winningLine={result?.type === 'win' ? result : null}
           onHover={(position) => { setHovered(formatPosition(position)) }}
           onPlace={handlePlace}
         />
+        <ResultOverlay
+          piece={nextAvailablePiece}
+          result={result}
+          onClickNewRound={clear}
+        />
       </div>
 
-      <div className="flex w-72 flex-col gap-2">
+      <div className="flex w-72 flex-1 flex-col gap-2">
         <div>
           Hovered:
           <code>{JSON.stringify(hovered)}</code>
@@ -268,30 +289,33 @@ function GomokuBoardSection () {
           isDisabled
         </Checkbox>
 
-        <Button onClick={placeRandomly}>placeRandomly</Button>
+        <Button onClick={placeRandomly}>Place Randomly</Button>
 
-        <Button onClick={() => {
-          setBoardRecords([])
-          setHighlight(undefined)
-        }}
-        >Clear</Button>
+        <Button onClick={clear}>Clear</Button>
 
-        Winning Line
+        <h3 className="text-xl font-bold">Result Overlay & Winning Line</h3>
         <label>
           Direction
           <select
-            value={winningLine?.direction ?? ''}
+            value={result?.type === 'win' ? result?.direction : ''}
             onChange={event => {
               const direction = event.target.value as WinningLine['direction']
               if (!direction) {
-                setWinningLine(null)
+                setResult(null)
                 return
               }
 
-              setWinningLine(produce(winningLine, (winningLine) => {
-                winningLine ??= { direction, position: { x: 9, y: 7 } }
-                winningLine.direction = direction
-                return winningLine
+              setResult(produce(result, (result) => {
+                result ??= {
+                  type: 'win',
+                  piece: 'black',
+                  direction,
+                  position: { x: 9, y: 7 },
+                }
+                if (result.type === 'win') {
+                  result.direction = direction
+                }
+                return result
               }))
             }}
           >
@@ -302,31 +326,54 @@ function GomokuBoardSection () {
               ))}
           </select>
         </label>
+        <label>
+          Result Piece
+          <select
+            value={result?.type === 'win' ? result?.piece : ''}
+            onChange={event => {
+              const piece = event.target.value as Piece
+              if (!piece) return
 
-        <Input
-          label="X"
-          type="number"
-          value={winningLine?.position.x ?? 3}
-          onChange={event => {
-            if (!winningLine) return
-            const value = +event.target.value
-            setWinningLine(produce(winningLine, (winningLine) => {
-              winningLine.position.x = value
-            }))
-          }}
-        />
-        <Input
-          label="Y"
-          type="number"
-          value={winningLine?.position.y ?? 3}
-          onChange={event => {
-            if (!winningLine) return
-            const value = +event.target.value
-            setWinningLine(produce(winningLine, (winningLine) => {
-              winningLine.position.y = value
-            }))
-          }}
-        />
+              setResult(produce(result, (result) => {
+                if (result?.type === 'win') {
+                  result.piece = piece
+                }
+                return result
+              }))
+            }}
+          >
+            {['black', 'white'].map(value => (
+              <option key={value} value={value}>{value}</option>
+            ))}
+          </select>
+        </label>
+        {result?.type === 'win' && <div className="grid grid-cols-2 gap-4">
+          <Input
+            label="X"
+            type="number"
+            value={result?.position.x ?? 3}
+            onChange={event => {
+              if (!result) return
+              const value = +event.target.value
+              setResult(produce(result, (winningLine) => {
+                winningLine.position.x = value
+              }))
+            }}
+          />
+          <Input
+            label="Y"
+            type="number"
+            value={result?.position.y ?? 3}
+            onChange={event => {
+              if (!result) return
+              const value = +event.target.value
+              setResult(produce(result, (winningLine) => {
+                winningLine.position.y = value
+              }))
+            }}
+          />
+        </div>}
+
       </div>
     </div>
   </>)
