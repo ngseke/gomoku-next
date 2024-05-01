@@ -1,4 +1,4 @@
-import { faListOl, faShare } from '@fortawesome/free-solid-svg-icons'
+import { faListOl, faShareNodes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { BackIconButton } from './BackIconButton'
 import { Button } from './Button'
@@ -35,7 +35,7 @@ export function GameNavbar ({
               : <FontAwesomeIcon icon={faListOl} />}
             onClick={onClickToggleIsShowLabels}
           >{isShowLabels ? 'Hide' : 'Show'} Labels</Button>
-          <Button icon={<FontAwesomeIcon icon={faShare} />} />
+          <Button icon={<FontAwesomeIcon icon={faShareNodes} />} />
           <ThemeButton />
         </div>
       </div>
