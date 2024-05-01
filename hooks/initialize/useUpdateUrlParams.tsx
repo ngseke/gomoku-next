@@ -18,7 +18,7 @@ export function useUpdateUrlParams () {
     if (!isPlayerStateInitialized) return
 
     if (type === 'game') {
-      router.replace(`/game/${roomId}`)
+      router.replace(`/game/${roomId}`, { scroll: false })
     }
   }, [isPlayerStateInitialized, roomId, router, type])
 }

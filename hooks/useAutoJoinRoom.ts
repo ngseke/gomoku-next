@@ -26,7 +26,7 @@ export function useAutoJoinRoom () {
 
     const roomId = slugs?.[1]
     if (!roomId) {
-      router.replace('/')
+      router.replace('/', { scroll: false })
       return
     }
 

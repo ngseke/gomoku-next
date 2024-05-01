@@ -8,7 +8,7 @@ export function ConnectedChatBox ({ roomId, disabled }: {
   roomId: Nullish<string>
   disabled?: boolean
 }) {
-  const { chats } = useChats(roomId)
+  const { chats } = useChats()
 
   const { message, setMessage, send, isSending, error } =
     useSendChat(roomId)

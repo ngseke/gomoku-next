@@ -1,42 +1,7 @@
-import { type Chat } from '@/types/Chat'
-import { type Nullish } from '@/types/Nullish'
-import { ref, limitToLast, query, onChildAdded } from 'firebase/database'
-import { produce } from 'immer'
-import { useEffect, useState } from 'react'
-import { useDatabase } from 'reactfire'
+import { useAppSelector } from '@/lib/hooks'
 
-export function useChats (roomId: Nullish<string>) {
-  const database = useDatabase()
-
-  const [chats, setChats] = useState<Record<string, Chat> | null>(null)
-
-  useEffect(() => {
-    if (!roomId) {
-      setChats(null)
-      return
-    }
-    const chatsRef = ref(database, `chats/${roomId}`)
-    setChats(null)
-
-    const unsubscribe = onChildAdded(
-      query(chatsRef, limitToLast(10)),
-      (snapshot) => {
-        const key = snapshot.key
-        const data = snapshot.val()
-
-        if (!key) return
-
-        setChats((chats) => (
-          produce(chats, (draft) => ({
-            ...draft,
-            [key]: data,
-          }))
-        ))
-      }
-    )
-
-    return unsubscribe
-  }, [database, roomId])
+export function useChats () {
+  const chats = useAppSelector(state => state.chat.chats)
 
   return {
     chats,
