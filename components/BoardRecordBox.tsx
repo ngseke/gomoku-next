@@ -13,7 +13,7 @@ function NoMovesMessage () {
 
 export interface BoardRecordBoxProps {
   records: Nullish<BoardRecordWithId[]>
-  onHover?: (record: BoardRecordWithId) => void
+  onHover?: (record: BoardRecordWithId | null) => void
 }
 
 export function BoardRecordBox ({

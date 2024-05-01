@@ -12,6 +12,8 @@ const size = 15
 export function GomokuBoard ({
   boardGrid,
   highlight,
+  emphasis,
+  dimmedPositions,
   winningLine,
   disabled,
   showLabels,
@@ -22,10 +24,16 @@ export function GomokuBoard ({
   disabled?: boolean
   showLabels?: boolean
   highlight?: Nullish<Position>
+  emphasis?: Nullish<Position>
+  dimmedPositions?: Nullish<Position[]>
   winningLine?: Nullish<WinningLineType>
   onPlace?: (position: Position) => void
   onHover?: (position: Position) => void
 }) {
+  const dimmedPositionSet = new Set(dimmedPositions?.map(
+    ({ x, y }) => `${x},${y}`)
+  )
+
   return (
     <GridWithLabel showLabels={showLabels}>
       <div className="relative grid w-full grid-cols-15">
@@ -34,19 +42,28 @@ export function GomokuBoard ({
           const y = Math.floor(index / size)
 
           const piece = boardGrid?.[x]?.[y]
-          const shouldHighlight = highlight?.x === x && highlight?.y === y
+          const isHighlight = highlight?.x === x && highlight?.y === y
+          const isEmphasis = emphasis?.x === x && emphasis?.y === y
+          const isDimmed = dimmedPositionSet.has(`${x},${y}`)
 
           return (
             <Cell
               key={index}
               disabled={Boolean(piece) || disabled}
-              highlight={shouldHighlight}
+              highlight={!dimmedPositionSet.size && isHighlight}
               x={x}
               y={y}
               onClick={() => { onPlace?.({ x, y }) }}
               onHover={() => { onHover?.({ x, y }) }}
             >
-              {piece && <Piece className="animate-piece" color={piece.piece} />}
+              {piece && (
+                <Piece
+                  animate={isHighlight}
+                  color={piece.piece}
+                  dimmed={isDimmed}
+                  emphasis={isEmphasis}
+                />
+              )}
             </Cell>
           )
         })}

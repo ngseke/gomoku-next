@@ -17,12 +17,13 @@ import { faClockRotateLeft, faComment } from '@fortawesome/free-solid-svg-icons'
 import { ResultOverlay } from '../ResultOverlay'
 import { type Position } from '@/types/Position'
 import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Tabs } from '../Tabs'
 import { TextWithIndicator } from '../TextWithIndicator'
 import { useHasUnreadChat } from '@/hooks/useHasUnreadChat'
 import { BoardRecordBox } from '../BoardRecordBox'
 import { GameNavbar } from '../GameNavbar'
+import { type BoardRecord } from '@/types/BoardRecord'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -66,14 +67,25 @@ export function Game () {
     await place(position, myPiece)
   }
 
-  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [emphasis, setEmphasis] = useState<BoardRecord | null>(null)
+  const dimmedPositions = useMemo(() => {
+    if (!emphasis) return null
+    const index = records?.findIndex(
+      record => record.x === emphasis.x && record.y === emphasis.y
+    )
+    if (index == null) return null
+
+    return records?.slice(index + 1)
+  }, [emphasis, records])
+
+  const [selectedTabIndex, setSelectedTabIndex] = useState(0)
   const { hasUnreadChat, setHasUnreadChat } = useHasUnreadChat({
-    active: selectedIndex !== 0,
+    active: selectedTabIndex !== 0,
   })
 
   function handleChangeTab (index: number) {
     if (index === 0) setHasUnreadChat(false)
-    setSelectedIndex(index)
+    setSelectedTabIndex(index)
   }
   const tabs = [
     {
@@ -97,7 +109,12 @@ export function Game () {
       icon: <FontAwesomeIcon icon={faClockRotateLeft} />,
       panel: (
         <div className="h-[350px] w-full max-w-full flex-none">
-          <BoardRecordBox records={records} />
+          <BoardRecordBox
+            records={records}
+            onHover={(record) => {
+              setEmphasis(record)
+            }}
+          />
         </div>
       ),
     },
@@ -124,7 +141,9 @@ export function Game () {
             <div className="relative aspect-square">
               <GomokuBoard
                 boardGrid={optimisticBoardGrid}
+                dimmedPositions={dimmedPositions}
                 disabled={!isMyTurn || !isCurrentSession}
+                emphasis={emphasis}
                 highlight={highlight}
                 showLabels={isShowLabels}
                 winningLine={winningLine}
@@ -163,7 +182,7 @@ export function Game () {
             </div>
 
             <Tabs
-              selectedIndex={selectedIndex}
+              selectedIndex={selectedTabIndex}
               tabs={tabs}
               onChange={handleChangeTab}
             />

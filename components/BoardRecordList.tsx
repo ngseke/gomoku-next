@@ -8,9 +8,9 @@ import { cn } from '@/modules/cn'
 
 dayjs.extend(localizedFormat)
 
-export function BoardRecordList ({ records }: {
+export function BoardRecordList ({ records, onHover }: {
   records: Nullish<BoardRecordWithId[]>
-  onHover?: (record: BoardRecordWithId) => void
+  onHover?: (record: BoardRecordWithId | null) => void
 }) {
   return (
     <ul className="divide-y divide-neutral-200 py-4 dark:divide-neutral-800">
@@ -19,7 +19,12 @@ export function BoardRecordList ({ records }: {
         const isLast = index === records.length - 1
 
         return (
-          <li key={record.id} className="p-2 text-sm">
+          <li
+            key={record.id}
+            className="p-2 text-sm hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50"
+            onMouseOut={() => onHover?.(null)}
+            onMouseOver={() => onHover?.(record)}
+          >
             <div className="grid grid-cols-[1.75rem_1.5rem_2.5rem_1fr] items-center gap-4">
               <div
                 className={cn('text-right font-mono duration-200', {
