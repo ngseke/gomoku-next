@@ -26,6 +26,7 @@ import { Navbar } from '../Navbar'
 import { Tabs } from '../Tabs'
 import { TextWithIndicator } from '../TextWithIndicator'
 import { useHasUnreadChat } from '@/hooks/useHasUnreadChat'
+import { BoardRecordBox } from '../BoardRecordBox'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -50,6 +51,7 @@ export function Game () {
 
   const boardId = room?.boardId
   const {
+    records,
     result,
     winningLine,
     highlight,
@@ -97,7 +99,7 @@ export function Game () {
       name: 'Moves',
       panel: (
         <div className="h-[350px] w-full max-w-full flex-none">
-          Moves
+          <BoardRecordBox records={records} />
         </div>
       ),
     },
