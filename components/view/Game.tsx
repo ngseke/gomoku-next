@@ -88,6 +88,7 @@ export function Game () {
     if (index === 0) setHasUnreadChat(false)
     setSelectedTabIndex(index)
   }
+
   const tabs = [
     {
       name: (
@@ -101,6 +102,7 @@ export function Game () {
           <ConnectedChatBox
             disabled={!isCurrentSession}
             roomId={playerState?.roomId}
+            visible={selectedTabIndex === 0}
           />
         </div>
       ),

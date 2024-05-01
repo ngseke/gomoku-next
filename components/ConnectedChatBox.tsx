@@ -4,9 +4,10 @@ import { type Nullish } from '@/types/Nullish'
 import { ChatBox } from './ChatBox'
 import { usePlayer } from '@/hooks/usePlayer'
 
-export function ConnectedChatBox ({ roomId, disabled }: {
+export function ConnectedChatBox ({ roomId, disabled, visible }: {
   roomId: Nullish<string>
   disabled?: boolean
+  visible?: boolean
 }) {
   const { chats } = useChats()
 
@@ -23,6 +24,7 @@ export function ConnectedChatBox ({ roomId, disabled }: {
       message={message}
       playerId={player?.id}
       setMessage={setMessage}
+      visible={visible}
       onSubmit={send}
     />
   )

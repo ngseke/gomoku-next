@@ -66,7 +66,6 @@ function Highlight ({ show }: { show: boolean }) {
       as={Fragment}
       enter="duration-300"
       enterFrom="opacity-0 scale-75"
-      enterTo="opacity-100"
       show={Boolean(show)}
     >
       <span className="absolute inset-0 flex items-center justify-center">
