@@ -39,10 +39,9 @@ const config: Config = {
           '100%': { height: 'var(--to-height)' },
         },
         piece: {
-          'from, to': { transform: 'scale(1, 1)' },
-          '25%': { transform: 'scale(0.9)' },
-          '50%': { transform: 'scale(1.1)' },
-          '75%': { transform: 'scale(0.95)' },
+          '0%': { transform: 'scale(1.2)', opacity: '0' },
+          '30%': { transform: 'scale(0.85)', opacity: '100%' },
+          '100%': { transform: 'scale(1)' },
         },
         'result-sign': {
           '0%': { opacity: '0%', transform: 'scale(1.75)' },

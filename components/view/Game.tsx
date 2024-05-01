@@ -48,6 +48,7 @@ export function Game () {
   const {
     result,
     winningLine,
+    highlight,
     place,
     optimisticBoardGrid,
     nextAvailablePiece,
@@ -100,6 +101,7 @@ export function Game () {
               <GomokuBoard
                 boardGrid={optimisticBoardGrid}
                 disabled={!isMyTurn || !isCurrentSession}
+                highlight={highlight}
                 showLabels={isShowLabels}
                 winningLine={winningLine}
                 onPlace={handlePlace}

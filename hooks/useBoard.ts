@@ -71,11 +71,14 @@ export function useBoard (boardId: Nullish<string>) {
     return newRecords
   }, [placedPiece, records])
 
+  const highlight = optimisticRecords?.at(-1)
+
   const optimisticBoardGrid = generateBoardGrid(optimisticRecords)
 
   return {
     board,
     boardGrid,
+    highlight,
     optimisticBoardGrid,
     records,
     result,
