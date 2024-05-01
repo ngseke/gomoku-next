@@ -1,6 +1,5 @@
 'use client'
 
-import { LogoText } from '../LogoText'
 import { GomokuBoard } from '../GomokuBoard/GomokuBoard'
 import { ConnectedChatBox } from '../ConnectedChatBox'
 import { usePlayerStateStore } from '@/hooks/usePlayerStateStore'
@@ -10,23 +9,20 @@ import { useRoomPlayers } from '@/hooks/useRoomPlayers'
 import { PlayerPillWithLabel } from '../PlayerPillWithLabel'
 import { useBoard } from '@/hooks/useBoard'
 import { useIsCurrentSession } from '@/hooks/useIsCurrentSession'
-import { ThemeButton } from '../ThemeButton'
 import { RoomIdHashtag } from '../RoomIdHashtag'
-import { BackIconButton } from '../BackIconButton'
 import { useRoomActions } from '@/hooks/useRoomActions'
-import { Button } from '../Button'
 import { useToggle } from 'usehooks-ts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClockRotateLeft, faComment, faListOl, faShare } from '@fortawesome/free-solid-svg-icons'
+import { faClockRotateLeft, faComment } from '@fortawesome/free-solid-svg-icons'
 import { ResultOverlay } from '../ResultOverlay'
 import { type Position } from '@/types/Position'
 import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
 import { useState } from 'react'
-import { Navbar } from '../Navbar'
 import { Tabs } from '../Tabs'
 import { TextWithIndicator } from '../TextWithIndicator'
 import { useHasUnreadChat } from '@/hooks/useHasUnreadChat'
 import { BoardRecordBox } from '../BoardRecordBox'
+import { GameNavbar } from '../GameNavbar'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -108,28 +104,12 @@ export function Game () {
   ]
 
   return (<>
-    <Navbar>
-      <div className="flex w-full justify-between">
-        <div className="flex items-center gap-4">
-          <BackIconButton
-            loading={isExitingRoom}
-            onClick={handleClickExitRoom}
-          />
-          <LogoText size="sm" />
-        </div>
-
-        <div className="flex gap-2">
-          <Button
-            icon={isShowLabels
-              ? <FontAwesomeIcon icon={faListOl} />
-              : <FontAwesomeIcon icon={faListOl} />}
-            onClick={toggleIsShowLabels}
-          >{isShowLabels ? 'Hide' : 'Show'} Labels</Button>
-          <Button icon={<FontAwesomeIcon icon={faShare} />} />
-          <ThemeButton />
-        </div>
-      </div>
-    </Navbar>
+    <GameNavbar
+      isBackIconButtonLoading={isExitingRoom}
+      isShowLabels={isShowLabels}
+      onClickBackIconButton={handleClickExitRoom}
+      onClickToggleIsShowLabels={toggleIsShowLabels}
+    />
 
     <div className="container flex min-h-screen max-w-[1000px] items-center px-4 py-8 pt-20">
       <NotCurrentSessionDialog open={!isCurrentSession} />
