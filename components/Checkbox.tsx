@@ -36,7 +36,7 @@ export function Checkbox ({
         />
         <InputShadow />
 
-        <span className={cn('absolute inset-0 flex translate-y-0.5 items-center justify-center opacity-0 duration-100', {
+        <span className={cn('absolute inset-0 z-10 flex translate-y-0.5 items-center justify-center opacity-0 duration-100', {
           'opacity-100 translate-y-0': checked,
         })}
         >
