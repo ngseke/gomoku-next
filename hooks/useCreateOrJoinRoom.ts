@@ -4,12 +4,18 @@ import { useAxios } from '@/hooks/useAxios'
 import { type Room } from '@/types/Room'
 import { useAuthStore } from '@/hooks/useAuthStore'
 import { useSignInAnonymously } from '@/hooks/useSignInAnonymously'
+import { AxiosError } from 'axios'
 
 export function useCreateOrJoinRoom () {
   const axios = useAxios()
   const { player, isInitializingPlayer } = useAuthStore()
 
   const [isCreatingOrJoiningRoom, setIsCreatingOrJoiningRoom] = useState(false)
+  const [joinError, setJoinError] = useState<string | null>(null)
+
+  function clearJoinError () {
+    setJoinError(null)
+  }
 
   const { signInAnonymously } = useSignInAnonymously()
 
@@ -40,6 +46,13 @@ export function useCreateOrJoinRoom () {
     try {
       await ensurePlayer()
       await axios.post(`/api/room/${id}/join`)
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const message = (err as AxiosError).response?.data
+        setJoinError(message as string)
+      } else {
+        throw err
+      }
     } finally {
       setIsCreatingOrJoiningRoom(false)
     }
@@ -48,6 +61,8 @@ export function useCreateOrJoinRoom () {
   return {
     createRoom,
     joinRoom,
+    clearJoinError,
     isCreatingOrJoiningRoom,
+    joinError,
   }
 }

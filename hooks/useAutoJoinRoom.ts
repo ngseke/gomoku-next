@@ -5,7 +5,12 @@ import { useAppSelector } from '@/lib/hooks'
 import { useAuthStore } from './useAuthStore'
 
 export function useAutoJoinRoom () {
-  const { joinRoom, isCreatingOrJoiningRoom } = useCreateOrJoinRoom()
+  const {
+    joinRoom,
+    isCreatingOrJoiningRoom,
+    joinError,
+    clearJoinError,
+  } = useCreateOrJoinRoom()
   const isPlayerStateInitialized =
     useAppSelector((state) => state.game.isPlayerStateInitialized)
   const { isInitializingPlayer } = useAuthStore()
@@ -35,5 +40,7 @@ export function useAutoJoinRoom () {
 
   return {
     isAutoJoiningRoom: isCreatingOrJoiningRoom,
+    joinError,
+    clearJoinError,
   }
 }
