@@ -22,6 +22,7 @@ import { ResultOverlay } from '../ResultOverlay'
 import { type Position } from '@/types/Position'
 import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
 import { useState } from 'react'
+import { Navbar } from '../Navbar'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -64,37 +65,38 @@ export function Game () {
     await place(position, myPiece)
   }
 
-  return (
-    <div className="container flex min-h-screen max-w-[1000px] items-center px-4 py-8">
+  return (<>
+    <Navbar>
+      <div className="flex w-full justify-between">
+        <div className="flex items-center gap-4">
+          <BackIconButton
+            loading={isExitingRoom}
+            onClick={handleClickExitRoom}
+          />
+          <LogoText size="sm" />
+        </div>
+
+        <div className="flex gap-2">
+          <Button
+            icon={isShowLabels
+              ? <FontAwesomeIcon icon={faListOl} />
+              : <FontAwesomeIcon icon={faListOl} />}
+            onClick={toggleIsShowLabels}
+          >{isShowLabels ? 'Hide' : 'Show'} Labels</Button>
+          <Button icon={<FontAwesomeIcon icon={faShare} />} />
+          <ThemeButton />
+        </div>
+      </div>
+    </Navbar>
+
+    <div className="container flex min-h-screen max-w-[1000px] items-center px-4 py-8 pt-20">
       <NotCurrentSessionDialog open={!isCurrentSession} />
 
       <div className="flex size-full flex-col gap-8">
-        <header className="flex flex-none justify-between gap-3">
-          <div className="flex flex-none items-center gap-3">
-            <BackIconButton
-              loading={isExitingRoom}
-              onClick={handleClickExitRoom}
-            />
-            <LogoText />
-            <RoomIdHashtag>{room?.id}</RoomIdHashtag>
-          </div>
-
-          <nav className="flex gap-2">
-            <Button
-              icon={isShowLabels
-                ? <FontAwesomeIcon icon={faListOl} />
-                : <FontAwesomeIcon icon={faListOl} />}
-              onClick={toggleIsShowLabels}
-            >{isShowLabels ? 'Hide' : 'Show'} Labels</Button>
-            <Button icon={<FontAwesomeIcon icon={faShare} />} />
-            <ThemeButton />
-          </nav>
-        </header>
-
         <main className="-mx-4 flex h-full flex-1 flex-wrap items-center sm:flex-nowrap">
           <div className="flex w-full flex-col gap-2 px-4 sm:w-[55%]">
-            <div>
-              Board
+            <div className="flex gap-2">
+              <RoomIdHashtag>{room?.id}</RoomIdHashtag>
             </div>
 
             <div className="relative aspect-square">
@@ -148,5 +150,5 @@ export function Game () {
         </main>
       </div>
     </div>
-  )
+  </>)
 }

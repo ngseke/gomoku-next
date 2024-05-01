@@ -32,7 +32,7 @@ export function Dialog ({ open, onClose, title, children }: DialogProps) {
     <Transition appear as={Fragment} show={open}>
       <BaseDialog
         as="div"
-        className="relative z-20"
+        className="relative z-30"
         onClose={onClose ?? (() => {})}
       >
         <Transition.Child
