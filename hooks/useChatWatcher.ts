@@ -1,12 +1,9 @@
 import { addWatcher, removeWatcher } from '@/lib/features/chatSlice'
-import { useAppDispatch, useAppSelector } from '@/lib/hooks'
+import { useAppDispatch } from '@/lib/hooks'
 import { nanoid } from 'nanoid'
 import { useEffect, useRef } from 'react'
 
-export function useChats () {
-  const chats = useAppSelector(state => state.chat.chats)
-  const hasUnreadChats = useAppSelector(state => state.chat.hasUnreadChats)
-
+export function useChatWatcher () {
   const dispatch = useAppDispatch()
 
   const watcherId = useRef(nanoid())
@@ -26,10 +23,5 @@ export function useChats () {
     }
   }, [dispatch])
 
-  return {
-    chats,
-    hasUnreadChats,
-    watch,
-    unwatch,
-  }
+  return { watch, unwatch }
 }

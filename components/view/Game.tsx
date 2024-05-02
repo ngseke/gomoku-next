@@ -17,14 +17,15 @@ import { faClockRotateLeft, faComment } from '@fortawesome/free-solid-svg-icons'
 import { ResultOverlay } from '../ResultOverlay'
 import { type Position } from '@/types/Position'
 import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Tabs } from '../Tabs'
 import { TextWithIndicator } from '../TextWithIndicator'
-import { useHasUnreadChat } from '@/hooks/useHasUnreadChat'
 import { BoardRecordBox } from '../BoardRecordBox'
 import { GameNavbar } from '../GameNavbar'
 import { type BoardRecord } from '@/types/BoardRecord'
 import { useShareUrl } from '@/hooks/useShareUrl'
+import { useChats } from '@/hooks/useChats'
+import { useChatWatcher } from '@/hooks/useChatWatcher'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -80,19 +81,26 @@ export function Game () {
   }, [emphasis, records])
 
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
-  const { hasUnreadChat, setHasUnreadChat } = useHasUnreadChat({
-    active: selectedTabIndex !== 0,
-  })
+
+  const { hasUnreadChats } = useChats()
+
+  const { watch, unwatch } = useChatWatcher()
+  useEffect(() => {
+    if (selectedTabIndex === 0) {
+      watch()
+    } else {
+      unwatch()
+    }
+  }, [selectedTabIndex, unwatch, watch])
 
   function handleChangeTab (index: number) {
-    if (index === 0) setHasUnreadChat(false)
     setSelectedTabIndex(index)
   }
 
   const tabs = [
     {
       name: (
-        <TextWithIndicator active={hasUnreadChat}>
+        <TextWithIndicator active={hasUnreadChats}>
           Chat
         </TextWithIndicator>
       ),
