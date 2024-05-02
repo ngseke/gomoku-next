@@ -2,7 +2,6 @@
 
 import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
 import { useSignOut } from '@/hooks/useSignOut'
-import { PlayerPill } from './PlayerPill'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlask, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
@@ -10,6 +9,9 @@ import { Button } from './Button'
 import { useSignInAnonymously } from '@/hooks/useSignInAnonymously'
 import { useAuthStore } from '@/hooks/useAuthStore'
 import { ThemeButton } from './ThemeButton'
+import { PlayerPillButton } from './PlayerPillButton'
+import { useState } from 'react'
+import { PlayerProfileDialog } from './PlayerProfileDialog'
 
 function Divider () {
   return <hr className="h-6 border-l border-neutral-200 dark:border-neutral-800" />
@@ -26,11 +28,24 @@ export function PlayerPanel () {
 
   const shouldDisableButton = isSigningInAnonymously
 
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <nav className="flex flex-wrap items-center gap-2">
+      <PlayerProfileDialog
+        open={isOpen}
+        onClose={() => { setIsOpen(false) }}
+      />
+
       {player ?? isInitializingPlayer
         ? <>
-          <PlayerPill emoji={player?.emoji} loading={isInitializingPlayer} name={player?.name} />
+          <PlayerPillButton
+            highlightOnHover
+            emoji={player?.emoji}
+            loading={isInitializingPlayer}
+            name={player?.name}
+            onClick={() => { setIsOpen(true) }}
+          />
 
           <Button
             key="signOut"

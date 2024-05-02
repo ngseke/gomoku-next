@@ -20,13 +20,14 @@ function Name ({ dark, ...restProps }: ComponentProps<'span'> & { dark?: boolean
   )
 }
 
-export function PlayerPill ({ name, image, emoji, loading, color, active }: {
+export function PlayerPill ({ name, image, emoji, loading, color, active, highlightOnHover }: {
   name?: Nullish<string>
   image?: Nullish<string>
   emoji?: Nullish<string>
   loading?: boolean
   color?: Nullish<'black' | 'white'>
   active?: boolean
+  highlightOnHover?: boolean
 }) {
   return (
     <span className="relative inline-flex max-w-full">
@@ -38,6 +39,7 @@ export function PlayerPill ({ name, image, emoji, loading, color, active }: {
             'bg-gradient-to-tr from-black to-[#434343]': color === 'black',
             'bg-gradient-to-tr from-[#cfd4d7] to-[#fdfbfb] dark:text-neutral-800': color === 'white',
             'outline-[3px]': active,
+            'hover:shadow-lg': highlightOnHover,
           }
         )}
       >

@@ -1,3 +1,4 @@
+import { cn } from '@/modules/cn'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Transition, Dialog as BaseDialog } from '@headlessui/react'
@@ -25,9 +26,16 @@ export type DialogProps = PropsWithChildren<{
   open: boolean
   onClose?: () => void
   title?: ReactNode
+  size?: 'md' | 'lg' | 'xl'
 }>
 
-export function Dialog ({ open, onClose, title, children }: DialogProps) {
+export function Dialog ({
+  open,
+  onClose,
+  title,
+  children,
+  size = 'md',
+}: DialogProps) {
   return (
     <Transition appear as={Fragment} show={open}>
       <BaseDialog
@@ -54,7 +62,13 @@ export function Dialog ({ open, onClose, title, children }: DialogProps) {
               leave="ease-in duration-100"
               leaveTo="opacity-0 scale-95"
             >
-              <BaseDialog.Panel className="w-full max-w-md overflow-hidden rounded-2xl border border-neutral-200 bg-[#fdfbfb] p-6 text-left shadow-xl transition-all dark:border-neutral-800 dark:bg-[#020404]">
+              <BaseDialog.Panel
+                className={cn('w-full overflow-hidden rounded-2xl border border-neutral-200 bg-[#fdfbfb] p-6 text-left shadow-xl transition-all dark:border-neutral-800 dark:bg-[#020404]', {
+                  'max-w-md': size === 'md',
+                  'max-w-lg': size === 'lg',
+                  'max-w-xl': size === 'xl',
+                })}
+              >
                 {(title ?? onClose) &&
                   <BaseDialog.Title
                     as="h3"
