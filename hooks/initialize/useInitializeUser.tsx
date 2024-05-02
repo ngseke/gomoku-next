@@ -3,12 +3,13 @@ import { useEffect } from 'react'
 import { type User, onAuthStateChanged } from 'firebase/auth'
 import { useAuth } from 'reactfire'
 import { clearAuth, setPlayer, setUser } from '@/lib/features/authSlice'
-import axios from 'axios'
 import { useAppDispatch } from '@/lib/hooks'
+import { useAxios } from '../useAxios'
 
 export function useInitializeUser () {
   const auth = useAuth()
   const dispatch = useAppDispatch()
+  const axios = useAxios()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -17,18 +18,12 @@ export function useInitializeUser () {
         return
       }
       const serializedUser = user?.toJSON() as User
-
-      const token = await user?.getIdToken()
-      const { data: player } = await axios.get('/api/player', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-
       dispatch?.(setUser(serializedUser))
+
+      const { data: player } = await axios.get('/api/player')
       dispatch?.(setPlayer(player))
     })
 
     return unsubscribe
-  }, [auth, dispatch])
+  }, [auth, axios, dispatch])
 }
