@@ -13,10 +13,10 @@ function ShareBody ({ url }: { url?: string }) {
   }
 
   return (
-    <div className="flex min-w-96 flex-col items-start gap-4">
-      <div className="flex items-center gap-2 text-lg font-bold">
+    <div className="flex min-w-96 flex-col items-start gap-3">
+      <div className="flex items-center gap-3 text-lg font-bold">
         <FontAwesomeIcon
-          className="text-2xl text-neutral-600 dark:text-neutral-400"
+          className="text-xl text-neutral-600 dark:text-neutral-400"
           icon={faLink}
         />
         Invite Your Friend
