@@ -1,7 +1,7 @@
 import { type Player } from '@/types/Player'
 import { firebaseAdminDatabase } from './firebaseAdmin'
 import { parseAuthorization } from './parseAuthorization'
-import * as emoji from 'node-emoji'
+import { random } from 'node-emoji'
 import { ServerValue } from 'firebase-admin/database'
 import { generatePlayerName } from '../generatePlayerName'
 
@@ -20,7 +20,7 @@ export async function resetPlayer (
     id,
     createdAt: ServerValue.TIMESTAMP as number,
     name,
-    emoji: emoji.random().emoji,
+    emoji: random().emoji,
   } satisfies Player
 
   const playerRef = firebaseAdminDatabase.ref(`players/${id}`)
