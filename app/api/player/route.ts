@@ -1,3 +1,4 @@
+import { playerNameMaxLength } from '@/modules/constants'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 
@@ -22,7 +23,7 @@ export async function PATCH (
   const { name, emoji } = await request.json()
 
   if (typeof name === 'string') {
-    await playerRef.child('name').set(name)
+    await playerRef.child('name').set(name.slice(0, playerNameMaxLength))
   }
 
   if (typeof emoji === 'string') {

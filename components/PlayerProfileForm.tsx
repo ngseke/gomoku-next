@@ -7,6 +7,7 @@ import { useFetchPlayer } from '@/hooks/useFetchPlayer'
 import { Button } from './Button'
 import { useAxios } from '@/hooks/useAxios'
 import { EmojiPicker } from './EmojiPicker'
+import { playerNameMaxLength } from '@/modules/constants'
 
 interface Inputs {
   name: string | null
@@ -55,6 +56,7 @@ export function PlayerProfileForm ({ onFinish }: {
       <div className="flex flex-1 flex-col gap-4">
         <Input
           label="Name"
+          maxLength={playerNameMaxLength}
           {...register('name', { required: true })}
         />
         <Input

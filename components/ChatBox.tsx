@@ -5,7 +5,7 @@ import { faArrowDown, faTriangleExclamation } from '@fortawesome/free-solid-svg-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { type Chat } from '@/types/Chat'
 import { type Nullish } from '@/types/Nullish'
-import { chatMessageMaxLength } from '@/modules/chatMessageMaxLength'
+import { chatMessageMaxLength } from '@/modules/constants'
 import { Button } from './Button'
 import { Transition } from '@headlessui/react'
 

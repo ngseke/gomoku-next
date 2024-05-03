@@ -1,4 +1,4 @@
-import { chatMessageMaxLength } from '@/modules/chatMessageMaxLength'
+import { chatMessageMaxLength } from '@/modules/constants'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 
