@@ -6,6 +6,7 @@ import { type SubmitHandler, useForm } from 'react-hook-form'
 import { useFetchPlayer } from '@/hooks/useFetchPlayer'
 import { Button } from './Button'
 import { useAxios } from '@/hooks/useAxios'
+import { EmojiPicker } from './EmojiPicker'
 
 interface Inputs {
   name: string | null
@@ -20,6 +21,7 @@ export function PlayerProfileForm ({ onFinish }: {
     handleSubmit,
     reset,
     watch,
+    setValue,
   } = useForm<Inputs>()
 
   const { fetchPlayer } = useFetchPlayer()
@@ -54,8 +56,13 @@ export function PlayerProfileForm ({ onFinish }: {
           {...register('name', { required: true })}
         />
         <Input
-          label="Emoji"
+          disabled
+          label="Avatar"
           {...register('emoji', { required: true })}
+        />
+        <EmojiPicker
+          value={watch('emoji')}
+          onChange={(emoji) => { setValue('emoji', emoji) }}
         />
 
         <Button type="submit">Save</Button>
