@@ -33,9 +33,11 @@ export function PlayerProfileForm ({ onFinish }: {
     })()
   }, [fetchPlayer, reset])
 
+  const { refetchGlobalPlayer } = useFetchPlayer()
   const axios = useAxios()
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     await axios.patch('/api/player', data)
+    await refetchGlobalPlayer()
     onFinish?.()
   }
 
