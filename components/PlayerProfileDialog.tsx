@@ -1,7 +1,7 @@
 'use client'
 
 import { Dialog } from './Dialog'
-import { Input } from './Input'
+import { PlayerProfileForm } from './PlayerProfileForm'
 
 export function PlayerProfileDialog ({ open, onClose }: {
   open: boolean
@@ -10,22 +10,11 @@ export function PlayerProfileDialog ({ open, onClose }: {
   return (
     <Dialog
       open={open}
-      size="xl"
+      size="lg"
       title="Profile"
       onClose={onClose}
     >
-      <form
-        className="flex gap-4 py-2 sm:flex-wrap"
-        onSubmit={(event) => {
-          event.preventDefault()
-        }}
-      >
-        <div className="w-full flex-none sm:w-44" />
-
-        <div className="flex-1">
-          <Input label="Name" />
-        </div>
-      </form>
+      <PlayerProfileForm onFinish={onClose} />
     </Dialog>
   )
 }

@@ -1,0 +1,65 @@
+'use client'
+
+import { useEffect } from 'react'
+import { Input } from './Input'
+import { type SubmitHandler, useForm } from 'react-hook-form'
+import { useFetchPlayer } from '@/hooks/useFetchPlayer'
+import { Button } from './Button'
+import { useAxios } from '@/hooks/useAxios'
+
+interface Inputs {
+  name: string | null
+  emoji: string | null
+}
+
+export function PlayerProfileForm ({ onFinish }: {
+  onFinish?: () => void
+}) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+  } = useForm<Inputs>()
+
+  const { fetchPlayer } = useFetchPlayer()
+  useEffect(() => {
+    void (async () => {
+      const player = await fetchPlayer()
+
+      reset(player)
+    })()
+  }, [fetchPlayer, reset])
+
+  const axios = useAxios()
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    await axios.patch('/api/player', data)
+    onFinish?.()
+  }
+
+  return (
+    <form
+      className="flex gap-6 py-2 sm:flex-wrap"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className="w-full flex-none sm:w-28">
+        <span className="flex aspect-square w-full flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800">
+          <span className="select-none text-8xl">{watch('emoji')}</span>
+        </span>
+      </div>
+
+      <div className="flex flex-1 flex-col gap-4">
+        <Input
+          label="Name"
+          {...register('name', { required: true })}
+        />
+        <Input
+          label="Emoji"
+          {...register('emoji', { required: true })}
+        />
+
+        <Button type="submit">Save</Button>
+      </div>
+    </form>
+  )
+}
