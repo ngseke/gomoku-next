@@ -83,6 +83,9 @@ dependencies:
   tailwind-merge:
     specifier: ^2.2.2
     version: 2.2.2
+  unicode-emoji-json:
+    specifier: ^0.6.0
+    version: 0.6.0
   unique-names-generator:
     specifier: ^4.7.1
     version: 4.7.1
@@ -4813,6 +4816,10 @@ packages:
     engines: {node: '>=14.0'}
     dependencies:
       '@fastify/busboy': 2.1.1
+    dev: false
+
+  /unicode-emoji-json@0.6.0:
+    resolution: {integrity: sha512-tAYF+EsOxa8jo/XPNYHRX7Nc8uoII+/edIpHM4DQI4nMp3AuRmwGZhL8fEBe0kUk0zHK+6wiwxxxNwfW5ap2Tg==}
     dev: false
 
   /unicode-emoji-modifier-base@1.0.0:
