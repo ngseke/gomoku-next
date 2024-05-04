@@ -7,7 +7,7 @@ import { Input } from './Input'
 import { random, search } from 'node-emoji'
 import { useState } from 'react'
 import { Button } from './Button'
-import { faShuffle } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faShuffle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function List ({ emojis, value, onChange }: {
@@ -53,6 +53,7 @@ export function EmojiPicker ({ value, onChange }: {
       <div className="grid grid-cols-[1fr_auto] items-end gap-2">
         <Input
           label="Emoji"
+          leftSection={<FontAwesomeIcon icon={faMagnifyingGlass} />}
           placeholder="Search..."
           value={keyword}
           onChange={(event) => { setKeyword(event.target.value) }}

@@ -14,16 +14,20 @@ function ShareBody ({ url }: { url?: string }) {
 
   return (
     <div className="flex min-w-96 flex-col items-start gap-3">
-      <div className="flex items-center gap-3 text-lg font-bold">
-        <FontAwesomeIcon
+      <h2 className="flex items-center gap-3 text-lg font-bold">
+        {/* <FontAwesomeIcon
           className="text-xl text-neutral-600 dark:text-neutral-400"
           icon={faLink}
-        />
+        /> */}
         Invite Your Friend
-      </div>
+      </h2>
 
       <div className="grid w-full grid-cols-[1fr_auto] gap-2">
-        <Input readOnly value={url} />
+        <Input
+          readOnly
+          leftSection={<FontAwesomeIcon icon={faLink} />}
+          value={url}
+        />
         <Button onClick={copy}>Copy</Button>
       </div>
     </div>

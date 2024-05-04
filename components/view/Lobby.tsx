@@ -11,6 +11,8 @@ import { Input } from '../Input'
 import { useCreateOrJoinRoom } from '@/hooks/useCreateOrJoinRoom'
 import { LoadingDialog } from '../LoadingDialog'
 import { LogoIcon } from '../LogoIcon'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHashtag } from '@fortawesome/free-solid-svg-icons'
 
 export function Lobby () {
   const {
@@ -98,6 +100,7 @@ export function Lobby () {
           </p>
           <Input
             ref={roomIdInputRef}
+            leftSection={<FontAwesomeIcon icon={faHashtag} />}
             value={roomId}
             onChange={event => { setRoomId(event.target.value) }}
           />
