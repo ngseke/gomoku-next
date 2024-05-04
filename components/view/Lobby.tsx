@@ -13,6 +13,7 @@ import { LoadingDialog } from '../LoadingDialog'
 import { LogoIcon } from '../LogoIcon'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHashtag } from '@fortawesome/free-solid-svg-icons'
+import { Footer } from '../Footer'
 
 export function Lobby () {
   const {
@@ -65,60 +66,64 @@ export function Lobby () {
     }
   }
 
-  return (
-    <div className="container flex min-h-full max-w-[1000px] px-4 py-8 sm:items-center">
-      <div className="flex w-full flex-col gap-8">
-        <div className="flex items-center gap-3">
-          <LogoIcon className="size-12 sm:size-16" />
-          <LogoText className="text-3xl sm:text-5xl" />
-        </div>
+  return (<>
+    <div className="flex min-h-full flex-col">
+      <div className="container flex h-full max-w-[1000px] flex-1 px-4 py-8 sm:items-center">
+        <div className="flex w-full flex-col gap-6 sm:gap-8">
+          <div className="flex items-center gap-3">
+            <LogoIcon className="size-12 sm:size-16" />
+            <LogoText className="text-3xl sm:text-5xl" />
+          </div>
 
-        <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-          <NewRoomButton
-            disabled={isCreatingOrJoiningRoom}
-            onClick={handleClickCreateRoom}
-          />
-          <JoinRoomButton
-            disabled={isCreatingOrJoiningRoom}
-            onClick={handleClickJoinRoom}
-          />
-        </div>
+          <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+            <NewRoomButton
+              disabled={isCreatingOrJoiningRoom}
+              onClick={handleClickCreateRoom}
+            />
+            <JoinRoomButton
+              disabled={isCreatingOrJoiningRoom}
+              onClick={handleClickJoinRoom}
+            />
+          </div>
 
-        <div className="flex">
-          <PlayerPanel />
+          <div className="flex">
+            <PlayerPanel />
+          </div>
         </div>
       </div>
 
-      <Dialog
-        open={isOpen}
-        title="Join Room"
-        onClose={handleCloseDialog}
-      >
-        <form className="flex flex-col gap-4" onSubmit={handleSubmitJoinRoom}>
-          <p className="text-sm opacity-60">
-            Enter the room ID to join
-          </p>
-          <Input
-            ref={roomIdInputRef}
-            leftSection={<FontAwesomeIcon icon={faHashtag} />}
-            value={roomId}
-            onChange={event => { setRoomId(event.target.value) }}
-          />
-          <Button
-            block
-            disabled={!roomId}
-            loading={isCreatingOrJoiningRoom}
-            type="submit"
-          >
-            Join
-          </Button>
-        </form>
-      </Dialog>
-
-      <LoadingDialog
-        open={isCreatingOrJoiningRoom && !isOpen}
-        title="Creating a New Room"
-      />
+      <Footer />
     </div>
-  )
+
+    <Dialog
+      open={isOpen}
+      title="Join Room"
+      onClose={handleCloseDialog}
+    >
+      <form className="flex flex-col gap-4" onSubmit={handleSubmitJoinRoom}>
+        <p className="text-sm opacity-60">
+          Enter the room ID to join
+        </p>
+        <Input
+          ref={roomIdInputRef}
+          leftSection={<FontAwesomeIcon icon={faHashtag} />}
+          value={roomId}
+          onChange={event => { setRoomId(event.target.value) }}
+        />
+        <Button
+          block
+          disabled={!roomId}
+          loading={isCreatingOrJoiningRoom}
+          type="submit"
+        >
+          Join
+        </Button>
+      </form>
+    </Dialog>
+
+    <LoadingDialog
+      open={isCreatingOrJoiningRoom && !isOpen}
+      title="Creating a New Room"
+    />
+  </>)
 }

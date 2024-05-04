@@ -3,7 +3,7 @@
 import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
 import { useSignOut } from '@/hooks/useSignOut'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFlask, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { Button } from './Button'
 import { useSignInAnonymously } from '@/hooks/useSignInAnonymously'
@@ -80,11 +80,6 @@ export function PlayerPanel () {
           <Divider />
           <ThemeButton />
         </>}
-
-      <Button
-        href="/playground"
-        icon={<FontAwesomeIcon icon={faFlask} />}
-      />
     </nav>
   )
 }
