@@ -6,7 +6,6 @@ import { usePlayerStateStore } from '@/hooks/usePlayerStateStore'
 import { useRoomStore } from '@/hooks/useRoomStore'
 import { useAuthStore } from '@/hooks/useAuthStore'
 import { useRoomPlayers } from '@/hooks/useRoomPlayers'
-import { PlayerPillWithLabel } from '../PlayerPillWithLabel'
 import { useBoard } from '@/hooks/useBoard'
 import { useIsCurrentSession } from '@/hooks/useIsCurrentSession'
 import { RoomIdHashtag } from '../RoomIdHashtag'
@@ -26,6 +25,7 @@ import { type BoardRecord } from '@/types/BoardRecord'
 import { useShareUrl } from '@/hooks/useShareUrl'
 import { useChats } from '@/hooks/useChats'
 import { useChatWatcher } from '@/hooks/useChatWatcher'
+import { GamePlayers } from '../GamePlayers'
 
 export function Game () {
   const { player } = useAuthStore()
@@ -174,28 +174,11 @@ export function Game () {
           </div>
 
           <div className="flex w-full flex-col gap-3 px-4 pt-4 sm:w-[45%]">
-            <div className="-mx-2 flex">
-              {roomPlayers?.map((roomPlayer) => {
-                const isActive = roomPlayer?.piece === nextAvailablePiece
-                const isWinner =
-                  result?.type === 'win' &&
-                  result.piece === roomPlayer.piece
-
-                return (
-                  <div key={roomPlayer.id} className="max-w-[50%] flex-none px-2">
-                    <PlayerPillWithLabel
-                      active={isActive}
-                      color={roomPlayer.piece}
-                      emoji={roomPlayer?.emoji}
-                      isWinner={isWinner}
-                      label={roomPlayer.id === player?.id ? 'You' : 'Opponent'}
-                      name={roomPlayer?.name}
-                    />
-                  </div>
-                )
-              })}
-            </div>
-
+            <GamePlayers
+              nextAvailablePiece={nextAvailablePiece}
+              result={result}
+              roomPlayers={roomPlayers}
+            />
             <Tabs
               selectedIndex={selectedTabIndex}
               tabs={tabs}

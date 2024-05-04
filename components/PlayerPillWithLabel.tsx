@@ -21,9 +21,16 @@ function Crown ({ show }: { show?: boolean }) {
   )
 }
 
+function LabelSkeleton () {
+  return (
+    <span className="h-4 w-14 rounded-md bg-neutral-200 transition-colors duration-300 dark:bg-neutral-800" />
+  )
+}
+
 export function PlayerPillWithLabel ({
   label,
   isWinner,
+  loading,
   ...restProps
 }: ComponentProps<typeof PlayerPill> & {
   label?: string
@@ -34,10 +41,12 @@ export function PlayerPillWithLabel ({
       className="relative inline-flex max-w-full flex-col items-center gap-1.5"
     >
       <Crown show={Boolean(isWinner)} />
-      <PlayerPill {...restProps} />
-      <span className="text-xs font-medium opacity-60">
-        {label}
-      </span>
+      <PlayerPill loading={loading} {...restProps} />
+      {loading
+        ? <LabelSkeleton />
+        : <span className="text-xs font-medium opacity-60">
+          {label}
+        </span>}
     </div>
   )
 }

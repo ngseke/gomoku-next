@@ -1,5 +1,6 @@
 import { type BoardGrid } from '@/types/BoardGrid'
 import { type BoardResult } from '@/types/BoardResult'
+import { type Piece } from '@/types/Piece'
 import { type Position } from '@/types/Position'
 
 const size = 15
@@ -88,7 +89,7 @@ export function getAvailablePositions (boardGrid: BoardGrid) {
   return list
 }
 
-export function getNextAvailablePiece (boardGrid: BoardGrid) {
+export function getNextAvailablePiece (boardGrid: BoardGrid): Piece | null {
   if (judgeResult(boardGrid)) return null
 
   let blackCount = 0
