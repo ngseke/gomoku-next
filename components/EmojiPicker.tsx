@@ -57,6 +57,9 @@ export function EmojiPicker ({ value, onChange }: {
           placeholder="Search..."
           value={keyword}
           onChange={(event) => { setKeyword(event.target.value) }}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') { event.preventDefault() }
+          }}
         />
         <Button
           icon={<FontAwesomeIcon icon={faShuffle} />}
