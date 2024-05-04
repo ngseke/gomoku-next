@@ -45,7 +45,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
         <Component
           ref={ref}
           className={cn(
-            'peer inline-flex size-full select-none items-center justify-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 text-sm font-bold outline outline-1 outline-transparent duration-150 hover:shadow-lg enabled:active:scale-[97%]',
+            'peer inline-flex size-full select-none items-center justify-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 text-sm font-bold outline outline-1 outline-transparent duration-150 enabled:hover:shadow-lg enabled:active:scale-[97%]',
             'dark:border-neutral-800 dark:bg-neutral-900',
             {
               'px-4': !isIconButton,
