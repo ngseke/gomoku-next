@@ -30,7 +30,8 @@
     "label": {
       "you": "You",
       "opponent": "Opponent"
-    }
+    },
+    "anonymousName": "Anonymous {name}"
   },
   "message": {
     "noMoves": "There are no moves yet."

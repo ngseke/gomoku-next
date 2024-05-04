@@ -1,4 +1,6 @@
-import dataByGroup from 'unicode-emoji-json/data-by-group.json'
+import { emojis } from './emojis'
+import { getTranslations } from 'next-intl/server'
+import { type Locale } from '@/types/Locale'
 
 function capitalizeAllWords (string: string) {
   return string.split(' ')
@@ -11,19 +13,15 @@ function getRandomItem<Value> (array: Value[]) {
   return array[index]
 }
 
-const animalsNatureEmojis =
-  dataByGroup.find(({ slug }) => slug === 'animals_nature')?.emojis ?? []
+export async function generateRandomPlayer (locale?: Locale) {
+  const t = await getTranslations({ locale })
 
-const foodDrinkEmojis =
-  dataByGroup.find(({ slug }) => slug === 'food_drink')?.emojis ?? []
-
-const emojis = [...animalsNatureEmojis, ...foodDrinkEmojis]
-
-export function generateRandomPlayer () {
-  const prefix = 'Anonymous'
   const randomEmoji = getRandomItem(emojis)
+  const localizedName = locale === 'zh-Hant'
+    ? randomEmoji.nameZhHant
+    : capitalizeAllWords(randomEmoji.name)
 
-  const name = `${prefix} ${capitalizeAllWords(randomEmoji.name)}`
+  const name = t('player.anonymousName', { name: localizedName })
   const emoji = randomEmoji.emoji
 
   return { name, emoji }

@@ -30,7 +30,8 @@
     "label": {
       "you": "你",
       "opponent": "對手"
-    }
+    },
+    "anonymousName": "匿名{name}"
   },
   "message": {
     "noMoves": "尚未有任何棋步"

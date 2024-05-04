@@ -3,6 +3,7 @@ import { firebaseAdminDatabase } from './firebaseAdmin'
 import { parseAuthorization } from './parseAuthorization'
 import { ServerValue } from 'firebase-admin/database'
 import { generateRandomPlayer } from '../generateRandomPlayer'
+import { getLocaleFromCookie } from '../getLocaleFromCookie'
 
 export async function resetPlayer (
   request: Request,
@@ -13,7 +14,9 @@ export async function resetPlayer (
 
   if (!id) throw new Error('No auth id')
 
-  const randomPlayer = generateRandomPlayer()
+  const locale = getLocaleFromCookie()
+
+  const randomPlayer = await generateRandomPlayer(locale)
   const name: string = auth?.name ?? randomPlayer.name
   const emoji = randomPlayer.emoji
 
