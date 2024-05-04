@@ -1,8 +1,8 @@
-import { uniqueNamesGenerator, colors, names } from 'unique-names-generator'
+import { uniqueNamesGenerator, animals } from 'unique-names-generator'
 
 export function generatePlayerName () {
   const name = uniqueNamesGenerator({
-    dictionaries: [colors, names],
+    dictionaries: [animals],
     separator: ' ',
     style: 'capital',
   })
