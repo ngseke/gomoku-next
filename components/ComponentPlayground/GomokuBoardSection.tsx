@@ -85,7 +85,7 @@ export function GomokuBoardSection () {
           <code>{JSON.stringify(hovered)}</code>
         </div>
         <div>
-          nextAvailablePiece
+          nextAvailablePiece:
           <code>{JSON.stringify(nextAvailablePiece)}</code>
         </div>
         <Input

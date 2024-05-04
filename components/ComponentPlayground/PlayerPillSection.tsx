@@ -17,7 +17,7 @@ export function PlayerPillSection () {
       <PlayerPill color="white" emoji="🐻‍❄️" name="李四" />
       <PlayerPill active={isActive} color="black" emoji="🗿" name="楊淑芬" />
       <PlayerPill active={!isActive} color="white" emoji="🎃️" name="陳金發" />
-      <PlayerPill active emoji="🦒" name="Long Long Sean Huang" />
+      <PlayerPill active emoji="🦒" name="Long Long Long Long Long Giraffe" />
       <div className="w-full" />
       <PlayerPill loading name="Sean Huang" />
       <PlayerPill emoji="🫥" />
