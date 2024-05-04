@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { Button } from './Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
+import { startViewTransition } from '@/modules/startViewTransition'
 
 export function ThemeButton () {
   const { theme, setTheme } = useTheme()
@@ -25,11 +26,13 @@ export function ThemeButton () {
     : null
 
   function handleClick () {
-    if (theme !== 'light') {
-      setTheme('light')
-    } else {
-      setTheme('dark')
-    }
+    startViewTransition(() => {
+      if (theme !== 'light') {
+        setTheme('light')
+      } else {
+        setTheme('dark')
+      }
+    })
   }
 
   return <Button icon={icon} onClick={handleClick} />

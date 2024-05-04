@@ -20,7 +20,7 @@ function Track ({
   return (
     <div className="relative" style={{ gridArea: type }}>
       <div
-        className={cn('absolute left-0 top-0 flex size-full overflow-hidden text-xs font-bold text-neutral-300 opacity-0 duration-300 dark:text-neutral-700', {
+        className={cn('absolute left-0 top-0 flex size-full overflow-hidden text-xs font-bold text-neutral-300 opacity-0 dark:text-neutral-700', {
           'flex-col': type === 'files',
           'opacity-100': show,
         })}

@@ -9,7 +9,7 @@ import { StoreProvider } from './StoreProvider'
 
 export function Providers ({ children }: PropsWithChildren) {
   return (
-    <ThemeProvider attribute="class">
+    <ThemeProvider disableTransitionOnChange attribute="class">
       <FirebaseAppProvider firebaseConfig={firebaseConfig}>
         <FirebaseProviders>
           <StoreProvider>
