@@ -10,7 +10,7 @@ export function PlayerProfileDialog ({ open, onClose }: {
   return (
     <Dialog
       open={open}
-      size="lg"
+      size="xl"
       title="Profile"
       onClose={onClose}
     >

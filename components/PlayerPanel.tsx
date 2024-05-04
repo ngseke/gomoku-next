@@ -40,7 +40,7 @@ export function PlayerPanel () {
       {player ?? isInitializingPlayer
         ? <>
           <PlayerPillButton
-            highlightOnHover
+            disabled={isInitializingPlayer}
             emoji={player?.emoji}
             loading={isInitializingPlayer}
             name={player?.name}
