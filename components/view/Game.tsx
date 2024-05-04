@@ -57,6 +57,7 @@ export function Game () {
     place,
     optimisticBoardGrid,
     nextAvailablePiece,
+    isPlacing,
   } = useBoard(boardId)
 
   const myRoomPlayer = player?.id ? rawRoomPlayers?.[player?.id] : null
@@ -156,7 +157,7 @@ export function Game () {
               <GomokuBoard
                 boardGrid={optimisticBoardGrid}
                 dimmedPositions={dimmedPositions}
-                disabled={!isMyTurn || !isCurrentSession}
+                disabled={!isMyTurn || !isCurrentSession || isPlacing}
                 emphasis={emphasis}
                 highlight={highlight}
                 showLabels={isShowLabels}

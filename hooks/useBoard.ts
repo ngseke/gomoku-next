@@ -91,5 +91,6 @@ export function useBoard (boardId: Nullish<string>) {
     nextAvailablePiece,
     winningLine,
     place,
+    isPlacing,
   }
 }
