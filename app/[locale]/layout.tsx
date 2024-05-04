@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Noto_Sans_TC } from 'next/font/google'
+import { Inter, Noto_Sans_TC, Roboto_Mono } from 'next/font/google'
 import '../globals.css'
 import { Providers } from '@/providers/Providers'
 import { config } from '@fortawesome/fontawesome-svg-core'
@@ -20,6 +20,11 @@ const notoSansTc = Noto_Sans_TC({
   subsets: ['latin'],
 })
 
+const robotoMono = Roboto_Mono({
+  variable: '--font-robot-mono',
+  subsets: ['latin'],
+})
+
 export const metadata: Metadata = {
   title: 'Gomoku Next',
   description: 'Gomoku Next',
@@ -33,7 +38,7 @@ export default function RootLayout ({ children, params: { locale } }: Readonly<{
 
   return (
     <html suppressHydrationWarning lang={locale}>
-      <body className={cn(inter.variable, notoSansTc.variable)}>
+      <body className={cn(inter.variable, notoSansTc.variable, robotoMono.variable)}>
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <div className="h-full">

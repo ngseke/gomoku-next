@@ -19,6 +19,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)', 'var(--font-noto-sans-tc)'],
+        mono: ['var(--font-robot-mono)'],
       },
       gridTemplateColumns: {
         15: 'repeat(15, minmax(0, 1fr))',
