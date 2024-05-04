@@ -66,11 +66,11 @@ export function Lobby () {
   }
 
   return (
-    <div className="container flex min-h-full max-w-[1000px] items-center px-4 py-8">
+    <div className="container flex min-h-full max-w-[1000px] px-4 py-8 sm:items-center">
       <div className="flex w-full flex-col gap-8">
         <div className="flex items-center gap-3">
-          <LogoIcon />
-          <LogoText size="lg" />
+          <LogoIcon className="size-12 sm:size-16" />
+          <LogoText className="text-3xl sm:text-5xl" />
         </div>
 
         <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">

@@ -28,7 +28,7 @@ export function GameNavbar ({
             loading={isBackIconButtonLoading}
             onClick={onClickBackIconButton}
           />
-          <LogoText size="sm" />
+          <LogoText className="text-nowrap text-2xl sm:text-3xl" />
         </div>
 
         <div className="flex gap-2">

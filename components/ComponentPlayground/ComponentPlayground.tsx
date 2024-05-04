@@ -17,7 +17,7 @@ export function ComponentPlayground () {
     <Navbar>
       <div className="flex items-center gap-4">
         <BackIconButton href="/" />
-        <LogoText size="sm" />
+        <LogoText className="text-nowrap text-2xl sm:text-3xl" />
       </div>
     </Navbar>
 
