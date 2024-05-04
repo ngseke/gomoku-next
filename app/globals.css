@@ -7,7 +7,6 @@ html {
 }
 
 body {
-  @apply font-sans;
   @apply antialiased h-full bg-gradient-to-tr bg-cover bg-fixed;
   @apply text-neutral-800 bg-[#fdfbfb];
   @apply dark:text-neutral-100 dark:bg-[#020404];
