@@ -28,7 +28,7 @@ export function BoardRecordBox ({
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 px-3 transition-colors duration-300 dark:border-neutral-800">
-      <div ref={scrollableRef} className="-mr-3 flex-1 overflow-auto scroll-smooth">
+      <div ref={scrollableRef} className="-mr-3 flex-1 overflow-auto scroll-smooth scrollbar">
         <div className="h-full max-w-full pr-3">
           {records?.length
             ? <BoardRecordList records={records} onHover={onHover} />

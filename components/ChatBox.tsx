@@ -80,7 +80,7 @@ export function ChatBox ({
     <div className="relative flex h-full flex-col rounded-2xl border border-neutral-200 px-3 pb-3 transition-colors dark:border-neutral-800">
       <div
         ref={scrollableRef}
-        className="-mr-3 flex-1 overflow-auto scroll-smooth"
+        className="-mr-3 flex-1 overflow-auto scroll-smooth scrollbar"
         onScroll={handleScroll}
       >
         <div className="py-4 pr-3">

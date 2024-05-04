@@ -10,4 +10,5 @@ body {
   @apply antialiased h-full bg-gradient-to-tr bg-cover bg-fixed;
   @apply text-neutral-800 bg-[#fdfbfb];
   @apply dark:text-neutral-100 dark:bg-[#020404];
+  @apply scrollbar scrollbar-track-transparent scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-700;
 }

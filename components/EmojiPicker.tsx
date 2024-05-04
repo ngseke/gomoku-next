@@ -5,7 +5,7 @@ import { type Nullish } from '@/types/Nullish'
 import dataByGroup from 'unicode-emoji-json/data-by-group.json'
 import { Input } from './Input'
 import { random, search } from 'node-emoji'
-import { useId, useState } from 'react'
+import { useState } from 'react'
 import { Button } from './Button'
 import { faShuffle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -63,7 +63,7 @@ export function EmojiPicker ({ value, onChange }: {
         />
       </div>
 
-      <div className="h-48 max-h-48 overflow-auto">
+      <div className="h-48 max-h-48 overflow-auto scrollbar">
         {shouldShowResult
           ? <List
               emojis={filteredEmojis}
