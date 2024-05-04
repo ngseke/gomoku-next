@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals.css'
+import '../globals.css'
 import { Providers } from '@/providers/Providers'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import { NextIntlClientProvider, useMessages } from 'next-intl'
 
 config.autoAddCss = false
 
@@ -14,18 +15,21 @@ export const metadata: Metadata = {
   description: 'Gomoku Next',
 }
 
-export default function RootLayout ({
-  children,
-}: Readonly<{
+export default function RootLayout ({ children, params: { locale } }: Readonly<{
   children: React.ReactNode
+  params: { locale: string }
 }>) {
+  const messages = useMessages()
+
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang={locale}>
       <body className={inter.className}>
         <Providers>
-          <div className="h-full">
-            {children}
-          </div>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <div className="h-full">
+              {children}
+            </div>
+          </NextIntlClientProvider>
         </Providers>
       </body>
     </html>
