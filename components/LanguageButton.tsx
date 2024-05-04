@@ -5,13 +5,16 @@ import { Fragment } from 'react'
 import { Button } from './Button'
 import { useSetLocale } from '@/hooks/useSetLocale'
 import { useLocale } from 'next-intl'
+import { cn } from '@/modules/cn'
 
 const items = [
   { locale: 'en', name: 'English' },
   { locale: 'zh-Hant', name: '正體中文' },
 ] as const
 
-export function LanguageButton () {
+export function LanguageButton ({ placement = 'bottom-start' }: {
+  placement?: 'bottom-end' | 'bottom-start'
+}) {
   const { setLocale } = useSetLocale()
   const locale = useLocale()
 
@@ -28,7 +31,12 @@ export function LanguageButton () {
         leave="transition ease-in duration-75"
         leaveTo="opacity-0 scale-95"
       >
-        <Menu.Items className="absolute left-0 mt-2 w-36 origin-top-left divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-neutral-100 py-1  shadow-lg focus:outline-none dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-900">
+        <Menu.Items
+          className={cn('absolute mt-2 w-36 divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-neutral-100 py-1  shadow-lg focus:outline-none dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-900', {
+            'left-0 top-full origin-top-left': placement === 'bottom-start',
+            'right-0 top-full origin-top-right': placement === 'bottom-end',
+          })}
+        >
           {items.map((item) => (
             <Menu.Item key={locale}>
               <button
