@@ -13,10 +13,10 @@ import { PlayerPillButton } from './PlayerPillButton'
 import { useState } from 'react'
 import { PlayerProfileDialog } from './PlayerProfileDialog'
 import { useTranslations } from 'next-intl'
-import { usePathname, useRouter } from '@/navigation'
+import { LanguageButton } from './LanguageButton'
 
 function Divider () {
-  return <hr className="h-6 border-l border-neutral-200 dark:border-neutral-800" />
+  return <hr className="mx-2 h-6 border-l border-neutral-200 dark:border-neutral-800" />
 }
 
 export function PlayerPanel () {
@@ -33,9 +33,6 @@ export function PlayerPanel () {
   const shouldDisableButton = isSigningInAnonymously
 
   const [isOpen, setIsOpen] = useState(false)
-
-  const router = useRouter()
-  const pathname = usePathname()
 
   return (
     <nav className="flex flex-wrap items-center gap-2">
@@ -59,10 +56,6 @@ export function PlayerPanel () {
             icon={<FontAwesomeIcon icon={faRightFromBracket} />}
             onClick={signOut}
           />
-
-          <Divider />
-
-          <ThemeButton />
         </>
         : <>
           <span className="font-medium opacity-60">
@@ -84,15 +77,11 @@ export function PlayerPanel () {
             {t('action.signInAsGuest')}
           </Button>
 
-          <Divider />
-          <ThemeButton />
         </>}
-      <Button onClick={() => { router.replace(pathname, { locale: 'zh-Hant' }) }}>
-        zh-Hant
-      </Button>
-      <Button onClick={() => { router.replace(pathname, { locale: 'en' }) }}>
-        en
-      </Button>
+
+      <Divider />
+      <ThemeButton />
+      <LanguageButton />
     </nav>
   )
 }
