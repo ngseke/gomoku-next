@@ -13,8 +13,4 @@ export async function createChat (
     createdAt,
     ...chat,
   } satisfies Chat)
-
-  const createdChat = (await chatsRef.get()).val() as Chat
-
-  return createdChat
 }

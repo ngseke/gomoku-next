@@ -79,7 +79,7 @@ export async function POST (
     type: 'game',
   } satisfies PlayerState)
 
-  await createChat(roomId, {
+  void createChat(roomId, {
     message: `${player.name} has joined`,
     isAdmin: true,
   })

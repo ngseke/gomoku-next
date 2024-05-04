@@ -1,7 +1,7 @@
 import { createBoard } from '@/modules/firebaseAdmin/createBoard'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
-import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
+import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
 import { generateRoomId } from '@/modules/generateRoomId'
 import { type Room } from '@/types/Room'
 import { ServerValue } from 'firebase-admin/database'
@@ -9,8 +9,10 @@ import { ServerValue } from 'firebase-admin/database'
 export async function POST (
   request: Request,
 ) {
-  const player = await fetchPlayer(request)
-  if (!player) return Response.json(null, { status: 403 })
+  const auth = await parseAuthorization(request)
+  if (!auth) return Response.json(null, { status: 403 })
+
+  const playerId = auth.uid
 
   const body = await request.json()
 
@@ -26,15 +28,14 @@ export async function POST (
     id: roomId,
     name,
     createdAt,
-    createdBy: player.id,
+    createdBy: playerId,
     boardId,
   } satisfies Room
 
   await roomRef.set(room)
 
   const message = `The room has been created (${roomId})`
-
-  await createChat(roomId, {
+  void createChat(roomId, {
     message,
     isAdmin: true,
   })

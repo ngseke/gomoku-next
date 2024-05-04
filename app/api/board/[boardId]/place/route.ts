@@ -80,12 +80,12 @@ export async function POST (
   if (result) {
     await createBoardResult(boardId, result)
     if (result.type === 'win') {
-      await createChat(roomId, {
+      void createChat(roomId, {
         message: `The winner is ${result.piece}`,
         isAdmin: true,
       })
     } else {
-      await createChat(roomId, {
+      void createChat(roomId, {
         message: 'It\'s a draw',
         isAdmin: true,
       })

@@ -14,11 +14,11 @@ export async function POST (
 
   const slicedMessage = (message as string).slice(0, chatMessageMaxLength)
 
-  const chat = await createChat(roomId, {
+  await createChat(roomId, {
     message: slicedMessage,
     createdBy: player.id,
     playerName: player.name,
   })
 
-  return Response.json(chat)
+  return new Response(null, { status: 204 })
 }

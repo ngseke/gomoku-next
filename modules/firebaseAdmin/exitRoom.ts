@@ -31,7 +31,7 @@ export async function exitRoom (request: Request) {
   await playerStateRef.remove()
 
   if (room) {
-    await createChat(roomId, {
+    void createChat(roomId, {
       message: `${player.name} has left`,
       isAdmin: true,
     })
