@@ -28,7 +28,7 @@ export function BoardRecordList ({ records, onHover }: {
             <div className="grid grid-cols-[1.75rem_1.5rem_2.5rem_1fr] items-center gap-4">
               <div
                 className={cn('text-right font-mono duration-200', {
-                  'text-[#fcb69f] font-bold': isLast,
+                  'font-bold': isLast,
                 })}
               >
                 {index + 1}
@@ -38,7 +38,7 @@ export function BoardRecordList ({ records, onHover }: {
               </div>
               <div
                 className={cn('font-mono duration-200', {
-                  'text-[#fcb69f] font-bold': isLast,
+                  'font-bold': isLast,
                 })}
               >
                 {formatted.x}{formatted.y}
