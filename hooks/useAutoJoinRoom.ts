@@ -35,7 +35,13 @@ export function useAutoJoinRoom () {
       return
     }
 
-    void joinRoom(roomId)
+    void (async () => {
+      const isSuccessful = await joinRoom(roomId)
+
+      if (!isSuccessful) {
+        router.replace('/', { scroll: false })
+      }
+    })()
   }, [isInitializingPlayer, isPlayerStateInitialized, joinRoom, router, slugs])
 
   return {

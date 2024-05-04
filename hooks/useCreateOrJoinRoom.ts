@@ -39,7 +39,7 @@ export function useCreateOrJoinRoom () {
   }
 
   async function joinRoom (id: string) {
-    if (isInitializingPlayer) return
+    if (isInitializingPlayer) return false
 
     setIsCreatingOrJoiningRoom(true)
 
@@ -53,9 +53,12 @@ export function useCreateOrJoinRoom () {
       } else {
         throw err
       }
+      return false
     } finally {
       setIsCreatingOrJoiningRoom(false)
     }
+
+    return true
   }
 
   return {
