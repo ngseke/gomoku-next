@@ -8,6 +8,7 @@ export function useSignOut () {
 
   async function signOut () {
     await axios.post('/api/room/exit')
+    await axios.post('/api/player/sign-out')
     await firebaseSignOut(auth)
   }
 
