@@ -16,7 +16,7 @@ function List ({ emojis, value, onChange }: {
   onChange?: (value: string) => void
 }) {
   return (
-    <div className="grid grid-cols-10">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(2rem,1fr))]">
       {emojis
         .map((emoji) => (
           <button
