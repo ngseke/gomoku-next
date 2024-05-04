@@ -17,6 +17,9 @@ const config: Config = {
       center: true,
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)', 'var(--font-noto-sans-tc)'],
+      },
       gridTemplateColumns: {
         15: 'repeat(15, minmax(0, 1fr))',
       },

@@ -1,14 +1,24 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Noto_Sans_TC } from 'next/font/google'
 import '../globals.css'
 import { Providers } from '@/providers/Providers'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
+import { cn } from '@/modules/cn'
 
 config.autoAddCss = false
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
+
+const notoSansTc = Noto_Sans_TC({
+  weight: ['400', '500', '700'],
+  variable: '--font-noto-sans-tc',
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
   title: 'Gomoku Next',
@@ -23,7 +33,7 @@ export default function RootLayout ({ children, params: { locale } }: Readonly<{
 
   return (
     <html suppressHydrationWarning lang={locale}>
-      <body className={inter.className}>
+      <body className={cn(inter.variable, notoSansTc.variable)}>
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <div className="h-full">
