@@ -7,7 +7,10 @@ export async function parseAuthorization (request: Request) {
 
   if (!token) return null
 
-  const decodedIdToken = await firebaseAdminAuth.verifyIdToken(token)
+  try {
+    const decodedIdToken = await firebaseAdminAuth.verifyIdToken(token)
+    return decodedIdToken
+  } catch (err) {}
 
-  return decodedIdToken
+  return null
 }

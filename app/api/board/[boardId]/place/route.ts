@@ -1,4 +1,3 @@
-import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { type BoardRecord } from '@/types/BoardRecord'
 import { ServerValue } from 'firebase-admin/database'
 import { generateBoardGrid } from '@/modules/generateBoard'
@@ -10,13 +9,16 @@ import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { fetchAndJudgeBoard } from '@/modules/firebaseAdmin/fetchAndJudgeBoard'
 import { createBoardResult } from '@/modules/firebaseAdmin/createBoardResult'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
+import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
 
 export async function POST (
   request: Request,
   { params: { boardId } }: { params: { boardId: string } }
 ) {
-  const player = await fetchPlayer(request)
-  if (!player) return Response.json(null, { status: 403 })
+  const auth = await parseAuthorization(request)
+  if (!auth) return Response.json(null, { status: 403 })
+
+  const playerId = auth.uid
 
   const playerState = await fetchPlayerState(request)
   if (!playerState) {
@@ -26,7 +28,7 @@ export async function POST (
   const roomId = playerState?.roomId
   const roomPlayers = await fetchRoomPlayers(roomId)
 
-  const roomPlayer = roomPlayers?.[player.id]
+  const roomPlayer = roomPlayers?.[playerId]
   if (!roomPlayer) {
     return Response.json('You are not in the correct room!', { status: 400 })
   }
@@ -66,7 +68,7 @@ export async function POST (
   const createdAt = ServerValue.TIMESTAMP as number
   const newRecord: BoardRecord = {
     createdAt,
-    createdBy: player.id,
+    createdBy: playerId,
     x,
     y,
     piece: nextAvailablePiece,
