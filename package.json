@@ -6,7 +6,8 @@
     "dev": "next dev --experimental-https",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint && tsc --noEmit --incremental"
+    "lint": "next lint && tsc --noEmit --incremental",
+    "download-i18n-messages": "ts-node ./scripts/download-i18n-messages.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
