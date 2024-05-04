@@ -5,8 +5,11 @@ import { useState } from 'react'
 import { usePopper } from 'react-popper'
 import { Button } from './Button'
 import { Input } from './Input'
+import { useTranslations } from 'next-intl'
 
 function ShareBody ({ url }: { url?: string }) {
+  const t = useTranslations()
+
   function copy () {
     if (!url) return
     void navigator.clipboard.writeText(url)
@@ -15,11 +18,7 @@ function ShareBody ({ url }: { url?: string }) {
   return (
     <div className="flex min-w-96 flex-col items-start gap-3">
       <h2 className="flex items-center gap-3 text-lg font-bold">
-        {/* <FontAwesomeIcon
-          className="text-xl text-neutral-600 dark:text-neutral-400"
-          icon={faLink}
-        /> */}
-        Invite Your Friend
+        {t('share.title')}
       </h2>
 
       <div className="grid w-full grid-cols-[1fr_auto] gap-2">
@@ -28,7 +27,7 @@ function ShareBody ({ url }: { url?: string }) {
           leftSection={<FontAwesomeIcon icon={faLink} />}
           value={url}
         />
-        <Button onClick={copy}>Copy</Button>
+        <Button onClick={copy}>{t('action.copy')}</Button>
       </div>
     </div>
   )
@@ -57,7 +56,7 @@ export function ShareButton ({ url }: { url?: string }) {
       />
       <Popover.Panel
         ref={setPopperElement}
-        className="z-10 rounded-2xl border border-neutral-200 bg-[#fdfbfb] p-4 text-left shadow-xl dark:border-neutral-800 dark:bg-[#020404]"
+        className="z-10 rounded-2xl border border-neutral-200 bg-[#fdfbfb] p-5 text-left shadow-xl dark:border-neutral-800 dark:bg-[#020404]"
         style={styles.popper}
         {...attributes.popper}
       >

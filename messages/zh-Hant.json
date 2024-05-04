@@ -1,5 +1,55 @@
 {
-  "Index": {
-    "title": "早上好世界"
+  "room": {
+    "joinRoomDialog": {
+      "title": "加入房間",
+      "content": "輸入房間 ID 來加入"
+    },
+    "createingRoomDialog": {
+      "title": "正在開新房間"
+    },
+    "joiningRoomDialog": {
+      "title": "正在加入房間"
+    }
+  },
+  "action": {
+    "createRoom": "開新房間",
+    "joinRoom": "加入",
+    "signIn": "登入",
+    "signInAsGuest": "訪客模式",
+    "newRound": "再玩一輪",
+    "copy": "複製",
+    "save": "儲存"
+  },
+  "game": {
+    "tab": {
+      "chat": "聊天",
+      "record": "歷史記錄"
+    }
+  },
+  "player": {
+    "label": {
+      "you": "你",
+      "opponent": "對手"
+    }
+  },
+  "message": {
+    "noMoves": "尚未有任何棋步"
+  },
+  "profile": {
+    "editDialog": {
+      "title": "個人檔案",
+      "label": {
+        "name": "名稱",
+        "emoji": "Emoji"
+      }
+    }
+  },
+  "result": {
+    "win": "勝利",
+    "lose": "敗北",
+    "draw": "平手"
+  },
+  "share": {
+    "title": "邀請你的朋友"
   }
 }

@@ -14,8 +14,10 @@ import { LogoIcon } from '../LogoIcon'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHashtag } from '@fortawesome/free-solid-svg-icons'
 import { Footer } from '../Footer'
+import { useTranslations } from 'next-intl'
 
 export function Lobby () {
+  const t = useTranslations()
   const {
     createRoom,
     joinRoom,
@@ -97,12 +99,12 @@ export function Lobby () {
 
     <Dialog
       open={isOpen}
-      title="Join Room"
+      title={t('room.joinRoomDialog.title')}
       onClose={handleCloseDialog}
     >
       <form className="flex flex-col gap-4" onSubmit={handleSubmitJoinRoom}>
         <p className="text-sm opacity-60">
-          Enter the room ID to join
+          {t('room.joinRoomDialog.content')}
         </p>
         <Input
           ref={roomIdInputRef}
@@ -116,14 +118,14 @@ export function Lobby () {
           loading={isCreatingOrJoiningRoom}
           type="submit"
         >
-          Join
+          {t('action.joinRoom')}
         </Button>
       </form>
     </Dialog>
 
     <LoadingDialog
       open={isCreatingOrJoiningRoom && !isOpen}
-      title="Creating a New Room"
+      title={t('room.createingRoomDialog.title')}
     />
   </>)
 }

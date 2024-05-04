@@ -6,6 +6,7 @@ import { type RoomPlayer } from '@/types/Room'
 import { type Piece } from '@/types/Piece'
 import { type BoardResult } from '@/types/BoardResult'
 import { type Nullish } from '@/types/Nullish'
+import { useTranslations } from 'next-intl'
 
 function Skeleton () {
   return (
@@ -20,6 +21,7 @@ export function GamePlayers ({ roomPlayers, nextAvailablePiece, result }: {
   nextAvailablePiece?: Nullish<Piece>
   result?: Nullish<BoardResult>
 }) {
+  const t = useTranslations()
   const { player } = useAuthStore()
 
   return (
@@ -32,6 +34,9 @@ export function GamePlayers ({ roomPlayers, nextAvailablePiece, result }: {
           const isWinner =
             result?.type === 'win' &&
             result.piece === roomPlayer.piece
+          const label = roomPlayer.id === player?.id
+            ? t('player.label.you')
+            : t('player.label.opponent')
 
           return (
             <div key={roomPlayer.id} className="max-w-[50%] flex-none px-2">
@@ -40,7 +45,7 @@ export function GamePlayers ({ roomPlayers, nextAvailablePiece, result }: {
                 color={roomPlayer.piece}
                 emoji={roomPlayer?.emoji}
                 isWinner={isWinner}
-                label={roomPlayer.id === player?.id ? 'You' : 'Opponent'}
+                label={label}
                 name={roomPlayer?.name}
               />
             </div>

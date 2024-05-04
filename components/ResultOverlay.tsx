@@ -6,6 +6,7 @@ import { ResultSign } from './ResultSign'
 import { type BoardResult } from '@/types/BoardResult'
 import { type Nullish } from '@/types/Nullish'
 import { type Piece } from '@/types/Piece'
+import { useTranslations } from 'next-intl'
 
 export function ResultOverlay ({ result, onClickNewRound, piece, disabled }: {
   result?: Nullish<BoardResult>
@@ -13,6 +14,8 @@ export function ResultOverlay ({ result, onClickNewRound, piece, disabled }: {
   onClickNewRound?: () => void
   disabled?: boolean
 }) {
+  const t = useTranslations()
+
   const [count, setCount] = useState(0)
   const [isReadonly, setIsReadonly] = useState(true)
 
@@ -50,7 +53,7 @@ export function ResultOverlay ({ result, onClickNewRound, piece, disabled }: {
           readonly={isReadonly}
           onClick={onClickNewRound}
         >
-          New Round
+          {t('action.newRound')}
         </Button>
       </div>
     </div>

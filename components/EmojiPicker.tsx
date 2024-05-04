@@ -34,7 +34,8 @@ function List ({ emojis, value, onChange }: {
   )
 }
 
-export function EmojiPicker ({ value, onChange }: {
+export function EmojiPicker ({ label, value, onChange }: {
+  label?: string
   value?: Nullish<string>
   onChange?: (value: string) => void
 }) {
@@ -52,7 +53,7 @@ export function EmojiPicker ({ value, onChange }: {
     <div className="flex flex-col gap-3">
       <div className="grid grid-cols-[1fr_auto] items-end gap-2">
         <Input
-          label="Emoji"
+          label={label}
           leftSection={<FontAwesomeIcon icon={faMagnifyingGlass} />}
           placeholder="Search..."
           value={keyword}

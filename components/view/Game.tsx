@@ -26,8 +26,11 @@ import { useShareUrl } from '@/hooks/useShareUrl'
 import { useChats } from '@/hooks/useChats'
 import { useChatWatcher } from '@/hooks/useChatWatcher'
 import { GamePlayers } from '../GamePlayers'
+import { useTranslations } from 'next-intl'
 
 export function Game () {
+  const t = useTranslations()
+
   const { player } = useAuthStore()
   const playerState = usePlayerStateStore()
   const { isCurrentSession } = useIsCurrentSession()
@@ -96,7 +99,7 @@ export function Game () {
     {
       name: (
         <TextWithIndicator active={hasUnreadChats}>
-          Chat
+          {t('game.tab.chat')}
         </TextWithIndicator>
       ),
       icon: <FontAwesomeIcon icon={faComment} />,
@@ -111,7 +114,7 @@ export function Game () {
       ),
     },
     {
-      name: 'History',
+      name: t('game.tab.record'),
       icon: <FontAwesomeIcon icon={faClockRotateLeft} />,
       panel: (
         <div className="h-[350px] w-full max-w-full flex-none">

@@ -1,12 +1,15 @@
 import { cn } from '@/modules/cn'
+import { useTranslations } from 'next-intl'
 
 export function ResultSign ({ type }: {
   type: 'win' | 'lose' | 'draw'
 }) {
+  const t = useTranslations()
+
   const text = ({
-    win: 'You Win',
-    lose: 'You Lose',
-    draw: 'Draw',
+    win: t('result.win'),
+    lose: t('result.lose'),
+    draw: t('result.draw'),
   })[type]
 
   return (

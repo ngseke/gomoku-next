@@ -1,5 +1,55 @@
 {
-  "Index": {
-    "title": "Hello world!"
+  "room": {
+    "joinRoomDialog": {
+      "title": "Join Room",
+      "content": "Enter the room ID to join"
+    },
+    "createingRoomDialog": {
+      "title": "Creating a New Room"
+    },
+    "joiningRoomDialog": {
+      "title": "Joining The Room"
+    }
+  },
+  "action": {
+    "createRoom": "New",
+    "joinRoom": "Join",
+    "signIn": "Sign In",
+    "signInAsGuest": "as Guest",
+    "newRound": "New Round",
+    "copy": "Copy",
+    "save": "Save"
+  },
+  "game": {
+    "tab": {
+      "chat": "Chat",
+      "record": "History"
+    }
+  },
+  "player": {
+    "label": {
+      "you": "You",
+      "opponent": "Opponent"
+    }
+  },
+  "message": {
+    "noMoves": "There are no moves yet."
+  },
+  "profile": {
+    "editDialog": {
+      "title": "Profile",
+      "label": {
+        "name": "Name",
+        "emoji": "Emoji"
+      }
+    }
+  },
+  "result": {
+    "win": "You Win",
+    "lose": "You Lose",
+    "draw": "Draw"
+  },
+  "share": {
+    "title": "Invite Your Friend"
   }
 }

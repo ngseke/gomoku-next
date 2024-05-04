@@ -2,11 +2,14 @@ import { type BoardRecordWithId } from '@/types/BoardRecord'
 import { type Nullish } from '@/types/Nullish'
 import { useEffect, useRef } from 'react'
 import { BoardRecordList } from './BoardRecordList'
+import { useTranslations } from 'next-intl'
 
 function NoMovesMessage () {
+  const t = useTranslations()
+
   return (
     <div className="flex h-full items-center justify-center p-4 text-sm text-neutral-600 dark:text-neutral-400">
-      There are no moves yet.
+      {t('message.noMoves')}
     </div>
   )
 }

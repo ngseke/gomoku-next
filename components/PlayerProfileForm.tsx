@@ -9,6 +9,7 @@ import { useAxios } from '@/hooks/useAxios'
 import { EmojiPicker } from './EmojiPicker'
 import { playerNameMaxLength } from '@/modules/constants'
 import { usePlayer } from '@/hooks/usePlayer'
+import { useTranslations } from 'next-intl'
 
 interface Inputs {
   name: string | null
@@ -18,6 +19,8 @@ interface Inputs {
 export function PlayerProfileForm ({ onFinish }: {
   onFinish?: () => void
 }) {
+  const t = useTranslations()
+
   const { player } = usePlayer()
   const { register, handleSubmit, watch, setValue } = useForm<Inputs>({
     defaultValues: player ?? {},
@@ -53,17 +56,20 @@ export function PlayerProfileForm ({ onFinish }: {
 
       <div className="flex flex-1 flex-col gap-4">
         <Input
-          label="Name"
+          label={t('profile.editDialog.label.name')}
           maxLength={playerNameMaxLength}
           {...register('name', { required: true })}
         />
 
         <EmojiPicker
+          label={t('profile.editDialog.label.emoji')}
           value={watch('emoji')}
           onChange={(emoji) => { setValue('emoji', emoji) }}
         />
 
-        <Button loading={isSubmitting} type="submit">Save</Button>
+        <Button loading={isSubmitting} type="submit">
+          {t('action.save')}
+        </Button>
       </div>
     </form>
   )
