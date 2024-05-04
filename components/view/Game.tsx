@@ -144,7 +144,7 @@ export function Game () {
         <main className="-mx-4 flex h-full flex-1 flex-wrap gap-y-8 sm:flex-nowrap">
           <div className="flex w-full flex-col gap-2 px-4 sm:w-[55%]">
             <div className="flex gap-2">
-              <RoomIdHashtag>{room?.id}</RoomIdHashtag>
+              <RoomIdHashtag roomId={room?.id} />
             </div>
 
             <div className="relative aspect-square">
