@@ -37,8 +37,8 @@ export function LanguageButton ({ placement = 'bottom-start' }: {
             'right-0 top-full origin-top-right': placement === 'bottom-end',
           })}
         >
-          {items.map((item) => (
-            <Menu.Item key={locale}>
+          {items.map((item, index) => (
+            <Menu.Item key={index}>
               <button
                 className="flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-neutral-200 dark:hover:bg-neutral-800"
                 onClick={() => { setLocale(item.locale) }}
