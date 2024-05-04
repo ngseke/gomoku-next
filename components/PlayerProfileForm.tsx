@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useState } from 'react'
 import { Input } from './Input'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { useFetchPlayer } from '@/hooks/useFetchPlayer'
@@ -11,6 +11,7 @@ import { playerNameMaxLength } from '@/modules/constants'
 import { faShuffle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { random } from 'node-emoji'
+import { usePlayer } from '@/hooks/usePlayer'
 
 interface Inputs {
   name: string | null
@@ -20,29 +21,26 @@ interface Inputs {
 export function PlayerProfileForm ({ onFinish }: {
   onFinish?: () => void
 }) {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    setValue,
-  } = useForm<Inputs>()
-
-  const { fetchPlayer } = useFetchPlayer()
-  useEffect(() => {
-    void (async () => {
-      const player = await fetchPlayer()
-
-      reset(player)
-    })()
-  }, [fetchPlayer, reset])
+  const { player } = usePlayer()
+  const { register, handleSubmit, watch, setValue } = useForm<Inputs>({
+    defaultValues: player ?? {},
+  })
 
   const { refetchGlobalPlayer } = useFetchPlayer()
   const axios = useAxios()
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    await axios.patch('/api/player', data)
-    await refetchGlobalPlayer()
-    onFinish?.()
+    setIsSubmitting(true)
+    try {
+      await axios.patch('/api/player', data)
+      await refetchGlobalPlayer()
+      onFinish?.()
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   function setEmojiRandomly () {
@@ -84,7 +82,7 @@ export function PlayerProfileForm ({ onFinish }: {
           onChange={(emoji) => { setValue('emoji', emoji) }}
         />
 
-        <Button type="submit">Save</Button>
+        <Button loading={isSubmitting} type="submit">Save</Button>
       </div>
     </form>
   )
