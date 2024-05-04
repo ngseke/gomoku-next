@@ -1,6 +1,7 @@
 import { useRouter } from 'next/navigation'
 import { useAxios } from './useAxios'
 import { useRoomStore } from './useRoomStore'
+import { useState } from 'react'
 
 export function useRoomActions () {
   const room = useRoomStore()
@@ -8,18 +9,36 @@ export function useRoomActions () {
   const axios = useAxios()
   const router = useRouter()
 
+  const [isSubmittingRoomAction, setSubmittingRoomAction] = useState(false)
+
   async function exitRoom () {
-    await axios.post('/api/room/exit')
-    router.replace('/')
+    try {
+      setSubmittingRoomAction(true)
+      await axios.post('/api/room/exit')
+      router.replace('/')
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setSubmittingRoomAction(false)
+    }
   }
 
   async function createNewBoard () {
     if (!roomId) return
-    await axios.post(`/api/room/${roomId}/new-board`)
+
+    try {
+      setSubmittingRoomAction(true)
+      await axios.post(`/api/room/${roomId}/new-board`)
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setSubmittingRoomAction(false)
+    }
   }
 
   return {
     exitRoom,
     createNewBoard,
+    isSubmittingRoomAction,
   }
 }

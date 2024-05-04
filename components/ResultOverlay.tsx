@@ -7,13 +7,14 @@ import { type BoardResult } from '@/types/BoardResult'
 import { type Nullish } from '@/types/Nullish'
 import { type Piece } from '@/types/Piece'
 
-export function ResultOverlay ({ result, onClickNewRound, piece }: {
+export function ResultOverlay ({ result, onClickNewRound, piece, disabled }: {
   result?: Nullish<BoardResult>
   piece?: Nullish<Piece>
   onClickNewRound?: () => void
+  disabled?: boolean
 }) {
   const [count, setCount] = useState(0)
-  const [isDisabled, setIsDisabled] = useState(true)
+  const [isReadonly, setIsReadonly] = useState(true)
 
   if (!result) return null
 
@@ -25,7 +26,7 @@ export function ResultOverlay ({ result, onClickNewRound, piece }: {
       <div
         className="animate-[result-sign_.5s_1s_cubic-bezier(1,0.8,0.3,1)_normal_forwards] opacity-0"
         onDoubleClick={() => {
-          setIsDisabled(true)
+          setIsReadonly(true)
           setCount(count + 1)
         }}
       >
@@ -41,11 +42,12 @@ export function ResultOverlay ({ result, onClickNewRound, piece }: {
 
       <div
         className="animate-[result-actions_.5s_1.75s_normal_forwards] opacity-0"
-        onAnimationEnd={() => { setIsDisabled(false) }}
+        onAnimationEnd={() => { setIsReadonly(false) }}
       >
         <Button
+          disabled={disabled}
           icon={<FontAwesomeIcon icon={faPlay} />}
-          readonly={isDisabled}
+          readonly={isReadonly}
           onClick={onClickNewRound}
         >
           New Round

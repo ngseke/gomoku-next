@@ -34,16 +34,10 @@ export function Game () {
 
   const room = useRoomStore()
 
-  const [isExitingRoom, setIsExitingRoom] = useState(false)
-  const { exitRoom, createNewBoard } = useRoomActions()
+  const { exitRoom, createNewBoard, isSubmittingRoomAction } = useRoomActions()
 
   async function handleClickExitRoom () {
-    setIsExitingRoom(true)
-    try {
-      await exitRoom()
-    } finally {
-      setIsExitingRoom(false)
-    }
+    await exitRoom()
   }
 
   const { roomPlayers, rawRoomPlayers } = useRoomPlayers()
@@ -136,7 +130,7 @@ export function Game () {
 
   return (<>
     <GameNavbar
-      isBackIconButtonLoading={isExitingRoom}
+      isBackIconButtonLoading={isSubmittingRoomAction}
       isShowLabels={isShowLabels}
       shareUrl={shareUrl}
       onClickBackIconButton={handleClickExitRoom}
@@ -166,6 +160,7 @@ export function Game () {
               />
 
               <ResultOverlay
+                disabled={isSubmittingRoomAction}
                 piece={myPiece}
                 result={result}
                 onClickNewRound={createNewBoard}
