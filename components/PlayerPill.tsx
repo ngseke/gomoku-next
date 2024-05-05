@@ -20,9 +20,8 @@ function Name ({ dark, ...restProps }: ComponentProps<'span'> & { dark?: boolean
   )
 }
 
-export function PlayerPill ({ name, image, emoji, loading, color, active, highlightOnHover }: {
+export function PlayerPill ({ name, emoji, loading, color, active, highlightOnHover }: {
   name?: Nullish<string>
-  image?: Nullish<string>
   emoji?: Nullish<string>
   loading?: boolean
   color?: Nullish<'black' | 'white'>
@@ -30,7 +29,7 @@ export function PlayerPill ({ name, image, emoji, loading, color, active, highli
   highlightOnHover?: boolean
 }) {
   return (
-    <span className="relative inline-flex max-w-full">
+    <span className="group relative inline-flex max-w-full">
       <span
         className={cn(
           'inline-flex h-10 w-full max-w-64 animate-flash-outline items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 px-1 outline outline-0 duration-300',
@@ -51,13 +50,7 @@ export function PlayerPill ({ name, image, emoji, loading, color, active, highli
           }
         )}
         >
-          {image && (
-            <img alt="Avatar" className="size-full object-cover" src={image} />
-          )}
-
-          {emoji && (
-            <span className="select-none text-2xl">{emoji}</span>
-          )}
+          {emoji && (<span className="select-none text-2xl">{emoji}</span>)}
         </span>
 
         {loading
