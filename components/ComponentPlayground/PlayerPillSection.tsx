@@ -20,6 +20,7 @@ export function PlayerPillSection () {
       <PlayerPill active emoji="🦒" name="Long Long Long Long Long Giraffe" />
       <div className="w-full" />
       <PlayerPill loading name="Sean Huang" />
+      <PlayerPill ghost name="Sean Huang" />
       <PlayerPill emoji="🫥" />
       <PlayerPill name="John Smith" />
       <div className="w-full" />
@@ -31,6 +32,7 @@ export function PlayerPillSection () {
       <PlayerPillWithLabel color="black" emoji="🤨" isWinner={isActive} label="你" name="楊淑芬" />
       <PlayerPillWithLabel color="white" emoji="😈️" isWinner={!isActive} label="對手" name="陳金發" />
       <PlayerPillWithLabel loading />
+      <PlayerPillWithLabel ghost />
     </div>
   </>)
 }

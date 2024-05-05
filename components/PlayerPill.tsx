@@ -2,9 +2,9 @@ import { cn } from '@/modules/cn'
 import { type Nullish } from '@/types/Nullish'
 import { type ReactNode, type ComponentProps } from 'react'
 
-function NameSkeleton () {
+function NameSkeleton ({ className, ...restProps }: ComponentProps<'span'>) {
   return (
-    <span className="mr-2 inline-block h-4 w-14 rounded-md bg-neutral-200 transition-colors duration-300 dark:bg-neutral-800" />
+    <span className={cn('inline-block h-4 w-14 rounded-md bg-neutral-200 transition-colors duration-300 dark:bg-neutral-800', className)} />
   )
 }
 
@@ -20,10 +20,11 @@ function Name ({ dark, ...restProps }: ComponentProps<'span'> & { dark?: boolean
   )
 }
 
-export function PlayerPill ({ name, emoji, loading, color, active, highlightOnHover, rightSection }: {
+export function PlayerPill ({ name, emoji, loading, ghost, color, active, highlightOnHover, rightSection }: {
   name?: Nullish<string>
   emoji?: Nullish<string>
   loading?: boolean
+  ghost?: boolean
   color?: Nullish<'black' | 'white'>
   active?: boolean
   highlightOnHover?: boolean
@@ -40,6 +41,7 @@ export function PlayerPill ({ name, emoji, loading, color, active, highlightOnHo
             'bg-gradient-to-tr from-[#cfd4d7] to-[#fdfbfb] dark:text-neutral-800': color === 'white',
             'outline-[3px]': active,
             'hover:shadow-lg hover:bg-neutral-200 dark:hover:bg-neutral-700': highlightOnHover,
+            'border-[2.5px] border-dotted bg-transparent dark:bg-transparent': ghost,
           }
         )}
       >
@@ -48,14 +50,15 @@ export function PlayerPill ({ name, emoji, loading, color, active, highlightOnHo
           {
             'bg-neutral-800': color === 'black',
             'dark:bg-neutral-200': color === 'white',
+            'border-[2.5px] border-dotted bg-transparent border-neutral-200 dark:bg-transparent dark:border-neutral-800': ghost,
           }
         )}
         >
           {emoji && (<span className="select-none text-2xl">{emoji}</span>)}
         </span>
 
-        {loading
-          ? <NameSkeleton />
+        {(Boolean(loading) || Boolean(ghost))
+          ? <NameSkeleton className={cn({ 'opacity-0': ghost })} />
           : (name && <Name dark={color === 'black'}>{name}</Name>)}
 
         {rightSection}
