@@ -2,6 +2,7 @@ import { firebaseAdminAuth, firebaseAdminDatabase } from '@/modules/firebaseAdmi
 
 export async function POST () {
   await firebaseAdminDatabase.ref().set({})
+  await setRules()
   await deleteAnonymousUsers()
 
   return new Response(null, { status: 204 })
@@ -22,4 +23,39 @@ async function deleteAnonymousUsers (nextPageToken?: string) {
   if (pageToken) {
     await deleteAnonymousUsers(pageToken)
   }
+}
+
+async function setRules () {
+  const rules = {
+    rules: {
+      chats: {
+        '.read': true,
+        '.write': false,
+      },
+      playerStates: {
+        $playerId: {
+          '.read': '$playerId === auth.uid',
+          '.write': '$playerId === auth.uid',
+        },
+      },
+      rooms: {
+        $roomId: {
+          '.read': true,
+          players: {
+            $playerId: {
+              '.write': '$playerId === auth.uid',
+            },
+          },
+        },
+      },
+      boards: {
+        '.read': true,
+        '.write': false,
+      },
+    },
+  }
+
+  await firebaseAdminDatabase.setRules(
+    JSON.stringify(rules, null, 2)
+  )
 }
