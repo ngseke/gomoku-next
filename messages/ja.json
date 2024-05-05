@@ -25,6 +25,11 @@
     "tab": {
       "chat": "チャット",
       "record": "履歴"
+    },
+    "status": {
+      "myTurn": "あなたの番だ！",
+      "opponentTurn": "相手の番",
+      "gameOver": "ゲームオーバー"
     }
   },
   "player": {

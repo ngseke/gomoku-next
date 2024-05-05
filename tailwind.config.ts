@@ -67,6 +67,11 @@ const config: Config = {
             transform: 'scale(1.5)',
           },
         },
+        'incremental-dots': {
+          '20%': { content: '"."' },
+          '40%': { content: '".."' },
+          '60%': { content: '"..."' },
+        },
       },
     },
   },

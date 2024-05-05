@@ -25,6 +25,11 @@
     "tab": {
       "chat": "聊天",
       "record": "歷史記錄"
+    },
+    "status": {
+      "myTurn": "換你下了!",
+      "opponentTurn": "等待對手下",
+      "gameOver": "遊戲結束"
     }
   },
   "player": {

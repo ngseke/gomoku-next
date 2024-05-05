@@ -25,6 +25,11 @@
     "tab": {
       "chat": "Chat",
       "record": "History"
+    },
+    "status": {
+      "myTurn": "Your Turn!",
+      "opponentTurn": "Opponent's Turn",
+      "gameOver": "Game Over"
     }
   },
   "player": {

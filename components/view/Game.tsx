@@ -12,7 +12,7 @@ import { RoomIdHashtag } from '../RoomIdHashtag'
 import { useRoomActions } from '@/hooks/useRoomActions'
 import { useToggle } from 'usehooks-ts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClockRotateLeft, faComment } from '@fortawesome/free-solid-svg-icons'
+import { faCircle, faClock, faClockRotateLeft, faComment, faCrown } from '@fortawesome/free-solid-svg-icons'
 import { ResultOverlay } from '../ResultOverlay'
 import { type Position } from '@/types/Position'
 import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
@@ -27,6 +27,8 @@ import { useChats } from '@/hooks/useChats'
 import { useChatWatcher } from '@/hooks/useChatWatcher'
 import { GamePlayers } from '../GamePlayers'
 import { useTranslations } from 'next-intl'
+import { Tag } from '../Tag'
+import { IncrementalDots } from '../IncrementalDots'
 
 export function Game () {
   const t = useTranslations()
@@ -131,6 +133,21 @@ export function Game () {
 
   const { shareUrl } = useShareUrl()
 
+  const statusTagProps = (() => {
+    if (result) {
+      return { icon: faCrown, text: t('game.status.gameOver') }
+    }
+    if (isMyTurn) {
+      return { icon: faCircle, text: t('game.status.myTurn'), active: true }
+    }
+
+    return {
+      icon: faClock,
+      text: t('game.status.opponentTurn'),
+      rightSection: <IncrementalDots className="w-6" />,
+    }
+  })()
+
   return (<>
     <GameNavbar
       isBackIconButtonLoading={isSubmittingRoomAction}
@@ -146,8 +163,9 @@ export function Game () {
       <div className="flex size-full flex-col gap-8">
         <main className="-mx-4 flex h-full flex-1 flex-wrap gap-y-8 sm:flex-nowrap">
           <div className="flex w-full flex-col gap-2 px-4 sm:w-[55%]">
-            <div className="flex gap-2">
+            <div className="flex gap-1.5">
               <RoomIdHashtag roomId={room?.id} />
+              <Tag {...statusTagProps} />
             </div>
 
             <div className="relative aspect-square">
