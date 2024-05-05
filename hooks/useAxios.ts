@@ -5,7 +5,7 @@ import { useAuthStore } from './useAuthStore'
 
 export function useAxios () {
   const axiosRef = useRef(baseAxios.create({
-    timeout: 5000,
+    timeout: 10000,
   }))
   const auth = useAuth()
 
