@@ -10,6 +10,7 @@ import { fetchAndJudgeBoard } from '@/modules/firebaseAdmin/fetchAndJudgeBoard'
 import { createBoardResult } from '@/modules/firebaseAdmin/createBoardResult'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
 import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
+import { findRoomPlayerByPiece } from '@/modules/findRoomPlayerByPiece'
 
 export async function POST (
   request: Request,
@@ -80,8 +81,9 @@ export async function POST (
   if (result) {
     await createBoardResult(boardId, result)
     if (result.type === 'win') {
+      const winner = findRoomPlayerByPiece(roomPlayers, result.piece)
       void createChat(roomId, {
-        message: `The winner is ${result.piece}`,
+        message: `The winner is ${result.piece} (${winner?.name})`,
         isAdmin: true,
       })
     } else {
