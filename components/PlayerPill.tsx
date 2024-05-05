@@ -39,7 +39,7 @@ export function PlayerPill ({ name, emoji, loading, color, active, highlightOnHo
             'bg-gradient-to-tr from-black to-[#434343]': color === 'black',
             'bg-gradient-to-tr from-[#cfd4d7] to-[#fdfbfb] dark:text-neutral-800': color === 'white',
             'outline-[3px]': active,
-            'hover:shadow-lg': highlightOnHover,
+            'hover:shadow-lg hover:bg-neutral-200 dark:hover:bg-neutral-700': highlightOnHover,
           }
         )}
       >
