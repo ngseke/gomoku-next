@@ -12,7 +12,7 @@ import { RoomIdHashtag } from '../RoomIdHashtag'
 import { useRoomActions } from '@/hooks/useRoomActions'
 import { useToggle } from 'usehooks-ts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircle, faClock, faClockRotateLeft, faComment, faCrown } from '@fortawesome/free-solid-svg-icons'
+import { faCircle, faClock, faClockRotateLeft, faComment, faCrown, faStopwatch, faUserXmark } from '@fortawesome/free-solid-svg-icons'
 import { ResultOverlay } from '../ResultOverlay'
 import { type Position } from '@/types/Position'
 import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
@@ -137,12 +137,18 @@ export function Game () {
     if (result) {
       return { icon: faCrown, text: t('game.status.gameOver') }
     }
+    if (roomPlayers.length < 2) {
+      return {
+        icon: faUserXmark,
+        text: t('game.status.awaitingPlayer'),
+      }
+    }
     if (isMyTurn) {
       return { icon: faCircle, text: t('game.status.myTurn'), active: true }
     }
 
     return {
-      icon: faClock,
+      icon: faStopwatch,
       text: t('game.status.opponentTurn'),
       rightSection: <IncrementalDots className="w-6" />,
     }

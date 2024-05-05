@@ -29,7 +29,8 @@
     "status": {
       "myTurn": "換你下了!",
       "opponentTurn": "等待對手下",
-      "gameOver": "遊戲結束"
+      "gameOver": "遊戲結束",
+      "awaitingPlayer": "玩家尚未到齊"
     }
   },
   "player": {

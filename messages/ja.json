@@ -29,7 +29,8 @@
     "status": {
       "myTurn": "あなたの番だ！",
       "opponentTurn": "相手の番",
-      "gameOver": "ゲームオーバー"
+      "gameOver": "ゲームオーバー",
+      "awaitingPlayer": "プレイヤー待ち"
     }
   },
   "player": {

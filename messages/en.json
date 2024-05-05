@@ -29,7 +29,8 @@
     "status": {
       "myTurn": "Your Turn!",
       "opponentTurn": "Opponent's Turn",
-      "gameOver": "Game Over"
+      "gameOver": "Game Over",
+      "awaitingPlayer": "Awaiting Player"
     }
   },
   "player": {
