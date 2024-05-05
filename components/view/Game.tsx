@@ -82,7 +82,7 @@ export function Game () {
 
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 
-  const { hasUnreadChats } = useChats()
+  const { unreadChatCount } = useChats()
 
   const { watch, unwatch } = useChatWatcher()
   useEffect(() => {
@@ -100,7 +100,7 @@ export function Game () {
   const tabs = [
     {
       name: (
-        <TextWithIndicator active={hasUnreadChats}>
+        <TextWithIndicator active={Boolean(unreadChatCount)}>
           {t('game.tab.chat')}
         </TextWithIndicator>
       ),

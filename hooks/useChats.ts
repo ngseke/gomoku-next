@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
 
 export function useChats () {
   const chats = useAppSelector(state => state.chat.chats)
-  const hasUnreadChats = useAppSelector(state => state.chat.hasUnreadChats)
+  const unreadChatCount = useAppSelector(state => state.chat.unreadChatCount)
 
   const dispatch = useAppDispatch()
 
@@ -28,7 +28,7 @@ export function useChats () {
 
   return {
     chats,
-    hasUnreadChats,
+    unreadChatCount,
     watch,
     unwatch,
   }

@@ -5,13 +5,13 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface ChatState {
   chats: Record<string, Chat> | null
-  hasUnreadChats: boolean
+  unreadChatCount: number
   watchers: string[]
 }
 
 const initialState: ChatState = {
   chats: null,
-  hasUnreadChats: false,
+  unreadChatCount: 0,
   watchers: [],
 }
 
@@ -23,9 +23,9 @@ export const chatSlice = createSlice({
       const chats = action.payload
       state.chats = chats
 
-      state.hasUnreadChats =
-        Boolean(chats && Object.values(chats).length) &&
-        !state.watchers.length
+      if (!chats) {
+        state.unreadChatCount = 0
+      }
     },
 
     pushChat (
@@ -37,12 +37,14 @@ export const chatSlice = createSlice({
         [key]: chat,
       }
 
-      if (!state.watchers.length) state.hasUnreadChats = true
+      if (!state.watchers.length) {
+        state.unreadChatCount++
+      }
     },
 
     addWatcher (state, { payload }: PayloadAction<string>) {
       state.watchers = unique([...state.watchers, payload])
-      state.hasUnreadChats = false
+      state.unreadChatCount = 0
     },
 
     removeWatcher (state, { payload }: PayloadAction<string>) {
