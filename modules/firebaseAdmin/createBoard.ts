@@ -1,3 +1,4 @@
+import 'server-only'
 import { ServerValue } from 'firebase-admin/database'
 import { firebaseAdminDatabase } from './firebaseAdmin'
 import { type Board } from '@/types/Board'

@@ -1,3 +1,4 @@
+import 'server-only'
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
 import { type Room } from '@/types/Room'

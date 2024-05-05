@@ -1,3 +1,4 @@
+import 'server-only'
 import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { type Board } from '@/types/Board'
 import { type Nullish } from '@/types/Nullish'

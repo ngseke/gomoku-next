@@ -1,3 +1,4 @@
+import 'server-only'
 import { type Player } from '@/types/Player'
 import { firebaseAdminDatabase } from './firebaseAdmin'
 import { parseAuthorization } from './parseAuthorization'

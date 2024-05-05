@@ -1,3 +1,4 @@
+import 'server-only'
 import { firebaseAdminAuth } from '@/modules/firebaseAdmin/firebaseAdmin'
 
 export async function parseAuthorization (request: Request) {

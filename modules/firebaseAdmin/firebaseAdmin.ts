@@ -1,3 +1,4 @@
+import 'server-only'
 import { credential } from 'firebase-admin'
 import { type ServiceAccount, initializeApp } from 'firebase-admin/app'
 import { getAuth } from 'firebase-admin/auth'

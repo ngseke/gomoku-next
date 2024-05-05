@@ -1,3 +1,4 @@
+import 'server-only'
 import { judgeResult } from '../boardGrid'
 import { generateBoardGrid } from '../generateBoard'
 import { fetchBoard } from './fetchBoard'

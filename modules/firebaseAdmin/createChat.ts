@@ -1,3 +1,4 @@
+import 'server-only'
 import { ServerValue } from 'firebase-admin/database'
 import { firebaseAdminDatabase } from './firebaseAdmin'
 import { type Chat } from '@/types/Chat'
