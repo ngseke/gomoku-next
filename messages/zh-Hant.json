@@ -24,7 +24,7 @@
   "game": {
     "tab": {
       "chat": "聊天",
-      "record": "歷史記錄"
+      "record": "棋步"
     },
     "status": {
       "myTurn": "換你下了!",

@@ -24,7 +24,7 @@
   "game": {
     "tab": {
       "chat": "Chat",
-      "record": "History"
+      "record": "Moves"
     },
     "status": {
       "myTurn": "Your Turn!",

@@ -24,7 +24,7 @@
   "game": {
     "tab": {
       "chat": "チャット",
-      "record": "履歴"
+      "record": "手順"
     },
     "status": {
       "myTurn": "あなたの番だ！",
