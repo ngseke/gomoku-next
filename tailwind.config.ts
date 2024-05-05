@@ -18,6 +18,7 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
+        inter: ['var(--font-inter)'],
         sans: ['var(--font-inter)', 'var(--font-noto-sans-tc)'],
         'sans-ja': ['var(--font-inter)', 'var(--font-noto-sans-jp)'],
         mono: ['var(--font-robot-mono)'],

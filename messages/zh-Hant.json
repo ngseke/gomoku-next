@@ -1,4 +1,5 @@
 {
+  "title": "五子棋",
   "room": {
     "joinRoomDialog": {
       "title": "加入房間",
@@ -34,7 +35,7 @@
     "anonymousName": "匿名{name}"
   },
   "message": {
-    "noMoves": "尚未有任何棋步"
+    "noMoves": "尚無任何棋步"
   },
   "profile": {
     "editDialog": {

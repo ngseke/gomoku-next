@@ -74,7 +74,12 @@ export function Lobby () {
         <div className="flex w-full flex-col gap-6 sm:gap-8">
           <div className="flex items-center gap-3">
             <LogoIcon className="size-12 sm:size-16" />
-            <LogoText className="text-3xl sm:text-5xl" />
+            <div className="flex flex-wrap items-end gap-x-3">
+              <LogoText className="text-3xl sm:text-5xl" />
+              <span className="text-nowrap font-bold text-neutral-600 dark:text-neutral-400">
+                {t('title')}
+              </span>
+            </div>
           </div>
 
           <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
