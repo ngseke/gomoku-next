@@ -24,9 +24,11 @@ function Skeleton () {
 }
 
 function Ghost () {
+  const invisibleLabel = <span className="invisible">_</span>
+
   return (
     <Wrapper className="max-w-[50%] flex-none px-2">
-      <PlayerPillWithLabel ghost />
+      <PlayerPillWithLabel ghost label={invisibleLabel} />
     </Wrapper>
   )
 }
@@ -41,10 +43,10 @@ export function GamePlayers ({ roomPlayers, nextAvailablePiece, result }: {
   const t = useTranslations()
   const { player } = useAuthStore()
 
-  const elements = pieces?.map((piece) => {
+  const elements = pieces?.map((piece, index) => {
     const roomPlayer = roomPlayers
       ?.find(roomPlayer => roomPlayer.piece === piece)
-    if (!roomPlayer) return <Ghost />
+    if (!roomPlayer) return <Ghost key={`ghost_${index}`} />
 
     const isActive = roomPlayer?.piece === nextAvailablePiece
     const isWinner = result?.type === 'win' && result.piece === roomPlayer.piece

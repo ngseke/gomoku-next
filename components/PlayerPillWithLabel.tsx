@@ -1,4 +1,4 @@
-import { Fragment, type ComponentProps } from 'react'
+import { Fragment, type ReactNode, type ComponentProps } from 'react'
 import { PlayerPill } from './PlayerPill'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
@@ -33,7 +33,7 @@ export function PlayerPillWithLabel ({
   loading,
   ...restProps
 }: ComponentProps<typeof PlayerPill> & {
-  label?: string
+  label?: ReactNode
   isWinner?: boolean
 }) {
   return (
