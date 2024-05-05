@@ -12,7 +12,7 @@ import { RoomIdHashtag } from '../RoomIdHashtag'
 import { useRoomActions } from '@/hooks/useRoomActions'
 import { useToggle } from 'usehooks-ts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircle, faClock, faClockRotateLeft, faComment, faCrown, faStopwatch, faUserXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCircle, faClockRotateLeft, faComment, faCrown, faStopwatch, faUserXmark } from '@fortawesome/free-solid-svg-icons'
 import { ResultOverlay } from '../ResultOverlay'
 import { type Position } from '@/types/Position'
 import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
@@ -45,7 +45,7 @@ export function Game () {
     await exitRoom()
   }
 
-  const { roomPlayers, rawRoomPlayers } = useRoomPlayers()
+  const { roomPlayers, rawRoomPlayers, isAwaitingPlayer } = useRoomPlayers()
 
   const boardId = room?.boardId
   const {
@@ -137,7 +137,7 @@ export function Game () {
     if (result) {
       return { icon: faCrown, text: t('game.status.gameOver') }
     }
-    if (roomPlayers.length < 2) {
+    if (isAwaitingPlayer) {
       return {
         icon: faUserXmark,
         text: t('game.status.awaitingPlayer'),
@@ -153,6 +153,8 @@ export function Game () {
       rightSection: <IncrementalDots className="w-6" />,
     }
   })()
+
+  const isBoardDisabled = !isMyTurn || !isCurrentSession || isPlacing || isAwaitingPlayer
 
   return (<>
     <GameNavbar
@@ -178,7 +180,7 @@ export function Game () {
               <GomokuBoard
                 boardGrid={optimisticBoardGrid}
                 dimmedPositions={dimmedPositions}
-                disabled={!isMyTurn || !isCurrentSession || isPlacing}
+                disabled={isBoardDisabled}
                 emphasis={emphasis}
                 highlight={highlight}
                 showLabels={isShowLabels}

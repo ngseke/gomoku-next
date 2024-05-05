@@ -10,8 +10,11 @@ export function useRoomPlayers () {
     ))
     : []
 
+  const isAwaitingPlayer = roomPlayers.length < 2
+
   return {
     rawRoomPlayers,
     roomPlayers,
+    isAwaitingPlayer,
   }
 }
