@@ -24,6 +24,7 @@ function List ({ emojis, value, onChange }: {
             className={cn('inline-flex aspect-square items-center justify-center overflow-hidden rounded-[25%] text-3xl', {
               'bg-neutral-300/90 dark:bg-neutral-700/90': value === emoji.emoji,
             })}
+            title={emoji.name}
             type="button"
             onClick={() => {
               onChange?.(emoji.emoji)

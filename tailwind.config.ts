@@ -61,6 +61,12 @@ const config: Config = {
           '0%': { opacity: '0%' },
           '100%': { opacity: '100%' },
         },
+        'tag-ping': {
+          '20%, 100%': {
+            opacity: '0%',
+            transform: 'scale(1.5)',
+          },
+        },
       },
     },
   },
