@@ -1,6 +1,6 @@
 import { cn } from '@/modules/cn'
 import { type Nullish } from '@/types/Nullish'
-import { type ComponentProps } from 'react'
+import { type ReactNode, type ComponentProps } from 'react'
 
 function NameSkeleton () {
   return (
@@ -12,7 +12,7 @@ function Name ({ dark, ...restProps }: ComponentProps<'span'> & { dark?: boolean
   return (
     <span
       className={cn(
-        'mr-2 truncate text-sm font-medium',
+        'truncate text-sm font-medium',
         { 'text-white': dark }
       )}
       {...restProps}
@@ -20,19 +20,20 @@ function Name ({ dark, ...restProps }: ComponentProps<'span'> & { dark?: boolean
   )
 }
 
-export function PlayerPill ({ name, emoji, loading, color, active, highlightOnHover }: {
+export function PlayerPill ({ name, emoji, loading, color, active, highlightOnHover, rightSection }: {
   name?: Nullish<string>
   emoji?: Nullish<string>
   loading?: boolean
   color?: Nullish<'black' | 'white'>
   active?: boolean
   highlightOnHover?: boolean
+  rightSection?: ReactNode
 }) {
   return (
     <span className="group relative inline-flex max-w-full">
       <span
         className={cn(
-          'inline-flex h-10 w-full max-w-64 animate-flash-outline items-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 px-1 outline outline-0 duration-300',
+          'inline-flex h-10 w-full max-w-64 animate-flash-outline items-center rounded-full border border-neutral-200 bg-neutral-100 px-1 pr-3 outline outline-0 duration-300',
           'dark:border-neutral-800 dark:bg-neutral-900',
           {
             'bg-gradient-to-tr from-black to-[#434343]': color === 'black',
@@ -43,7 +44,7 @@ export function PlayerPill ({ name, emoji, loading, color, active, highlightOnHo
         )}
       >
         <span className={cn(
-          'flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800',
+          'mr-2 flex aspect-square w-8 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800',
           {
             'bg-neutral-800': color === 'black',
             'dark:bg-neutral-200': color === 'white',
@@ -56,6 +57,8 @@ export function PlayerPill ({ name, emoji, loading, color, active, highlightOnHo
         {loading
           ? <NameSkeleton />
           : (name && <Name dark={color === 'black'}>{name}</Name>)}
+
+        {rightSection}
       </span>
 
       <span
