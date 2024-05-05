@@ -59,5 +59,10 @@
   },
   "share": {
     "title": "邀請你的朋友"
+  },
+  "playerRecord": {
+    "winCount": "勝",
+    "loseCount": "敗",
+    "winRate": "勝率"
   }
 }

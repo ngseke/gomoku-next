@@ -59,5 +59,10 @@
   },
   "share": {
     "title": "Invite Your Friend"
+  },
+  "playerRecord": {
+    "winCount": "Wins",
+    "loseCount": "Losses",
+    "winRate": "Win Rate"
   }
 }

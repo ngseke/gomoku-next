@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHashtag } from '@fortawesome/free-solid-svg-icons'
 import { Footer } from '../Footer'
 import { useTranslations } from 'next-intl'
+import { PlayerRecord } from '../PlayerRecord'
 
 export function Lobby () {
   const t = useTranslations()
@@ -82,7 +83,7 @@ export function Lobby () {
             </div>
           </div>
 
-          <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+          <div className="grid w-full grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-[3fr_3fr_2fr]">
             <NewRoomButton
               disabled={isCreatingOrJoiningRoom}
               onClick={handleClickCreateRoom}
@@ -91,6 +92,8 @@ export function Lobby () {
               disabled={isCreatingOrJoiningRoom}
               onClick={handleClickJoinRoom}
             />
+
+            <PlayerRecord />
           </div>
 
           <div className="flex">

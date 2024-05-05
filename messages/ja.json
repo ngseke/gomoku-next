@@ -59,5 +59,10 @@
   },
   "share": {
     "title": "友達を招待する"
+  },
+  "playerRecord": {
+    "winCount": "勝",
+    "loseCount": "敗",
+    "winRate": "勝率"
   }
 }
