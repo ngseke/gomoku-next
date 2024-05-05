@@ -1,8 +1,8 @@
 'use client'
 import { useEffect } from 'react'
-import { type User, onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth'
 import { useAuth } from 'reactfire'
-import { clearAuth, setUser } from '@/lib/features/authSlice'
+import { clearAuth } from '@/lib/features/authSlice'
 import { useAppDispatch } from '@/lib/hooks'
 import { useFetchPlayer } from '../useFetchPlayer'
 
@@ -17,8 +17,6 @@ export function useInitializeUser () {
         dispatch?.(clearAuth())
         return
       }
-      const serializedUser = user?.toJSON() as User
-      dispatch?.(setUser(serializedUser))
 
       await refetchGlobalPlayer()
     })
