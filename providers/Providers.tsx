@@ -6,6 +6,9 @@ import { FirebaseAppProvider } from 'reactfire'
 import { ThemeProvider } from 'next-themes'
 import { FirebaseProviders } from './FirebaseProviders'
 import { StoreProvider } from './StoreProvider'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 export function Providers ({ children }: PropsWithChildren) {
   return (
@@ -13,7 +16,9 @@ export function Providers ({ children }: PropsWithChildren) {
       <FirebaseAppProvider firebaseConfig={firebaseConfig}>
         <FirebaseProviders>
           <StoreProvider>
-            {children}
+            <QueryClientProvider client={queryClient}>
+              {children}
+            </QueryClientProvider>
           </StoreProvider>
         </FirebaseProviders>
       </FirebaseAppProvider>
