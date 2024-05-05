@@ -31,6 +31,8 @@ function Ghost () {
   )
 }
 
+const pieces: Piece[] = ['black', 'white']
+
 export function GamePlayers ({ roomPlayers, nextAvailablePiece, result }: {
   roomPlayers?: Nullish<RoomPlayer[]>
   nextAvailablePiece?: Nullish<Piece>
@@ -39,7 +41,11 @@ export function GamePlayers ({ roomPlayers, nextAvailablePiece, result }: {
   const t = useTranslations()
   const { player } = useAuthStore()
 
-  const players = roomPlayers?.map((roomPlayer) => {
+  const elements = pieces?.map((piece) => {
+    const roomPlayer = roomPlayers
+      ?.find(roomPlayer => roomPlayer.piece === piece)
+    if (!roomPlayer) return <Ghost />
+
     const isActive = roomPlayer?.piece === nextAvailablePiece
     const isWinner = result?.type === 'win' && result.piece === roomPlayer.piece
     const label = roomPlayer.id === player?.id
@@ -62,13 +68,10 @@ export function GamePlayers ({ roomPlayers, nextAvailablePiece, result }: {
 
   return (
     <div className="-mx-2 flex">
-      {!roomPlayers?.length
+      {!roomPlayers
         ? Array.from({ length: 2 })
           .map((_, index) => (<Skeleton key={index} />))
-        : <>
-          {players}
-          {roomPlayers.length < 2 && <Ghost />}
-        </>}
+        : elements}
     </div>
   )
 }
