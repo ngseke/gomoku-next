@@ -10,7 +10,7 @@ import { createBoardResult } from '@/modules/firebaseAdmin/createBoardResult'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
 import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
 import { findRoomPlayerByPiece } from '@/modules/findRoomPlayerByPiece'
-import { getBoardRecordsRef } from '@/modules/firebaseAdmin/refs'
+import { getBoardRecordsRef, getPlayerRecordDrawCountRef, getPlayerRecordLoseCountRef, getPlayerRecordWinCountRef } from '@/modules/firebaseAdmin/refs'
 
 export async function POST (
   request: Request,
@@ -80,13 +80,31 @@ export async function POST (
   const result = await fetchAndJudgeBoard(boardId)
   if (result) {
     await createBoardResult(boardId, result)
+
     if (result.type === 'win') {
       const winner = findRoomPlayerByPiece(roomPlayers, result.piece)
+
+      Object.values(roomPlayers).forEach((player) => {
+        if (!winner) return
+
+        if (player.id === winner.id) {
+          void getPlayerRecordWinCountRef(player.id)
+            .set(ServerValue.increment(1))
+        } else {
+          void getPlayerRecordLoseCountRef(player.id)
+            .set(ServerValue.increment(1))
+        }
+      })
+
       void createChat(roomId, {
         message: `The winner is ${result.piece} (${winner?.name})`,
         isAdmin: true,
       })
     } else {
+      Object.values(roomPlayers).forEach((player) => {
+        void getPlayerRecordDrawCountRef(player.id)
+          .set(ServerValue.increment(1))
+      })
       void createChat(roomId, {
         message: 'It\'s a draw',
         isAdmin: true,

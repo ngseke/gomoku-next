@@ -40,3 +40,19 @@ export function getPlayerRef (playerId: string) {
 export function getPlayerStateRef (playerId: string) {
   return firebaseAdminDatabase.ref(`playerStates/${playerId}`)
 }
+
+export function getPlayerRecordRef (playerId: string) {
+  return firebaseAdminDatabase.ref(`playerRecords/${playerId}`)
+}
+
+export function getPlayerRecordWinCountRef (playerId: string) {
+  return getPlayerRecordRef(playerId).child('winCount')
+}
+
+export function getPlayerRecordLoseCountRef (playerId: string) {
+  return getPlayerRecordRef(playerId).child('loseCount')
+}
+
+export function getPlayerRecordDrawCountRef (playerId: string) {
+  return getPlayerRecordRef(playerId).child('drawCount')
+}
