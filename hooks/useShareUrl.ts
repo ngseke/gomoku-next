@@ -2,8 +2,8 @@ import { usePathname } from 'next/navigation'
 
 export function useShareUrl () {
   const pathname = usePathname()
-  const origin = window.location.origin
-  const shareUrl = String(new URL(pathname, origin))
+  const origin = typeof window !== 'undefined' ? window.location.origin : null
+  const shareUrl = origin ? String(new URL(pathname, origin)) : ''
 
   return { shareUrl }
 }
