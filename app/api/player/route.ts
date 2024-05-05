@@ -1,6 +1,6 @@
 import { playerNameMaxLength } from '@/modules/constants'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
-import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
+import { getPlayerRef } from '@/modules/firebaseAdmin/refs'
 
 export async function GET (
   request: Request,
@@ -17,8 +17,7 @@ export async function PATCH (
   const player = await fetchPlayer(request)
   if (!player) return Response.json(null, { status: 403 })
 
-  const id = player.id
-  const playerRef = firebaseAdminDatabase.ref(`players/${id}`)
+  const playerRef = getPlayerRef(player.id)
 
   const { name, emoji } = await request.json()
 

@@ -1,9 +1,9 @@
 import 'server-only'
-import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { type RoomPlayers } from '@/types/Room'
+import { getRoomPlayersRef } from './refs'
 
 export async function fetchRoomPlayers (roomId: string) {
-  const roomPlayersRef = firebaseAdminDatabase.ref(`rooms/${roomId}/players`)
+  const roomPlayersRef = getRoomPlayersRef(roomId)
 
   const roomPlayers = (await roomPlayersRef.get()).val() as RoomPlayers | null
 

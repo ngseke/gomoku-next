@@ -1,13 +1,13 @@
 import 'server-only'
 import { ServerValue } from 'firebase-admin/database'
-import { firebaseAdminDatabase } from './firebaseAdmin'
 import { type BoardResult } from '@/types/BoardResult'
+import { getBoardResultRef } from './refs'
 
 export async function createBoardResult (
   boardId: string,
   result: BoardResult
 ) {
-  const boardResultRef = firebaseAdminDatabase.ref(`boards/${boardId}/result`)
+  const boardResultRef = getBoardResultRef(boardId)
   const createdAt = ServerValue.TIMESTAMP as number
 
   await boardResultRef.set({

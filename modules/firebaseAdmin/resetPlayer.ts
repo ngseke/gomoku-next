@@ -1,10 +1,10 @@
 import 'server-only'
 import { type Player } from '@/types/Player'
-import { firebaseAdminDatabase } from './firebaseAdmin'
 import { parseAuthorization } from './parseAuthorization'
 import { ServerValue } from 'firebase-admin/database'
 import { generateRandomPlayer } from '../generateRandomPlayer'
 import { getLocaleFromCookie } from '../getLocaleFromCookie'
+import { getPlayerRef } from './refs'
 
 export async function resetPlayer (
   request: Request,
@@ -28,7 +28,7 @@ export async function resetPlayer (
     emoji,
   } satisfies Player
 
-  const playerRef = firebaseAdminDatabase.ref(`players/${id}`)
+  const playerRef = getPlayerRef(id)
 
   await playerRef.set(player)
 }

@@ -1,10 +1,10 @@
 import 'server-only'
-import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
 import { fetchPlayerState } from './fetchPlayerState'
 import { fetchRoom } from './fetchRoom'
 import { fetchPlayer } from './fetchPlayer'
 import { createChat } from './createChat'
+import { getPlayerStateRef, getRoomPlayerRef } from './refs'
 
 export async function exitRoom (request: Request) {
   const auth = await parseAuthorization(request)
@@ -22,13 +22,12 @@ export async function exitRoom (request: Request) {
   const room = await fetchRoom(request, roomId)
   if (room) {
     // Update Room
-    const roomRef = firebaseAdminDatabase.ref(`rooms/${roomId}`)
-    const roomPlayerRef = roomRef.child(`players/${player.id}`)
+    const roomPlayerRef = getRoomPlayerRef(roomId, player.id)
     await roomPlayerRef.remove()
   }
 
   // Update Player State
-  const playerStateRef = firebaseAdminDatabase.ref(`playerStates/${player.id}`)
+  const playerStateRef = getPlayerStateRef(player.id)
   await playerStateRef.remove()
 
   if (room) {

@@ -1,7 +1,7 @@
 import { createBoard } from '@/modules/firebaseAdmin/createBoard'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
-import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
+import { getRoomRef } from '@/modules/firebaseAdmin/refs'
 
 export async function POST (
   request: Request,
@@ -10,7 +10,7 @@ export async function POST (
   const auth = await parseAuthorization(request)
   if (!auth) return Response.json(null, { status: 403 })
 
-  const roomRef = firebaseAdminDatabase.ref(`rooms/${roomId}`)
+  const roomRef = getRoomRef(roomId)
   const boardIdRef = roomRef.child('boardId')
 
   const boardId = await createBoard()

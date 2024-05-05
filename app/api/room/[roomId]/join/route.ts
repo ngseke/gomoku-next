@@ -3,8 +3,8 @@ import { exitRoom } from '@/modules/firebaseAdmin/exitRoom'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { fetchRoom } from '@/modules/firebaseAdmin/fetchRoom'
 import { fetchRoomPlayers } from '@/modules/firebaseAdmin/fetchRoomPlayers'
-import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { parseSessionId } from '@/modules/firebaseAdmin/parseSessionId'
+import { getPlayerStateRef, getRoomPlayerRef } from '@/modules/firebaseAdmin/refs'
 import { type Piece } from '@/types/Piece'
 import { type PlayerState } from '@/types/PlayerState'
 import { type RoomPlayers, type RoomPlayer } from '@/types/Room'
@@ -62,8 +62,7 @@ export async function POST (
   }
 
   // Update Room
-  const roomRef = firebaseAdminDatabase.ref(`rooms/${roomId}`)
-  const roomPlayerRef = roomRef.child(`players/${player.id}`)
+  const roomPlayerRef = getRoomPlayerRef(roomId, player.id)
   await roomPlayerRef.set({
     ...player,
     sessionId,
@@ -72,7 +71,7 @@ export async function POST (
   } satisfies RoomPlayer)
 
   // Update Player State
-  const playerStateRef = firebaseAdminDatabase.ref(`playerStates/${player.id}`)
+  const playerStateRef = getPlayerStateRef(player.id)
   await playerStateRef.set({
     sessionId,
     roomId,

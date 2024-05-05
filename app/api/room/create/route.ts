@@ -1,7 +1,7 @@
 import { createBoard } from '@/modules/firebaseAdmin/createBoard'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
-import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
+import { getRoomRef } from '@/modules/firebaseAdmin/refs'
 import { generateRoomId } from '@/modules/generateRoomId'
 import { type Room } from '@/types/Room'
 import { ServerValue } from 'firebase-admin/database'
@@ -17,7 +17,7 @@ export async function POST (
   const body = await request.json()
 
   const roomId = generateRoomId()
-  const roomRef = firebaseAdminDatabase.ref(`rooms/${roomId}`)
+  const roomRef = getRoomRef(roomId)
 
   const name = body.name?.trim() || `Room ${roomId}`
   const createdAt = ServerValue.TIMESTAMP as number

@@ -5,12 +5,12 @@ import { getNextAvailablePiece, judgeCanPlace } from '@/modules/boardGrid'
 import { fetchPlayerState } from '@/modules/firebaseAdmin/fetchPlayerState'
 import { fetchRoomPlayers } from '@/modules/firebaseAdmin/fetchRoomPlayers'
 import { fetchBoard } from '@/modules/firebaseAdmin/fetchBoard'
-import { firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
 import { fetchAndJudgeBoard } from '@/modules/firebaseAdmin/fetchAndJudgeBoard'
 import { createBoardResult } from '@/modules/firebaseAdmin/createBoardResult'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
 import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
 import { findRoomPlayerByPiece } from '@/modules/findRoomPlayerByPiece'
+import { getBoardRecordsRef } from '@/modules/firebaseAdmin/refs'
 
 export async function POST (
   request: Request,
@@ -65,7 +65,7 @@ export async function POST (
     )
   }
 
-  const recordsRef = firebaseAdminDatabase.ref(`boards/${boardId}/records`)
+  const recordsRef = getBoardRecordsRef(boardId)
   const createdAt = ServerValue.TIMESTAMP as number
   const newRecord: BoardRecord = {
     createdAt,
