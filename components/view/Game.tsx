@@ -165,7 +165,7 @@ export function Game () {
       onClickToggleIsShowLabels={toggleIsShowLabels}
     />
 
-    <div className="container flex min-h-screen max-w-[980px] items-center px-4 py-8 pt-20">
+    <div className="container flex min-h-screen max-w-[980px] items-center px-4 py-8 pt-20 sm:pt-24">
       <NotCurrentSessionDialog open={!isCurrentSession} />
 
       <div className="flex size-full flex-col gap-8">
