@@ -25,6 +25,7 @@ export function ConnectedPlayerRecord () {
 
   return (
     <PlayerRecord
+      emoji={player.emoji}
       loading={isPending}
       loseCount={loseCount}
       winCount={winCount}
