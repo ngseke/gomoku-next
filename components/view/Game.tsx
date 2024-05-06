@@ -12,7 +12,7 @@ import { RoomIdHashtag } from '../RoomIdHashtag'
 import { useRoomActions } from '@/hooks/useRoomActions'
 import { useToggle } from 'usehooks-ts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircle, faClockRotateLeft, faComment, faCrown, faStopwatch, faUserXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCircle, faClockRotateLeft, faComment, faCrown, faStopwatch, faUserClock } from '@fortawesome/free-solid-svg-icons'
 import { ResultOverlay } from '../ResultOverlay'
 import { type Position } from '@/types/Position'
 import { NotCurrentSessionDialog } from '../NotCurrentSessionDialog'
@@ -139,7 +139,7 @@ export function Game () {
     }
     if (isAwaitingPlayer) {
       return {
-        icon: faUserXmark,
+        icon: faUserClock,
         text: t('game.status.awaitingPlayer'),
       }
     }

@@ -22,8 +22,9 @@ export function PlayerRecord () {
   const loseCount = record?.loseCount ?? 0
   const drawCount = record?.drawCount ?? 0
   const total = winCount + loseCount + drawCount
-
-  const winRate = total ? `${(winCount / total * 100).toFixed(1)}%` : '-'
+  const winRate = total
+    ? `${Number(Number((winCount / total * 100)).toFixed(1))}%`
+    : '-'
 
   return (
     <div className="relative flex size-full items-center justify-center rounded-2xl bg-neutral-100 p-4 disabled:opacity-50 dark:bg-neutral-900 sm:py-0">
