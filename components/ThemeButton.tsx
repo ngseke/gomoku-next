@@ -1,39 +1,28 @@
 'use client'
 
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
 import { Button } from './Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
-import { startViewTransition } from '@/modules/startViewTransition'
+import { useIsMounted } from '../hooks/useIsMounted'
+import { cn } from '@/modules/cn'
+import { useTheme } from '../hooks/useTheme'
 
 export function ThemeButton () {
-  const { theme, setTheme } = useTheme()
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
+  const { theme, themeIcon, toggleTheme } = useTheme()
+  const { isMounted } = useIsMounted()
 
   if (!isMounted) return null
 
-  const icon = theme
-    ? {
-        dark: <FontAwesomeIcon icon={faSun} />,
-        light: <FontAwesomeIcon icon={faMoon} />,
-        system: <FontAwesomeIcon className="opacity-50" icon={faSun} />,
-      }[theme]
-    : null
-
-  function handleClick () {
-    startViewTransition(() => {
-      if (theme !== 'light') {
-        setTheme('light')
-      } else {
-        setTheme('dark')
+  return (
+    <Button
+      icon={
+        themeIcon
+          ? <FontAwesomeIcon
+              className={cn({ 'opacity-50': theme === 'system' })}
+              icon={themeIcon}
+            />
+          : null
       }
-    })
-  }
-
-  return <Button icon={icon} onClick={handleClick} />
+      onClick={toggleTheme}
+    />
+  )
 }
