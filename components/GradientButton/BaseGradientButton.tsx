@@ -59,7 +59,7 @@ export function BaseGradientButton ({
         {children}
       </button>
       <span
-        className="absolute inset-0 -z-10 rounded-2xl bg-[image:var(--bg)] opacity-30 blur-xl transition-opacity duration-500 peer-enabled:peer-hover:opacity-80 dark:bg-[image:var(--bg-dark)]"
+        className="absolute inset-0 -z-10 rounded-2xl bg-[image:var(--bg)] opacity-30 blur-lg transition-opacity duration-500 peer-enabled:peer-hover:opacity-80 dark:bg-[image:var(--bg-dark)]"
         style={style}
       />
     </div>
