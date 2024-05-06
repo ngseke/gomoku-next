@@ -38,6 +38,14 @@ async function setRules () {
           '.write': '$playerId === auth.uid',
         },
       },
+      playerMousePositions: {
+        $playerId: {
+          '.write': '$playerId === auth.uid',
+          '.read': true,
+          0: { '.validate': 'newData.isNumber()' },
+          1: { '.validate': 'newData.isNumber()' },
+        },
+      },
       rooms: {
         $roomId: {
           '.read': true,

@@ -29,6 +29,8 @@ import { GamePlayers } from '../GamePlayers'
 import { useTranslations } from 'next-intl'
 import { Tag } from '../Tag'
 import { IncrementalDots } from '../IncrementalDots'
+import { useSetPlayerMousePosition } from '@/hooks/useSetPlayerMousePosition'
+import { usePlayerMousePosition } from '@/hooks/usePlayerMousePosition'
 
 export function Game () {
   const t = useTranslations()
@@ -45,7 +47,7 @@ export function Game () {
     await exitRoom()
   }
 
-  const { roomPlayers, rawRoomPlayers, isAwaitingPlayer } = useRoomPlayers()
+  const { roomPlayers, rawRoomPlayers, isAwaitingPlayer, opponent } = useRoomPlayers()
 
   const boardId = room?.boardId
   const {
@@ -156,6 +158,9 @@ export function Game () {
 
   const isBoardDisabled = !isMyTurn || !isCurrentSession || isPlacing || isAwaitingPlayer
 
+  const { setPlayerMousePosition } = useSetPlayerMousePosition()
+  const { playerMousePosition } = usePlayerMousePosition(opponent?.id)
+
   return (<>
     <GameNavbar
       isBackIconButtonLoading={isSubmittingRoomAction}
@@ -183,8 +188,10 @@ export function Game () {
                 disabled={isBoardDisabled}
                 emphasis={emphasis}
                 highlight={highlight}
+                playerMousePosition={playerMousePosition}
                 showLabels={isShowLabels}
                 winningLine={winningLine}
+                onMouseMove={setPlayerMousePosition}
                 onPlace={handlePlace}
               />
 

@@ -1,3 +1,4 @@
+import { usePlayer } from './usePlayer'
 import { useRoomStore } from './useRoomStore'
 
 export function useRoomPlayers () {
@@ -12,9 +13,16 @@ export function useRoomPlayers () {
 
   const isAwaitingPlayer = roomPlayers.length < 2
 
+  const { player } = usePlayer()
+  const opponent = rawRoomPlayers
+    ? Object.values(rawRoomPlayers)
+      .find(roomPlayer => player?.id !== roomPlayer.id) ?? null
+    : null
+
   return {
     rawRoomPlayers,
     roomPlayers,
     isAwaitingPlayer,
+    opponent,
   }
 }
