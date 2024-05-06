@@ -7,6 +7,7 @@ import { Navbar } from '../Navbar'
 import { ThemeButton } from '../ThemeButton'
 import { ShareButtonWithPopover } from '../Share/ShareButtonWithPopover'
 import { GameNavbarMenu } from './GameNavbarMenu'
+import { useTranslations } from 'next-intl'
 
 export function GameNavbar ({
   isBackIconButtonLoading,
@@ -21,6 +22,8 @@ export function GameNavbar ({
   onClickToggleIsShowLabels: () => void
   shareUrl?: string
 }) {
+  const t = useTranslations()
+
   return (
     <Navbar>
       <div className="flex w-full justify-between">
@@ -36,7 +39,7 @@ export function GameNavbar ({
           <Button
             icon={<FontAwesomeIcon icon={faLocationCrosshairs} />}
             onClick={onClickToggleIsShowLabels}
-          >{isShowLabels ? 'Hide' : 'Show'} Labels</Button>
+          >{isShowLabels ? t('menu.hideLabel') : t('menu.showLabel')}</Button>
 
           <ShareButtonWithPopover url={shareUrl} />
           <ThemeButton />
