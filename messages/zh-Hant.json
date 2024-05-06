@@ -64,5 +64,17 @@
     "winCount": "勝",
     "loseCount": "敗",
     "winRate": "勝率"
+  },
+  "menu": {
+    "hideLabel": "隱藏座標",
+    "showLabel": "顯示座標",
+    "hideChat": "隱藏聊天",
+    "showChat": "顯出聊天",
+    "share": "分享"
+  },
+  "theme": {
+    "lightTheme": "淺色模式",
+    "darkTheme": "深色模式",
+    "systemTheme": "裝置主題"
   }
 }

@@ -26,7 +26,7 @@ export function LanguageButtonWithMenu ({ placement = 'bottom-start' }: {
       {items.map((item, index) => (
         <BaseMenu.Item key={index}>
           <button
-            className="flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-neutral-200 dark:hover:bg-neutral-800"
+            className="flex w-full items-center gap-2 text-nowrap px-4 py-2 text-sm hover:bg-neutral-200 dark:hover:bg-neutral-800"
             onClick={() => { setLocale(item.locale) }}
           >
             <span className="inline-block w-4">

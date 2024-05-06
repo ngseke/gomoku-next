@@ -6,9 +6,11 @@ export function Menu ({
   placement = 'bottom-start',
   activator,
   children,
+  itemsClassNames,
 }: PropsWithChildren<{
   activator: ReactElement
   placement?: 'bottom-end' | 'bottom-start'
+  itemsClassNames?: string
 }>) {
   return (
     <BaseMenu as="div" className="relative inline-block text-left">
@@ -24,10 +26,10 @@ export function Menu ({
         leaveTo="opacity-0 scale-95"
       >
         <BaseMenu.Items
-          className={cn('absolute mt-2 min-w-36 divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-neutral-100 py-1  shadow-lg focus:outline-none dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-900', {
+          className={cn('absolute mt-2 min-w-36 divide-y divide-neutral-200 rounded-xl border border-neutral-200 bg-neutral-100 py-1 shadow-lg focus:outline-none dark:divide-neutral-800 dark:border-neutral-800 dark:bg-neutral-900', {
             'left-0 top-full origin-top-left': placement === 'bottom-start',
             'right-0 top-full origin-top-right': placement === 'bottom-end',
-          })}
+          }, itemsClassNames)}
         >
           {children}
         </BaseMenu.Items>

@@ -64,5 +64,17 @@
     "winCount": "勝",
     "loseCount": "敗",
     "winRate": "勝率"
+  },
+  "menu": {
+    "hideLabel": "ラベルを隠す",
+    "showLabel": "ラベルを表示",
+    "hideChat": "チャットを隠す",
+    "showChat": "チャットを表示",
+    "share": "共有"
+  },
+  "theme": {
+    "lightTheme": "ライトテーマ",
+    "darkTheme": "ダークテーマ",
+    "systemTheme": "デバイスのテーマ"
   }
 }
