@@ -13,18 +13,17 @@ export function ShareBody ({ url }: { url?: string }) {
   }
 
   return (
-    <div className="flex min-w-96 flex-col items-start gap-3">
-      <h2 className="flex items-center gap-3 text-lg font-bold">
-        {t('share.title')}
-      </h2>
-
-      <div className="grid w-full grid-cols-[1fr_auto] gap-2">
+    <div className="flex w-full flex-col gap-2 sm:flex-row">
+      <div className="flex-1">
         <Input
           readOnly
           leftSection={<FontAwesomeIcon icon={faLink} />}
           value={url}
         />
-        <Button onClick={copy}>{t('action.copy')}</Button>
+      </div>
+
+      <div className="w-full sm:w-auto ">
+        <Button block onClick={copy}>{t('action.copy')}</Button>
       </div>
     </div>
   )

@@ -6,14 +6,14 @@ import { Menu } from '@/components/Menu'
 import { Button } from '@/components/Button'
 import { useIsMounted } from '@/hooks/useIsMounted'
 import { useTheme } from '@/hooks/useTheme'
+import { useState } from 'react'
+import { ShareDialog } from '../Share/ShareDialog'
 
 export function GameNavbarMenu ({
-  onClickBackIconButton,
   isShowLabels,
   onClickToggleIsShowLabels,
   shareUrl,
 }: {
-  onClickBackIconButton: () => void
   isShowLabels: boolean
   onClickToggleIsShowLabels: () => void
   shareUrl?: string
@@ -22,6 +22,7 @@ export function GameNavbarMenu ({
 
   const { themeIcon, themeLabel, toggleTheme } = useTheme()
   const { isMounted } = useIsMounted()
+  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false)
 
   if (!isMounted) return null
 
@@ -34,7 +35,7 @@ export function GameNavbarMenu ({
     {
       name: t('menu.share'),
       icon: faShareNodes,
-      action: () => { },
+      action: () => { setIsShareDialogOpen(true) },
     },
     {
       name: themeLabel,
@@ -63,5 +64,11 @@ export function GameNavbarMenu ({
         </BaseMenu.Item>
       ))}
     </Menu>
+
+    <ShareDialog
+      open={isShareDialogOpen}
+      url={shareUrl}
+      onClose={() => { setIsShareDialogOpen(false) }}
+    />
   </>)
 }

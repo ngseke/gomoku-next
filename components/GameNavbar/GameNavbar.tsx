@@ -49,7 +49,6 @@ export function GameNavbar ({
           <GameNavbarMenu
             isShowLabels={isShowLabels}
             shareUrl={shareUrl}
-            onClickBackIconButton={onClickBackIconButton}
             onClickToggleIsShowLabels={onClickToggleIsShowLabels}
           />
         </div>
