@@ -5,7 +5,7 @@ import { Button } from './Button'
 import { LogoText } from './LogoText'
 import { Navbar } from './Navbar'
 import { ThemeButton } from './ThemeButton'
-import { ShareButton } from './ShareButton'
+import { ShareButtonWithPopover } from './Share/ShareButtonWithPopover'
 
 export function GameNavbar ({
   isBackIconButtonLoading,
@@ -39,7 +39,7 @@ export function GameNavbar ({
             onClick={onClickToggleIsShowLabels}
           >{isShowLabels ? 'Hide' : 'Show'} Labels</Button>
 
-          <ShareButton url={shareUrl} />
+          <ShareButtonWithPopover url={shareUrl} />
           <ThemeButton />
         </div>
       </div>
