@@ -13,7 +13,7 @@ import { PlayerPillButton } from './PlayerPillButton'
 import { useState } from 'react'
 import { PlayerProfileDialog } from './PlayerProfileDialog'
 import { useTranslations } from 'next-intl'
-import { LanguageButton } from './LanguageButton'
+import { LanguageButtonWithMenu } from './LanguageButtonWithMenu'
 
 function Divider () {
   return <hr className="mx-2 h-6 border-l border-neutral-200 dark:border-neutral-800" />
@@ -81,7 +81,7 @@ export function PlayerPanel () {
 
       <Divider />
       <ThemeButton />
-      <LanguageButton />
+      <LanguageButtonWithMenu />
     </nav>
   )
 }

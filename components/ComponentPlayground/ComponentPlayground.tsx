@@ -11,7 +11,7 @@ import { Navbar } from '../Navbar'
 import { BackIconButton } from '../BackIconButton'
 import { LogoText } from '../LogoText'
 import { ThemeButton } from '../ThemeButton'
-import { LanguageButton } from '../LanguageButton'
+import { LanguageButtonWithMenu } from '../LanguageButtonWithMenu'
 
 export function ComponentPlayground () {
   return (<>
@@ -24,7 +24,7 @@ export function ComponentPlayground () {
 
         <div className="flex gap-2">
           <ThemeButton />
-          <LanguageButton placement="bottom-end" />
+          <LanguageButtonWithMenu placement="bottom-end" />
         </div>
       </div>
     </Navbar>

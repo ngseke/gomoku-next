@@ -12,7 +12,7 @@ const items = [
   { locale: 'ja', name: '日本語' },
 ] as const
 
-export function LanguageButton ({ placement = 'bottom-start' }: {
+export function LanguageButtonWithMenu ({ placement = 'bottom-start' }: {
   placement?: 'bottom-end' | 'bottom-start'
 }) {
   const { setLocale } = useSetLocale()
