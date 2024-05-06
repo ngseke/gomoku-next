@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHashtag } from '@fortawesome/free-solid-svg-icons'
 import { Footer } from '../Footer'
 import { useTranslations } from 'next-intl'
-import { PlayerRecord } from '../PlayerRecord'
+import { ConnectedPlayerRecord } from '../ConnectedPlayerRecord'
 
 export function Lobby () {
   const t = useTranslations()
@@ -93,7 +93,7 @@ export function Lobby () {
               onClick={handleClickJoinRoom}
             />
 
-            <PlayerRecord />
+            <ConnectedPlayerRecord />
           </div>
 
           <div className="flex">
