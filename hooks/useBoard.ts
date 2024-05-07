@@ -85,6 +85,7 @@ export function useBoard (boardId: Nullish<string>) {
 
   return {
     board,
+    firstPiece,
     boardGrid,
     highlight,
     optimisticBoardGrid,

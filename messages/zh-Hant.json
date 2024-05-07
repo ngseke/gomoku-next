@@ -31,7 +31,9 @@
       "opponentTurn": "等待對手下",
       "gameOver": "遊戲結束",
       "awaitingPlayer": "玩家尚未到齊"
-    }
+    },
+    "blackFirst": "黑子先行",
+    "whiteFirst": "白子先行"
   },
   "player": {
     "label": {

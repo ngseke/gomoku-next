@@ -31,7 +31,9 @@
       "opponentTurn": "相手の番",
       "gameOver": "ゲームオーバー",
       "awaitingPlayer": "プレイヤー待ち"
-    }
+    },
+    "blackFirst": "黒が先手",
+    "whiteFirst": "白が先手"
   },
   "player": {
     "label": {

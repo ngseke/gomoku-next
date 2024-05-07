@@ -31,6 +31,7 @@ import { Tag } from '../Tag'
 import { IncrementalDots } from '../IncrementalDots'
 import { useSetPlayerMousePosition } from '@/hooks/useSetPlayerMousePosition'
 import { usePlayerMousePosition } from '@/hooks/usePlayerMousePosition'
+import { FirstPieceTag } from '../FirstPieceTag'
 
 export function Game () {
   const t = useTranslations()
@@ -59,6 +60,7 @@ export function Game () {
     optimisticBoardGrid,
     nextAvailablePiece,
     isPlacing,
+    firstPiece,
   } = useBoard(boardId)
 
   const myRoomPlayer = player?.id ? rawRoomPlayers?.[player?.id] : null
@@ -178,6 +180,7 @@ export function Game () {
           <div className="flex w-full flex-col gap-2 px-4 sm:w-[55%]">
             <div className="flex gap-1.5">
               <RoomIdHashtag roomId={room?.id} />
+              <FirstPieceTag piece={firstPiece} />
               <Tag {...statusTagProps} />
             </div>
 

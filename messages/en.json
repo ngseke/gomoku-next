@@ -31,7 +31,9 @@
       "opponentTurn": "Opponent's Turn",
       "gameOver": "Game Over",
       "awaitingPlayer": "Awaiting Player"
-    }
+    },
+    "blackFirst": "Black First",
+    "whiteFirst": "White First"
   },
   "player": {
     "label": {
