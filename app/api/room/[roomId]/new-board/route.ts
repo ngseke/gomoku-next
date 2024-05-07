@@ -1,5 +1,7 @@
+import { getNextBoardFirstPiece } from '@/modules/boardGrid'
 import { createBoard } from '@/modules/firebaseAdmin/createBoard'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
+import { fetchBoard } from '@/modules/firebaseAdmin/fetchBoard'
 import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
 import { getRoomRef } from '@/modules/firebaseAdmin/refs'
 
@@ -13,8 +15,12 @@ export async function POST (
   const roomRef = getRoomRef(roomId)
   const boardIdRef = roomRef.child('boardId')
 
-  const boardId = await createBoard()
-  await boardIdRef.set(boardId)
+  const oldBoardId = (await boardIdRef.get()).val()
+  const board = await fetchBoard(oldBoardId)
+  const nextPiece = getNextBoardFirstPiece(board?.firstPiece)
+
+  const newBoardId = await createBoard(nextPiece)
+  await boardIdRef.set(newBoardId)
 
   const message = 'A new round has started'
   void createChat(roomId, {

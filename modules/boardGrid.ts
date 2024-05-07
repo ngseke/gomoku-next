@@ -1,5 +1,6 @@
 import { type BoardGrid } from '@/types/BoardGrid'
 import { type BoardResult } from '@/types/BoardResult'
+import { type Nullish } from '@/types/Nullish'
 import { type Piece } from '@/types/Piece'
 import { type Position } from '@/types/Position'
 
@@ -89,7 +90,10 @@ export function getAvailablePositions (boardGrid: BoardGrid) {
   return list
 }
 
-export function getNextAvailablePiece (boardGrid: BoardGrid): Piece | null {
+export function getNextAvailablePiece (
+  boardGrid: BoardGrid,
+  firstPiece: Nullish<Piece> = 'black'
+): Piece | null {
   if (judgeResult(boardGrid)) return null
 
   let blackCount = 0
@@ -104,8 +108,21 @@ export function getNextAvailablePiece (boardGrid: BoardGrid): Piece | null {
       if (target.piece === 'white') whiteCount++
     }
   }
-  if (!blackCount && !whiteCount) return 'black'
-  if (blackCount > whiteCount) return 'white'
 
+  if (firstPiece === 'black') {
+    if (blackCount > whiteCount) return 'white'
+    return 'black'
+  }
+
+  if (firstPiece === 'white') {
+    if (whiteCount > blackCount) return 'black'
+    return 'white'
+  }
+
+  return null
+}
+
+export function getNextBoardFirstPiece (piece: Nullish<Piece>): Piece {
+  if (piece === 'black') return 'white'
   return 'black'
 }

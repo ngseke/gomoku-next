@@ -48,7 +48,7 @@ export async function POST (
 
   const boardGrid = generateBoardGrid(board.records)
 
-  const nextAvailablePiece = getNextAvailablePiece(boardGrid)
+  const nextAvailablePiece = getNextAvailablePiece(boardGrid, board.firstPiece)
   const isPieceMatched = nextAvailablePiece !== roomPlayer.piece
   if (isPieceMatched) {
     return Response.json(

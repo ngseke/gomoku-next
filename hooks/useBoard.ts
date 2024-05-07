@@ -19,9 +19,11 @@ export function useBoard (boardId: Nullish<string>) {
 
   const records = board?.records ?? null
   const result = board?.result ?? null
+  const firstPiece = board?.firstPiece ?? null
+
   const boardGrid = generateBoardGrid(records)
   const winningLine = result?.type === 'win' ? result : null
-  const nextAvailablePiece = getNextAvailablePiece(boardGrid)
+  const nextAvailablePiece = getNextAvailablePiece(boardGrid, firstPiece)
 
   useEffect(() => {
     if (!boardId) {

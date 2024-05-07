@@ -22,7 +22,7 @@ export async function POST (
   const name = body.name?.trim() || `Room ${roomId}`
   const createdAt = ServerValue.TIMESTAMP as number
 
-  const boardId = await createBoard()
+  const boardId = await createBoard('black')
 
   const room = {
     id: roomId,
