@@ -17,9 +17,10 @@ export async function generateRandomPlayer (locale?: Locale) {
   const t = await getTranslations({ locale })
 
   const randomEmoji = getRandomItem(emojis)
-  const localizedName = locale === 'zh-Hant'
-    ? randomEmoji.nameZhHant
-    : capitalizeAllWords(randomEmoji.name)
+  const localizedName = ({
+    'zh-Hant': randomEmoji.nameZhHant,
+    ja: randomEmoji.nameJa,
+  } as Record<string, string>)[String(locale)] ?? capitalizeAllWords(randomEmoji.name)
 
   const name = t('player.anonymousName', { name: localizedName })
   const emoji = randomEmoji.emoji
