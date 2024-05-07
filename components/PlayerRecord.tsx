@@ -28,8 +28,8 @@ export function PlayerRecord ({
       style={{ '--emoji': `"${emoji}"` } as CSSProperties}
     >
       <div
-        className={cn('flex flex-wrap gap-x-4 gap-y-1', {
-          invisible: isLoading,
+        className={cn('flex flex-wrap gap-x-4 gap-y-1 duration-500', {
+          'opacity-0 select-none': isLoading,
         })}
       >
         <Stat label={t('playerRecord.winCount')}>{winCount}</Stat>
