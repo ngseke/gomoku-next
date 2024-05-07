@@ -10,6 +10,7 @@ const items = [
   { locale: 'en', name: 'English' },
   { locale: 'zh-Hant', name: '正體中文' },
   { locale: 'ja', name: '日本語' },
+  { locale: 'ko', name: '한국어' },
 ] as const
 
 export function LanguageButtonWithMenu ({ placement = 'bottom-start' }: {
