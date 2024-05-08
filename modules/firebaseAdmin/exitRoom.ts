@@ -34,6 +34,11 @@ export async function exitRoom (request: Request) {
     void createChat(roomId, {
       message: `${player.name} has left`,
       isAdmin: true,
+
+      systemMessage: {
+        type: 'playerLeft',
+        payload: { playerName: player.name },
+      },
     })
   }
 }

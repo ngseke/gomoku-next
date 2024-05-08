@@ -78,5 +78,14 @@
     "lightTheme": "淺色模式",
     "darkTheme": "深色模式",
     "systemTheme": "裝置主題"
+  },
+  "chat": {
+    "roomCreated": "已開新房間 <tag>{roomId}</tag>",
+    "newRoundStarted": "已開始新的一輪",
+    "playerJoined": "<b>{playerName}</b>已加入",
+    "playerLeft": "<b>{playerName}</b>已離開",
+    "winnerBlack": "贏家是黑子 (<b>{playerName}</b>)",
+    "winnerWhite": "贏家是白子 (<b>{playerName}</b>)",
+    "draw": "平局"
   }
 }

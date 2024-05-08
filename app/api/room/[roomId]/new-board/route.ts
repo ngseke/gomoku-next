@@ -26,6 +26,8 @@ export async function POST (
   void createChat(roomId, {
     message,
     isAdmin: true,
+
+    systemMessage: { type: 'newRoundStarted' },
   })
 
   return new Response(null, { status: 204 })

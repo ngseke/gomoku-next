@@ -99,6 +99,11 @@ export async function POST (
       void createChat(roomId, {
         message: `The winner is ${result.piece} (${winner?.name})`,
         isAdmin: true,
+
+        systemMessage: {
+          type: result.piece === 'black' ? 'winnerBlack' : 'winnerWhite',
+          payload: { playerName: winner?.name },
+        },
       })
     } else {
       Object.values(roomPlayers).forEach((player) => {
@@ -108,6 +113,8 @@ export async function POST (
       void createChat(roomId, {
         message: 'It\'s a draw',
         isAdmin: true,
+
+        systemMessage: { type: 'draw' },
       })
     }
   }

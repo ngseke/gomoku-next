@@ -38,6 +38,11 @@ export async function POST (
   void createChat(roomId, {
     message,
     isAdmin: true,
+
+    systemMessage: {
+      type: 'roomCreated',
+      payload: { roomId },
+    },
   })
 
   const createdRoom = (await roomRef.get()).val()

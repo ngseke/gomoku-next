@@ -78,5 +78,14 @@
     "lightTheme": "ライトテーマ",
     "darkTheme": "ダークテーマ",
     "systemTheme": "デバイスのテーマ"
+  },
+  "chat": {
+    "roomCreated": "ルームが作成されました <tag>{roomId}</tag>",
+    "newRoundStarted": "新しいラウンドが始まりました",
+    "playerJoined": "<b>{playerName}</b>が参加しました",
+    "playerLeft": "<b>{playerName}</b>が退出しました",
+    "winnerBlack": "勝者は黒です (<b>{playerName}</b>)",
+    "winnerWhite": "勝者は白です (<b>{playerName}</b>)",
+    "draw": "引き分けです"
   }
 }

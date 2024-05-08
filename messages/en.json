@@ -78,5 +78,14 @@
     "lightTheme": "Light Theme",
     "darkTheme": "Dark Theme",
     "systemTheme": "Use Device Theme"
+  },
+  "chat": {
+    "roomCreated": "The room has been created <tag>{roomId}</tag>",
+    "newRoundStarted": "A new round has started",
+    "playerJoined": "<b>{playerName}</b> has joined",
+    "playerLeft": "<b>{playerName}</b> has left",
+    "winnerBlack": "The winner is black (<b>{playerName}</b>)",
+    "winnerWhite": "The winner is white (<b>{playerName}</b>)",
+    "draw": "It's a draw"
   }
 }

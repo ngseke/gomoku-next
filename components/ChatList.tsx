@@ -1,7 +1,11 @@
 import { cn } from '@/modules/cn'
-import { type Chat } from '@/types/Chat'
+import { type SystemMessage, type Chat } from '@/types/Chat'
 import { type Nullish } from '@/types/Nullish'
+import { faHashtag } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import dayjs from 'dayjs'
+import { useTranslations } from 'next-intl'
+import { type ReactNode } from 'react'
 
 type Chats = Record<string, Chat>
 
@@ -21,9 +25,42 @@ function AdminChatItem ({ message, timestamp }: {
   )
 }
 
+function SystemChatItem ({ systemMessage, timestamp }: {
+  systemMessage: SystemMessage
+  timestamp: number
+}) {
+  const formattedDate = dayjs(timestamp).format('YYYY-MM-DD HH:mm')
+  const t = useTranslations()
+
+  const { type, payload } = systemMessage
+
+  const values = {
+    ...payload,
+    tag: (chunks: ReactNode) => (
+      <span className="font-mono font-bold">
+        <FontAwesomeIcon icon={faHashtag} />{chunks}
+      </span>
+    ),
+    mono: (chunks: ReactNode) => <span className="font-mono">{chunks}</span>,
+    b: (chunks: ReactNode) => <b className="font-bold">{chunks}</b>,
+    hashtag: () => <FontAwesomeIcon icon={faHashtag} />,
+  }
+
+  const message = t.rich(`chat.${type}`, values)
+
+  return (
+    <li
+      className="flex max-w-full items-center gap-0.5 self-center break-words py-0.5 text-center text-xs text-neutral-600 dark:text-neutral-400"
+      title={formattedDate}
+    >
+      {message}
+    </li>
+  )
+}
+
 function ChatItem ({ name, message, timestamp, hideName, self }: {
   name: Nullish<string>
-  message: string
+  message: ReactNode
   timestamp: number
   hideName?: boolean
   self?: boolean
@@ -78,6 +115,16 @@ export function ChatList ({ chats, playerId }: {
     <ul className="flex h-full flex-col items-start gap-1">
       {
         entries.map(([key, chat], index) => {
+          if (chat.systemMessage) {
+            return (
+              <SystemChatItem
+                key={key}
+                systemMessage={chat.systemMessage}
+                timestamp={chat.createdAt}
+              />
+            )
+          }
+
           if (chat.isAdmin) {
             return (
               <AdminChatItem

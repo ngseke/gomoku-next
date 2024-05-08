@@ -5,7 +5,7 @@ import { getChatsRef } from './refs'
 
 export async function createChat (
   roomId: string,
-  chat: Pick<Chat, 'createdBy' | 'message' | 'playerName' | 'isAdmin'>
+  chat: Omit<Chat, 'createdAt'>
 ) {
   const chatsRef = getChatsRef(roomId)
   const createdAt = ServerValue.TIMESTAMP as number

@@ -81,6 +81,11 @@ export async function POST (
   void createChat(roomId, {
     message: `${player.name} has joined`,
     isAdmin: true,
+
+    systemMessage: {
+      type: 'playerJoined',
+      payload: { playerName: player.name },
+    },
   })
 
   return new Response(null, { status: 204 })

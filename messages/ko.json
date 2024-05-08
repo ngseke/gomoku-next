@@ -78,5 +78,14 @@
     "lightTheme": "라이트 테마",
     "darkTheme": "다크 테마",
     "systemTheme": "장치 테마 사용"
+  },
+  "chat": {
+    "roomCreated": "방이 생성되었습니다 <tag>{roomId}</tag>",
+    "newRoundStarted": "새로운 라운드가 시작되었습니다",
+    "playerJoined": "<b>{playerName}</b>가 참여했습니다",
+    "playerLeft": "<b>{playerName}</b>가 나갔습니다",
+    "winnerBlack": "승자는 흑색입니다 (<b>{playerName}</b>)",
+    "winnerWhite": "승자는 백색입니다 (<b>{playerName}</b>)",
+    "draw": "무승부입니다"
   }
 }
