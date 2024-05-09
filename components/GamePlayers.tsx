@@ -8,6 +8,7 @@ import { type BoardResult } from '@/types/BoardResult'
 import { type Nullish } from '@/types/Nullish'
 import { useTranslations } from 'next-intl'
 import { type ComponentProps } from 'react'
+import { type Chat } from '@/types/Chat'
 
 function Wrapper (props: ComponentProps<'div'>) {
   return (
@@ -35,10 +36,11 @@ function Ghost () {
 
 const pieces: Piece[] = ['black', 'white']
 
-export function GamePlayers ({ roomPlayers, nextAvailablePiece, result }: {
+export function GamePlayers ({ roomPlayers, nextAvailablePiece, result, chat }: {
   roomPlayers?: Nullish<RoomPlayer[]>
   nextAvailablePiece?: Nullish<Piece>
   result?: Nullish<BoardResult>
+  chat?: Nullish<Chat>
 }) {
   const t = useTranslations()
   const { player } = useAuthStore()
@@ -58,6 +60,7 @@ export function GamePlayers ({ roomPlayers, nextAvailablePiece, result }: {
       <Wrapper key={roomPlayer.id} className="max-w-[50%] flex-none px-2">
         <PlayerPillWithLabel
           active={isActive}
+          chat={roomPlayer.id === chat?.createdBy ? chat : null}
           color={roomPlayer.piece}
           emoji={roomPlayer?.emoji}
           isWinner={isWinner}

@@ -32,6 +32,7 @@ import { IncrementalDots } from '../IncrementalDots'
 import { useSetPlayerMousePosition } from '@/hooks/useSetPlayerMousePosition'
 import { usePlayerMousePosition } from '@/hooks/usePlayerMousePosition'
 import { FirstPieceTag } from '../FirstPieceTag'
+import { useHighlightedChat } from '@/hooks/useHighlightedChat'
 
 export function Game () {
   const t = useTranslations()
@@ -86,7 +87,8 @@ export function Game () {
 
   const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 
-  const { unreadChatCount } = useChats()
+  const { unreadChatCount, chats } = useChats()
+  const { highlightedChat } = useHighlightedChat(chats)
 
   const { watch, unwatch } = useChatWatcher()
   useEffect(() => {
@@ -209,6 +211,7 @@ export function Game () {
 
           <div className="flex w-full flex-col gap-3 px-4 pt-4 sm:w-[45%]">
             <GamePlayers
+              chat={highlightedChat}
               nextAvailablePiece={nextAvailablePiece}
               result={result}
               roomPlayers={roomPlayers}
