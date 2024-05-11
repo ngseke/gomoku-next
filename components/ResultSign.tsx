@@ -12,6 +12,14 @@ export function ResultSign ({ type }: {
     draw: t('result.draw'),
   })[type]
 
+  const displayedText = text.length === 2
+    ? <>
+      {text[0]}
+      <span className='after:content-["_"]' />
+      {text[1]}
+    </>
+    : text
+
   return (
     <div
       className={cn('-skew-x-12 select-none rounded-xl bg-neutral-200/50 bg-gradient-to-tr px-4 py-2 text-4xl font-black tracking-tight text-neutral-100', {
@@ -20,7 +28,7 @@ export function ResultSign ({ type }: {
         'from-[#84fab0] to-[#8fd3f4]/50 shadow-[0_0_2rem_#84fab0]': type === 'draw',
       })}
     >
-      {text}
+      {displayedText}
     </div>
   )
 }
