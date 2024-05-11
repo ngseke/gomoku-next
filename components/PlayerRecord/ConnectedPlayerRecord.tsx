@@ -1,17 +1,11 @@
-import { useQuery } from '@tanstack/react-query'
-import { useAxios } from '@/hooks/useAxios'
-import { type PlayerRecord as TPlayerRecord } from '@/types/PlayerRecord'
 import { usePlayer } from '@/hooks/usePlayer'
 import { PlayerRecord } from './PlayerRecord'
+import { usePlayerRecord } from '../../hooks/usePlayerRecord'
 
 export function ConnectedPlayerRecord () {
-  const axios = useAxios()
   const { player } = usePlayer()
 
-  const { isPending, data: record } = useQuery<TPlayerRecord>({
-    queryKey: [],
-    queryFn: async () => (await axios.get('/api/player/record')).data,
-  })
+  const { record, isRecordPending } = usePlayerRecord({ playerId: player?.id })
 
   if (!player) return null
 
@@ -26,7 +20,7 @@ export function ConnectedPlayerRecord () {
   return (
     <PlayerRecord
       emoji={player.emoji}
-      loading={isPending}
+      loading={isRecordPending}
       loseCount={loseCount}
       winCount={winCount}
       winRate={winRate}
