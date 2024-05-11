@@ -46,10 +46,10 @@ export function BaseGradientButton ({
   }
 
   return (
-    <div className="group relative h-32 w-full select-none transition enabled:active:scale-[98%]">
+    <div className="group relative h-32 w-full select-none transition ">
       <button
         ref={ref}
-        className="peer relative block size-full overflow-hidden rounded-2xl bg-[image:var(--bg)] transition duration-500 disabled:opacity-50 dark:bg-[image:var(--bg-dark)]"
+        className="peer relative block size-full overflow-hidden rounded-2xl bg-[image:var(--bg)] transition duration-500 enabled:active:scale-[98%] disabled:opacity-50 dark:bg-[image:var(--bg-dark)]"
         style={style}
         type="button"
         onClick={onClick}
@@ -59,7 +59,7 @@ export function BaseGradientButton ({
         {children}
       </button>
       <span
-        className="absolute inset-0 -z-10 rounded-2xl bg-[image:var(--bg)] opacity-30 blur-lg transition-opacity duration-500 peer-enabled:peer-hover:opacity-80 dark:bg-[image:var(--bg-dark)]"
+        className="absolute inset-0 -z-10 rounded-2xl bg-[image:var(--bg)] opacity-30 blur-lg transition duration-500 peer-active:scale-[98%] peer-enabled:peer-hover:opacity-80 dark:bg-[image:var(--bg-dark)]"
         style={style}
       />
     </div>
