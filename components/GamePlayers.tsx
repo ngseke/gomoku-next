@@ -1,7 +1,6 @@
 'use client'
 
 import { useAuthStore } from '@/hooks/useAuthStore'
-import { PlayerPillWithLabel } from './PlayerPillWithLabel'
 import { type RoomPlayer } from '@/types/Room'
 import { type Piece } from '@/types/Piece'
 import { type BoardResult } from '@/types/BoardResult'
@@ -9,6 +8,9 @@ import { type Nullish } from '@/types/Nullish'
 import { useTranslations } from 'next-intl'
 import { type ComponentProps } from 'react'
 import { type Chat } from '@/types/Chat'
+import { GamePlayerPillWrapper } from './GamePlayerPillWrapper'
+import { PlayerPillButton } from './PlayerPillButton'
+import { PlayerPill } from './PlayerPill'
 
 function Wrapper (props: ComponentProps<'div'>) {
   return (
@@ -19,7 +21,9 @@ function Wrapper (props: ComponentProps<'div'>) {
 function Skeleton () {
   return (
     <Wrapper className="max-w-[50%] flex-none px-2">
-      <PlayerPillWithLabel loading />
+      <GamePlayerPillWrapper loading>
+        <PlayerPill loading />
+      </GamePlayerPillWrapper>
     </Wrapper>
   )
 }
@@ -29,7 +33,9 @@ function Ghost () {
 
   return (
     <Wrapper className="max-w-[50%] flex-none px-2">
-      <PlayerPillWithLabel ghost label={invisibleLabel} />
+      <GamePlayerPillWrapper label={invisibleLabel}>
+        <PlayerPill ghost />
+      </GamePlayerPillWrapper>
     </Wrapper>
   )
 }
@@ -58,15 +64,18 @@ export function GamePlayers ({ roomPlayers, nextAvailablePiece, result, chat }: 
 
     return (
       <Wrapper key={roomPlayer.id} className="max-w-[50%] flex-none px-2">
-        <PlayerPillWithLabel
-          active={isActive}
+        <GamePlayerPillWrapper
           chat={roomPlayer.id === chat?.createdBy ? chat : null}
-          color={roomPlayer.piece}
-          emoji={roomPlayer?.emoji}
           isWinner={isWinner}
           label={label}
-          name={roomPlayer?.name}
-        />
+        >
+          <PlayerPillButton
+            active={isActive}
+            color={roomPlayer.piece}
+            emoji={roomPlayer?.emoji}
+            name={roomPlayer?.name}
+          />
+        </GamePlayerPillWrapper>
       </Wrapper>
     )
   })

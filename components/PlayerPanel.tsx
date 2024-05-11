@@ -44,6 +44,7 @@ export function PlayerPanel () {
       {player ?? isInitializingPlayer
         ? <>
           <PlayerPillButton
+            editable
             disabled={isInitializingPlayer}
             emoji={player?.emoji}
             loading={isInitializingPlayer}

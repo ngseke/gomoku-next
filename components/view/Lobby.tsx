@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHashtag } from '@fortawesome/free-solid-svg-icons'
 import { Footer } from '../Footer'
 import { useTranslations } from 'next-intl'
-import { ConnectedPlayerRecord } from '../ConnectedPlayerRecord'
+import { ConnectedPlayerRecord } from '../PlayerRecord/ConnectedPlayerRecord'
 
 export function Lobby () {
   const t = useTranslations()
