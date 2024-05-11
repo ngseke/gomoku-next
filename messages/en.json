@@ -63,6 +63,7 @@
     "title": "Invite Your Friend"
   },
   "playerRecord": {
+    "title": "Player Record",
     "winCount": "Wins",
     "loseCount": "Losses",
     "winRate": "Win Rate"

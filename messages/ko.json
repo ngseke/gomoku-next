@@ -63,6 +63,7 @@
     "title": "친구를 초대하세요"
   },
   "playerRecord": {
+    "title": "플레이어 기록",
     "winCount": "승",
     "loseCount": "패",
     "winRate": "승률"

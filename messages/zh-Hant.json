@@ -63,6 +63,7 @@
     "title": "邀請你的朋友"
   },
   "playerRecord": {
+    "title": "玩家記錄",
     "winCount": "勝",
     "loseCount": "敗",
     "winRate": "勝率"

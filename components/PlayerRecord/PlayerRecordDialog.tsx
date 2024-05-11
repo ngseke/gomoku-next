@@ -20,7 +20,7 @@ export function PlayerRecordDialog ({ open, onClose, player }: {
   const { winCount, loseCount, winRate } = formatPlayerRecord(record)
 
   return (
-    <Dialog open={Boolean(open)} title={t('Player Record')} onClose={onClose}>
+    <Dialog open={Boolean(open)} title={t('playerRecord.title')} onClose={onClose}>
       <div
         className="relative flex flex-col gap-4 after:pointer-events-none after:absolute after:-bottom-4 after:right-0 after:select-none after:text-9xl after:opacity-20 after:content-[var(--emoji)] dark:after:opacity-10"
         style={{ '--emoji': `"${cachedPlayer?.emoji}"` } as CSSProperties}

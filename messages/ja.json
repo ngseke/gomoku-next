@@ -63,6 +63,7 @@
     "title": "友達を招待する"
   },
   "playerRecord": {
+    "title": "プレイヤー記録",
     "winCount": "勝",
     "loseCount": "敗",
     "winRate": "勝率"
