@@ -1,9 +1,10 @@
-import { Fragment, type ReactNode, useState, useEffect, type PropsWithChildren } from 'react'
+import { Fragment, type ReactNode, type PropsWithChildren } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
 import { Transition } from '@headlessui/react'
 import { type Chat } from '@/types/Chat'
 import { type Nullish } from '@/types/Nullish'
+import { useCachedState } from '../hooks/useCachedState'
 
 function Crown ({ show }: { show?: boolean }) {
   return (
@@ -26,18 +27,6 @@ function LabelSkeleton () {
   return (
     <span className="h-4 w-14 rounded-md bg-neutral-200 transition-colors duration-300 dark:bg-neutral-800" />
   )
-}
-
-function useCachedState<Value> (value: Value) {
-  const [cachedValue, setCachedValue] = useState(value)
-
-  useEffect(() => {
-    if (!value) return
-
-    setCachedValue(value)
-  }, [value])
-
-  return cachedValue
 }
 
 export function GamePlayerPillWrapper ({

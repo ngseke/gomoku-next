@@ -6,11 +6,13 @@ import { type Piece } from '@/types/Piece'
 import { type BoardResult } from '@/types/BoardResult'
 import { type Nullish } from '@/types/Nullish'
 import { useTranslations } from 'next-intl'
-import { type ComponentProps } from 'react'
+import { useState, type ComponentProps } from 'react'
 import { type Chat } from '@/types/Chat'
 import { GamePlayerPillWrapper } from './GamePlayerPillWrapper'
 import { PlayerPillButton } from './PlayerPillButton'
 import { PlayerPill } from './PlayerPill'
+import { PlayerRecordDialog } from './PlayerRecord/PlayerRecordDialog'
+import { type Player } from '@/types/Player'
 
 function Wrapper (props: ComponentProps<'div'>) {
   return (
@@ -51,6 +53,8 @@ export function GamePlayers ({ roomPlayers, nextAvailablePiece, result, chat }: 
   const t = useTranslations()
   const { player } = useAuthStore()
 
+  const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null)
+
   const elements = pieces?.map((piece, index) => {
     const roomPlayer = roomPlayers
       ?.find(roomPlayer => roomPlayer.piece === piece)
@@ -74,18 +78,25 @@ export function GamePlayers ({ roomPlayers, nextAvailablePiece, result, chat }: 
             color={roomPlayer.piece}
             emoji={roomPlayer?.emoji}
             name={roomPlayer?.name}
+            onClick={() => { setSelectedPlayer(roomPlayer) }}
           />
         </GamePlayerPillWrapper>
       </Wrapper>
     )
   })
 
-  return (
+  return (<>
     <div className="-mx-2 flex">
       {!roomPlayers
         ? Array.from({ length: 2 })
           .map((_, index) => (<Skeleton key={index} />))
         : elements}
     </div>
-  )
+
+    <PlayerRecordDialog
+      open={Boolean(selectedPlayer)}
+      player={selectedPlayer}
+      onClose={() => { setSelectedPlayer(null) }}
+    />
+  </>)
 }
