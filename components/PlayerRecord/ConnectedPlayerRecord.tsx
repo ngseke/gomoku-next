@@ -1,6 +1,7 @@
 import { usePlayer } from '@/hooks/usePlayer'
 import { PlayerRecord } from './PlayerRecord'
 import { usePlayerRecord } from '../../hooks/usePlayerRecord'
+import { formatPlayerRecord } from '@/modules/formatPlayerRecord'
 
 export function ConnectedPlayerRecord () {
   const { player } = usePlayer()
@@ -9,13 +10,7 @@ export function ConnectedPlayerRecord () {
 
   if (!player) return null
 
-  const winCount = record?.winCount ?? 0
-  const loseCount = record?.loseCount ?? 0
-  const drawCount = record?.drawCount ?? 0
-  const total = winCount + loseCount + drawCount
-  const winRate = total
-    ? `${Number(Number((winCount / total * 100)).toFixed(1))}%`
-    : '-'
+  const { winCount, loseCount, winRate } = formatPlayerRecord(record)
 
   return (
     <PlayerRecord
