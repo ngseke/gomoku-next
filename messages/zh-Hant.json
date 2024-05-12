@@ -19,7 +19,8 @@
     "signInAsGuest": "訪客模式",
     "newRound": "再玩一輪",
     "copy": "複製",
-    "save": "儲存"
+    "save": "儲存",
+    "resume": "繼續"
   },
   "game": {
     "tab": {
@@ -43,7 +44,8 @@
     "anonymousName": "匿名{name}"
   },
   "message": {
-    "noMoves": "尚無任何棋步"
+    "noMoves": "尚無任何棋步",
+    "notCurrentSession": "你已在別處進行遊戲，點擊按鈕以在此處繼續。"
   },
   "profile": {
     "editDialog": {
@@ -60,7 +62,7 @@
     "draw": "平手"
   },
   "share": {
-    "title": "邀請你的朋友"
+    "title": "邀請朋友加入遊玩"
   },
   "playerRecord": {
     "title": "玩家記錄",
@@ -82,6 +84,7 @@
   },
   "chat": {
     "roomCreated": "已開新房間 <tag>{roomId}</tag>",
+    "shareRoom": "",
     "newRoundStarted": "已開始新的一輪",
     "playerJoined": "<b>{playerName}</b>已加入",
     "playerLeft": "<b>{playerName}</b>已離開",

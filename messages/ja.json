@@ -19,7 +19,8 @@
     "signInAsGuest": "ゲストとして",
     "newRound": "新しいラウンド",
     "copy": "コピー",
-    "save": "保存"
+    "save": "保存",
+    "resume": "再開"
   },
   "game": {
     "tab": {
@@ -43,7 +44,8 @@
     "anonymousName": "匿名{name}"
   },
   "message": {
-    "noMoves": "まだ一手も打たれていません"
+    "noMoves": "まだ一手も打たれていません",
+    "notCurrentSession": "他の場所でセッションが開かれています。こちらでセッションを再開するにはボタンをクリックしてください。"
   },
   "profile": {
     "editDialog": {
@@ -81,7 +83,8 @@
     "systemTheme": "デバイスのテーマ"
   },
   "chat": {
-    "roomCreated": "ルームが作成されました <tag>{roomId}</tag>",
+    "roomCreated": "部屋が作成されました <tag>{roomId}</tag>",
+    "shareRoom": "",
     "newRoundStarted": "新しいラウンドが始まりました",
     "playerJoined": "<b>{playerName}</b>が参加しました",
     "playerLeft": "<b>{playerName}</b>が退出しました",

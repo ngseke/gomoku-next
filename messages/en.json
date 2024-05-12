@@ -19,7 +19,8 @@
     "signInAsGuest": "as Guest",
     "newRound": "New Round",
     "copy": "Copy",
-    "save": "Save"
+    "save": "Save",
+    "resume": "Resume"
   },
   "game": {
     "tab": {
@@ -43,7 +44,8 @@
     "anonymousName": "Anonymous {name}"
   },
   "message": {
-    "noMoves": "There are no moves yet."
+    "noMoves": "There are no moves yet.",
+    "notCurrentSession": "You have another session open elsewhere. Click the button to resume the session here."
   },
   "profile": {
     "editDialog": {
@@ -82,6 +84,7 @@
   },
   "chat": {
     "roomCreated": "The room has been created <tag>{roomId}</tag>",
+    "shareRoom": "",
     "newRoundStarted": "A new round has started",
     "playerJoined": "<b>{playerName}</b> has joined",
     "playerLeft": "<b>{playerName}</b> has left",
