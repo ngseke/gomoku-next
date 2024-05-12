@@ -1,12 +1,13 @@
-import { firebaseAdminAuth, firebaseAdminDatabase } from '@/modules/firebaseAdmin/firebaseAdmin'
-import { rules } from '@/modules/firebaseAdmin/rules'
+import { checkAdminAuthorization } from '@/modules/firebaseAdmin/checkAdminAuthorization'
+import { firebaseAdminAuth } from '@/modules/firebaseAdmin/firebaseAdmin'
 
-export async function POST () {
-  await firebaseAdminDatabase.ref().set({})
-  await setRules()
+export async function POST (request: Request) {
+  const authResponse = await checkAdminAuthorization(request)
+  if (authResponse.status !== 200) return authResponse
+
   await deleteAnonymousUsers()
 
-  return new Response(null, { status: 204 })
+  return Response.json('Anonymous users have been cleared successfully!')
 }
 
 async function deleteAnonymousUsers (nextPageToken?: string) {
@@ -24,10 +25,4 @@ async function deleteAnonymousUsers (nextPageToken?: string) {
   if (pageToken) {
     await deleteAnonymousUsers(pageToken)
   }
-}
-
-async function setRules () {
-  await firebaseAdminDatabase.setRules(
-    JSON.stringify(rules, null, 2)
-  )
 }
