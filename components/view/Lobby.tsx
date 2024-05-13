@@ -133,7 +133,7 @@ export function Lobby () {
 
     <LoadingDialog
       open={isCreatingOrJoiningRoom && !isOpen}
-      title={t('room.createingRoomDialog.title')}
+      title={t('room.creatingRoomDialog.title')}
     />
   </>)
 }

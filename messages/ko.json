@@ -5,7 +5,7 @@
       "title": "방 참여",
       "content": "참여하려면 방 ID를 입력하세요"
     },
-    "createingRoomDialog": {
+    "creatingRoomDialog": {
       "title": "새 방 만들기"
     },
     "joiningRoomDialog": {

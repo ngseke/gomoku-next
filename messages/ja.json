@@ -5,7 +5,7 @@
       "title": "部屋に参加する",
       "content": "部屋の ID を入力して参加"
     },
-    "createingRoomDialog": {
+    "creatingRoomDialog": {
       "title": "新しい部屋を作成中"
     },
     "joiningRoomDialog": {

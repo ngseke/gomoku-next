@@ -5,7 +5,7 @@
       "title": "Join Room",
       "content": "Enter the room ID to join"
     },
-    "createingRoomDialog": {
+    "creatingRoomDialog": {
       "title": "Creating a New Room"
     },
     "joiningRoomDialog": {

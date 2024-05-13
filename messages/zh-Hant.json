@@ -5,7 +5,7 @@
       "title": "加入房間",
       "content": "輸入房間 ID 來加入"
     },
-    "createingRoomDialog": {
+    "creatingRoomDialog": {
       "title": "正在開新房間"
     },
     "joiningRoomDialog": {
