@@ -5,12 +5,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useIsMounted } from '../hooks/useIsMounted'
 import { cn } from '@/modules/cn'
 import { useTheme } from '../hooks/useTheme'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
 
 export function ThemeButton () {
   const { theme, themeIcon, toggleTheme } = useTheme()
   const { isMounted } = useIsMounted()
 
-  if (!isMounted) return null
+  if (!isMounted) {
+    return (
+      <Button
+        icon={<FontAwesomeIcon className="opacity-20" icon={faCircle} />}
+      />
+    )
+  }
 
   return (
     <Button
