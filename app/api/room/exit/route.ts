@@ -4,7 +4,7 @@ import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
 export async function POST (
   request: Request,
 ) {
-  const auth = await parseAuthorization(request)
+  const auth = await parseAuthorization()
   if (!auth) return Response.json(null, { status: 403 })
 
   await exitRoom(request)

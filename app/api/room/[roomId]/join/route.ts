@@ -3,7 +3,7 @@ import { exitRoom } from '@/modules/firebaseAdmin/exitRoom'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { fetchRoom } from '@/modules/firebaseAdmin/fetchRoom'
 import { fetchRoomPlayers } from '@/modules/firebaseAdmin/fetchRoomPlayers'
-import { parseSessionId } from '@/modules/firebaseAdmin/parseSessionId'
+import { getSessionId } from '@/modules/firebaseAdmin/parseSessionId'
 import { getPlayerStateRef, getRoomPlayerRef } from '@/modules/firebaseAdmin/refs'
 import { type Piece } from '@/types/Piece'
 import { type PlayerState } from '@/types/PlayerState'
@@ -24,10 +24,10 @@ export async function POST (
   request: Request,
   { params }: { params: { roomId: string } }
 ) {
-  const player = await fetchPlayer(request)
+  const player = await fetchPlayer()
   if (!player) return Response.json(null, { status: 403 })
 
-  const sessionId = parseSessionId(request)
+  const sessionId = getSessionId()
   if (!sessionId) {
     return Response.json(
       'Missing header `X-Session-Id`',

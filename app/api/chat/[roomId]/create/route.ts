@@ -6,7 +6,7 @@ export async function POST (
   request: Request,
   { params }: { params: { roomId: string } }
 ) {
-  const player = await fetchPlayer(request)
+  const player = await fetchPlayer()
   if (!player) return Response.json(null, { status: 403 })
 
   const { roomId } = params

@@ -6,7 +6,7 @@ export async function GET (
   request: Request,
   { params }: { params: { playerIds: string[] } }
 ) {
-  const auth = await parseAuthorization(request)
+  const auth = await parseAuthorization()
   if (!auth) return Response.json(null, { status: 403 })
 
   const playerId = params.playerIds?.[0] ?? auth.uid

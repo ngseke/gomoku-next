@@ -4,7 +4,7 @@ import { type Room } from '@/types/Room'
 import { getRoomRef } from './refs'
 
 export async function fetchRoom (request: Request, roomId: string) {
-  const auth = await parseAuthorization(request)
+  const auth = await parseAuthorization()
 
   if (!auth) return null
 

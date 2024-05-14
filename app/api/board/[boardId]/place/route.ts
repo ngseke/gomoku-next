@@ -16,12 +16,12 @@ export async function POST (
   request: Request,
   { params: { boardId } }: { params: { boardId: string } }
 ) {
-  const auth = await parseAuthorization(request)
+  const auth = await parseAuthorization()
   if (!auth) return Response.json(null, { status: 403 })
 
   const playerId = auth.uid
 
-  const playerState = await fetchPlayerState(request)
+  const playerState = await fetchPlayerState()
   if (!playerState) {
     return Response.json('You are not in any room!', { status: 400 })
   }

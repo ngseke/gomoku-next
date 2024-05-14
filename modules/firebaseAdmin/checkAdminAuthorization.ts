@@ -9,7 +9,7 @@ export async function checkAdminAuthorization (request: Request) {
     )
   }
 
-  const auth = await parseAuthorization(request)
+  const auth = await parseAuthorization()
   if (auth?.uid !== adminUid) {
     return Response.json(
       'Unauthorized! (`ADMIN_UID` is not matched)',

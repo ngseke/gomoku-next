@@ -9,7 +9,7 @@ export async function POST (
   request: Request,
   { params: { roomId } }: { params: { roomId: string } }
 ) {
-  const auth = await parseAuthorization(request)
+  const auth = await parseAuthorization()
   if (!auth) return Response.json(null, { status: 403 })
 
   const roomRef = getRoomRef(roomId)

@@ -1,8 +1,9 @@
 import 'server-only'
 import { firebaseAdminAuth } from '@/modules/firebaseAdmin/firebaseAdmin'
+import { headers } from 'next/headers'
 
-export async function parseAuthorization (request: Request) {
-  const authorization = request.headers.get('Authorization')
+export async function parseAuthorization () {
+  const authorization = headers().get('Authorization')
 
   const token = authorization?.split('Bearer ').pop()
 

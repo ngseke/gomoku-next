@@ -6,10 +6,8 @@ import { generateRandomPlayer } from '../generateRandomPlayer'
 import { getLocaleFromCookie } from '../getLocaleFromCookie'
 import { getPlayerRef } from './refs'
 
-export async function resetPlayer (
-  request: Request,
-) {
-  const auth = await parseAuthorization(request)
+export async function resetPlayer () {
+  const auth = await parseAuthorization()
 
   const id = auth?.uid
 

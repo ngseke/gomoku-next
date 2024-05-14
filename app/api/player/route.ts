@@ -5,7 +5,7 @@ import { getPlayerRef } from '@/modules/firebaseAdmin/refs'
 export async function GET (
   request: Request,
 ) {
-  const player = await fetchPlayer(request)
+  const player = await fetchPlayer()
   if (!player) return Response.json(null, { status: 403 })
 
   return Response.json(player)
@@ -14,7 +14,7 @@ export async function GET (
 export async function PATCH (
   request: Request,
 ) {
-  const player = await fetchPlayer(request)
+  const player = await fetchPlayer()
   if (!player) return Response.json(null, { status: 403 })
 
   const playerRef = getPlayerRef(player.id)

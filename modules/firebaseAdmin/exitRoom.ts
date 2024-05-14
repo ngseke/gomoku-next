@@ -7,12 +7,12 @@ import { createChat } from './createChat'
 import { getPlayerStateRef, getRoomPlayerRef } from './refs'
 
 export async function exitRoom (request: Request) {
-  const auth = await parseAuthorization(request)
+  const auth = await parseAuthorization()
   if (!auth) return
 
   const [player, playerState] = await Promise.all([
-    fetchPlayer(request),
-    fetchPlayerState(request),
+    fetchPlayer(),
+    fetchPlayerState(),
   ])
 
   if (!player || !playerState) return

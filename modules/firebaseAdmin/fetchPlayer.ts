@@ -4,9 +4,8 @@ import { parseAuthorization } from './parseAuthorization'
 import { resetPlayer } from './resetPlayer'
 import { getPlayerRef } from './refs'
 
-export async function fetchPlayer (request: Request) {
-  const auth = await parseAuthorization(request)
-
+export async function fetchPlayer () {
+  const auth = await parseAuthorization()
   if (!auth) return null
 
   const playerRef = getPlayerRef(auth.uid)
@@ -14,7 +13,7 @@ export async function fetchPlayer (request: Request) {
   let player = (await playerRef.get()).val() as Player
 
   if (!player) {
-    await resetPlayer(request)
+    await resetPlayer()
     player = (await playerRef.get()).val() as Player
   }
 
