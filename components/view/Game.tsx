@@ -51,7 +51,6 @@ export function Game () {
 
   const { roomPlayers, rawRoomPlayers, isAwaitingPlayer, opponent } = useRoomPlayers()
 
-  const boardId = room?.boardId
   const {
     records,
     result,
@@ -62,7 +61,10 @@ export function Game () {
     nextAvailablePiece,
     isPlacing,
     firstPiece,
-  } = useBoard(boardId)
+  } = useBoard({
+    boardId: room?.boardId,
+    roomId: room?.id,
+  })
 
   const myRoomPlayer = player?.id ? rawRoomPlayers?.[player?.id] : null
   const myPiece = myRoomPlayer?.piece

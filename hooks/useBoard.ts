@@ -12,7 +12,10 @@ import { type BoardRecordWithId } from '@/types/BoardRecord'
 import { type Piece } from '@/types/Piece'
 import { nanoid } from 'nanoid'
 
-export function useBoard (boardId: Nullish<string>) {
+export function useBoard ({ boardId, roomId }: {
+  boardId: Nullish<string>
+  roomId: Nullish<string>
+}) {
   const database = useDatabase()
 
   const [board, setBoard] = useState<Board | null>(null)
@@ -64,7 +67,7 @@ export function useBoard (boardId: Nullish<string>) {
     })
 
     try {
-      await axios.post(`/api/board/${boardId}/place`, position)
+      await axios.post(`/api/room/${roomId}/board/${boardId}/place`, position)
     } finally {
       setIsPlacing(false)
       setPlacedPiece(null)

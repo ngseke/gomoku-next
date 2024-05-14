@@ -5,6 +5,7 @@ import { fetchRoom } from './fetchRoom'
 import { fetchPlayer } from './fetchPlayer'
 import { createChat } from './createChat'
 import { getPlayerStateRef, getRoomPlayerRef } from './refs'
+import { runParallel } from '../runParallel'
 
 export async function exitRoom (request: Request) {
   const auth = await parseAuthorization()
@@ -19,16 +20,18 @@ export async function exitRoom (request: Request) {
 
   const { roomId } = playerState
 
-  const room = await fetchRoom(request, roomId)
-  if (room) {
-    // Update Room
-    const roomPlayerRef = getRoomPlayerRef(roomId, player.id)
-    await roomPlayerRef.remove()
-  }
+  await runParallel(
+    async function updateRoom () {
+      const roomPlayerRef = getRoomPlayerRef(roomId, player.id)
+      await roomPlayerRef.remove()
+    },
+    async function updatePlayerState () {
+      const playerStateRef = getPlayerStateRef(player.id)
+      await playerStateRef.remove()
+    },
+  )
 
-  // Update Player State
-  const playerStateRef = getPlayerStateRef(player.id)
-  await playerStateRef.remove()
+  const room = await fetchRoom(roomId)
 
   if (room) {
     void createChat(roomId, {

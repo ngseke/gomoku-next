@@ -3,7 +3,6 @@ import { ServerValue } from 'firebase-admin/database'
 import { generateBoardGrid } from '@/modules/generateBoard'
 import { getNextAvailablePiece, judgeCanPlace } from '@/modules/boardGrid'
 import { fetchPlayerState } from '@/modules/firebaseAdmin/fetchPlayerState'
-import { fetchRoomPlayers } from '@/modules/firebaseAdmin/fetchRoomPlayers'
 import { fetchBoard } from '@/modules/firebaseAdmin/fetchBoard'
 import { fetchAndJudgeBoard } from '@/modules/firebaseAdmin/fetchAndJudgeBoard'
 import { createBoardResult } from '@/modules/firebaseAdmin/createBoardResult'
@@ -11,32 +10,42 @@ import { createChat } from '@/modules/firebaseAdmin/createChat'
 import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
 import { findRoomPlayerByPiece } from '@/modules/findRoomPlayerByPiece'
 import { getBoardRecordsRef, getPlayerRecordDrawCountRef, getPlayerRecordLoseCountRef, getPlayerRecordWinCountRef } from '@/modules/firebaseAdmin/refs'
+import { runParallel } from '@/modules/runParallel'
+import { fetchRoom } from '@/modules/firebaseAdmin/fetchRoom'
 
 export async function POST (
   request: Request,
-  { params: { boardId } }: { params: { boardId: string } }
+  { params: { boardId, roomId } }: { params: { boardId: string, roomId: string } }
 ) {
   const auth = await parseAuthorization()
   if (!auth) return Response.json(null, { status: 403 })
 
   const playerId = auth.uid
 
-  const playerState = await fetchPlayerState()
+  const [
+    playerState,
+    room,
+    board,
+  ] = await runParallel(
+    fetchPlayerState,
+    async () => await fetchRoom(roomId),
+    async () => await fetchBoard(boardId),
+  )
+
   if (!playerState) {
     return Response.json('You are not in any room!', { status: 400 })
   }
 
-  const roomId = playerState?.roomId
-  const roomPlayers = await fetchRoomPlayers(roomId)
-
+  const roomPlayers = room?.players
   const roomPlayer = roomPlayers?.[playerId]
-  if (!roomPlayer) {
+  if (!roomPlayers || !roomPlayer) {
     return Response.json('You are not in the correct room!', { status: 400 })
   }
 
-  const { x, y } = await request.json()
+  if (room?.boardId !== boardId) {
+    return Response.json('You are not placing the correct board!', { status: 400 })
+  }
 
-  const board = await fetchBoard(boardId)
   if (!board) {
     return Response.json(`Cannot find board \`${boardId}\`!`, { status: 400 })
   }
@@ -56,6 +65,8 @@ export async function POST (
       { status: 400 }
     )
   }
+
+  const { x, y } = await request.json()
 
   const canPlace = judgeCanPlace(boardGrid, { x, y })
   if (!canPlace) {

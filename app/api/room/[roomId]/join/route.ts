@@ -5,6 +5,7 @@ import { fetchRoom } from '@/modules/firebaseAdmin/fetchRoom'
 import { fetchRoomPlayers } from '@/modules/firebaseAdmin/fetchRoomPlayers'
 import { getSessionId } from '@/modules/firebaseAdmin/parseSessionId'
 import { getPlayerStateRef, getRoomPlayerRef } from '@/modules/firebaseAdmin/refs'
+import { runParallel } from '@/modules/runParallel'
 import { type Piece } from '@/types/Piece'
 import { type PlayerState } from '@/types/PlayerState'
 import { type RoomPlayers, type RoomPlayer } from '@/types/Room'
@@ -37,7 +38,7 @@ export async function POST (
 
   const { roomId } = params
 
-  const room = await fetchRoom(request, roomId)
+  const room = await fetchRoom(roomId)
   if (!room) {
     return Response.json(
       `Room \`${roomId}\` does not exist!`,
@@ -49,34 +50,31 @@ export async function POST (
 
   const roomPlayers = await fetchRoomPlayers(roomId)
 
-  // Check if has joined
-  const hasSelfJoined = roomPlayers?.[player.id]
-  if (hasSelfJoined) {
-    return Response.json('You have joined this room!', { status: 400 })
-  }
-
   // Get available piece
   const piece = getNextPiece(roomPlayers)
   if (!piece) {
     return Response.json('The room is full!', { status: 400 })
   }
 
-  // Update Room
-  const roomPlayerRef = getRoomPlayerRef(roomId, player.id)
-  await roomPlayerRef.set({
-    ...player,
-    sessionId,
-    joinedAt: ServerValue.TIMESTAMP as number,
-    piece,
-  } satisfies RoomPlayer)
-
-  // Update Player State
-  const playerStateRef = getPlayerStateRef(player.id)
-  await playerStateRef.set({
-    sessionId,
-    roomId,
-    type: 'game',
-  } satisfies PlayerState)
+  await runParallel(
+    async function updateRoom () {
+      const roomPlayerRef = getRoomPlayerRef(roomId, player.id)
+      await roomPlayerRef.set({
+        ...player,
+        sessionId,
+        joinedAt: ServerValue.TIMESTAMP as number,
+        piece,
+      } satisfies RoomPlayer)
+    },
+    async function updatePlayerState () {
+      const playerStateRef = getPlayerStateRef(player.id)
+      await playerStateRef.set({
+        sessionId,
+        roomId,
+        type: 'game',
+      } satisfies PlayerState)
+    },
+  )
 
   void createChat(roomId, {
     message: `${player.name} has joined`,
