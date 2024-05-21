@@ -1,25 +1,22 @@
 import baseAxios from 'axios'
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useAuth } from 'reactfire'
 import { useAuthStore } from './useAuthStore'
 
+const axios = baseAxios.create({
+  timeout: 10000,
+})
+
 export function useAxios () {
-  const axiosRef = useRef(baseAxios.create({
-    timeout: 10000,
-  }))
   const auth = useAuth()
 
   const { sessionId } = useAuthStore()
 
   useEffect(() => {
-    const axios = axiosRef.current
-
     const interceptor = axios.interceptors.request.use(async (config) => {
       const token = await auth.currentUser?.getIdToken()
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`
-      }
 
+      config.headers.Authorization = `Bearer ${token}`
       config.headers['X-Session-Id'] = sessionId
 
       return config
@@ -30,5 +27,5 @@ export function useAxios () {
     }
   }, [auth, sessionId])
 
-  return axiosRef.current
+  return axios
 }
