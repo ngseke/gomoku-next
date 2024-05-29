@@ -93,6 +93,7 @@ export function useBoard ({ boardId, roomId }: {
     highlight,
     optimisticBoardGrid,
     records,
+    optimisticRecords,
     result,
     nextAvailablePiece,
     winningLine,

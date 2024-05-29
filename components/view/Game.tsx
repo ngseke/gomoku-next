@@ -33,6 +33,7 @@ import { useSetPlayerMousePosition } from '@/hooks/useSetPlayerMousePosition'
 import { usePlayerMousePosition } from '@/hooks/usePlayerMousePosition'
 import { FirstPieceTag } from '../FirstPieceTag'
 import { useHighlightedChat } from '@/hooks/useHighlightedChat'
+import useSound from 'use-sound'
 
 export function Game () {
   const t = useTranslations()
@@ -53,6 +54,7 @@ export function Game () {
 
   const {
     records,
+    optimisticRecords,
     result,
     winningLine,
     highlight,
@@ -69,6 +71,13 @@ export function Game () {
   const myRoomPlayer = player?.id ? rawRoomPlayers?.[player?.id] : null
   const myPiece = myRoomPlayer?.piece
   const isMyTurn = myPiece === nextAvailablePiece && isCurrentSession
+
+  const [play] = useSound('/sounds/click.wav')
+  const lastRecord = optimisticRecords?.at(-1)
+  useEffect(() => {
+    if (lastRecord?.piece === myPiece) return
+    play()
+  }, [lastRecord?.piece, isPlacing, play, myPiece])
 
   const [isShowLabels, toggleIsShowLabels] = useToggle(true)
 
