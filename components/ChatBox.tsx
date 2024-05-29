@@ -8,6 +8,7 @@ import { type Nullish } from '@/types/Nullish'
 import { chatMessageMaxLength } from '@/modules/constants'
 import { Button } from './Button'
 import { Transition } from '@headlessui/react'
+import useSound from 'use-sound'
 
 export interface ChatBoxProps {
   chats: Record<string, Chat> | null
@@ -75,6 +76,18 @@ export function ChatBox ({
       inputRef.current?.blur()
     }
   }
+
+  const lastChatEntry = Object.entries(chats ?? {}).at(-1)
+  const lastChatId = lastChatEntry?.[0]
+  const isInitialized = useRef(false)
+  const [play] = useSound('/sounds/bobble.wav')
+  useEffect(() => {
+    if (!isInitialized.current) {
+      isInitialized.current = true
+      return
+    }
+    play()
+  }, [lastChatId, play])
 
   return (
     <div className="relative flex h-full flex-col rounded-2xl border border-neutral-200 px-3 pb-3 transition-colors dark:border-neutral-800">
