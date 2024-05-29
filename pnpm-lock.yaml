@@ -110,6 +110,9 @@ dependencies:
   use-sound:
     specifier: ^4.0.1
     version: 4.0.1(react@18.2.0)
+  use-window-focus:
+    specifier: ^1.4.3
+    version: 1.4.3(react@18.2.0)
   usehooks-ts:
     specifier: ^3.1.0
     version: 3.1.0(react@18.2.0)
@@ -5129,6 +5132,15 @@ packages:
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /use-window-focus@1.4.3(react@18.2.0):
+    resolution: {integrity: sha512-7DQi14T0pZ7aFJAC1/HqfGAnBtjLr+pcr07YCbhUyKk3YjXwbtLlJFCP37r+HtwbWUhYvEmUTssu0kTefxxQzw==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16.8'
     dependencies:
       react: 18.2.0
     dev: false
