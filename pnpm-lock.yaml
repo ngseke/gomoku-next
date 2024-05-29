@@ -107,6 +107,9 @@ dependencies:
   unique-names-generator:
     specifier: ^4.7.1
     version: 4.7.1
+  use-sound:
+    specifier: ^4.0.1
+    version: 4.0.1(react@18.2.0)
   usehooks-ts:
     specifier: ^3.1.0
     version: 3.1.0(react@18.2.0)
@@ -3148,6 +3151,10 @@ packages:
       function-bind: 1.1.2
     dev: true
 
+  /howler@2.2.4:
+    resolution: {integrity: sha512-iARIBPgcQrwtEr+tALF+rapJ8qSc+Set2GJQl7xT1MQzWaVkFebdJhR3alVlSiUf5U7nAANKuj3aWpwerocD5w==}
+    dev: false
+
   /http-parser-js@0.5.8:
     resolution: {integrity: sha512-SGeBX54F94Wgu5RH3X5jsDtf4eHyRogWX1XGT3b4HuW3tQPM4AaBzoUji/4AAJNXCEOWZ5O0DgZmJw1947gD5Q==}
     dev: false
@@ -5106,6 +5113,15 @@ packages:
     dependencies:
       '@formatjs/ecma402-abstract': 1.18.2
       intl-messageformat: 10.5.11
+      react: 18.2.0
+    dev: false
+
+  /use-sound@4.0.1(react@18.2.0):
+    resolution: {integrity: sha512-hykJ86kNcu6y/FzlSHcQxhjSGMslZx2WlfLpZNoPbvueakv4OF3xPxEtGV2YmculrIaH0tPp9LtG4jgy17xMWg==}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      howler: 2.2.4
       react: 18.2.0
     dev: false
 
