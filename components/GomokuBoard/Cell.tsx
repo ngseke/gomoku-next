@@ -3,6 +3,7 @@ import { type Position } from '@/types/Position'
 import { Fragment, type PropsWithChildren } from 'react'
 import { PieceGhost } from './Piece'
 import { Transition } from '@headlessui/react'
+import useSound from 'use-sound'
 
 const size = 15
 
@@ -101,11 +102,17 @@ export function Cell ({
     position => x === position[0] && y === position[1]
   )
 
+  const [play] = useSound('/sounds/click.wav')
+  function handleClick () {
+    onClick?.()
+    play()
+  }
+
   return (
     <button
       className="group relative flex aspect-square"
       disabled={disabled}
-      onClick={onClick}
+      onClick={handleClick}
       onMouseOver={onHover}
     >
       {(isCorner)
