@@ -23,7 +23,7 @@ export function PlayerPillButton (
         highlightOnHover={!disabled}
         loading={loading}
         rightSection={(editable && !loading) &&
-          <span className="w-0 scale-0 opacity-0 duration-200 group-hover:-mr-0.5 group-hover:ml-1.5 group-hover:w-4 group-hover:scale-100 group-hover:opacity-100">
+          <span className="ml-2">
             <FontAwesomeIcon
               className="text-xs text-neutral-600 dark:text-neutral-400"
               icon={faPen}
