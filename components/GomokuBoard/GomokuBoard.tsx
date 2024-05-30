@@ -6,9 +6,11 @@ import { GridWithLabel } from './GridWithLabel'
 import { type Nullish } from '@/types/Nullish'
 import { WinningLine } from './WinningLine'
 import { type WinningLine as WinningLineType } from '@/types/WinningLine'
-import { type MouseEvent } from 'react'
+import { useRef, type MouseEvent } from 'react'
 import { type MousePosition } from '@/types/MousePosition'
 import { cn } from '@/modules/cn'
+import { type Piece as PieceType } from '@/types/Piece'
+import { useResizeObserver } from 'usehooks-ts'
 
 const size = 15
 
@@ -21,6 +23,7 @@ export function GomokuBoard ({
   disabled,
   showLabels,
   playerMousePosition,
+  emojiMap,
   onPlace,
   onHover,
   onMouseMove,
@@ -33,6 +36,7 @@ export function GomokuBoard ({
   dimmedPositions?: Nullish<Position[]>
   winningLine?: Nullish<WinningLineType>
   playerMousePosition?: MousePosition
+  emojiMap?: Record<PieceType, Nullish<string>>
   onPlace?: (position: Position) => void
   onHover?: (position: Position) => void
   onMouseMove?: (position: MousePosition) => void
@@ -50,8 +54,17 @@ export function GomokuBoard ({
     onMouseMove?.([(x / rect.width) * 100, (y / rect.height) * 100])
   }
 
+  const ref = useRef<HTMLDivElement | null>(null)
+  const { width = 0 } = useResizeObserver({
+    ref,
+    box: 'border-box',
+  })
+
+  const pieceFontSize = width / 17
+
   return (
     <div
+      ref={ref}
       className="relative"
       onMouseMove={handleMouseMove}
       onMouseOut={() => { onMouseMove?.(null) }}
@@ -82,7 +95,9 @@ export function GomokuBoard ({
                     animate={isHighlight}
                     color={piece.piece}
                     dimmed={isDimmed}
+                    emoji={emojiMap?.[piece.piece]}
                     emphasis={isEmphasis}
+                    fontSize={pieceFontSize}
                   />
                 )}
               </Cell>

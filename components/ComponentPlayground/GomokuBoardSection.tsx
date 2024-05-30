@@ -16,6 +16,9 @@ import { ResultOverlay } from '../ResultOverlay'
 import { type BoardResult } from '@/types/BoardResult'
 import { type Piece } from '@/types/Piece'
 import { Headline } from './Headline'
+import { faShuffle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { random } from 'node-emoji'
 
 export function GomokuBoardSection () {
   const [boardRecords, setBoardRecords] = useState<BoardRecord[]>(mockBoardRecords)
@@ -59,6 +62,8 @@ export function GomokuBoardSection () {
     setHighlight(undefined)
   }
 
+  const [emojiMap, setEmojiMap] = useState({ black: '🎃️', white: '🌏️' })
+
   return (<>
     <Headline>Gomoku Board</Headline>
     <div className="flex flex-wrap gap-6">
@@ -66,6 +71,7 @@ export function GomokuBoardSection () {
         <GomokuBoard
           boardGrid={generateBoardGrid(boardRecords)}
           disabled={isDisabled}
+          emojiMap={emojiMap}
           highlight={highlight}
           showLabels={isShowLabels}
           winningLine={result?.type === 'win' ? result : null}
@@ -185,6 +191,28 @@ export function GomokuBoardSection () {
           />
         </div>}
 
+        <h3 className="text-xl font-bold">Piece Emoji</h3>
+        <div className="grid grid-cols-2 gap-4">
+          {(['black', 'white'] as const).map(piece => (
+            <div key={piece} className="flex items-end gap-2">
+              <Input
+                label={piece}
+                value={emojiMap[piece] ?? ''}
+                onChange={event => {
+                  const value = event.target.value
+                  setEmojiMap({ ...emojiMap, [piece]: value || null })
+                }}
+              />
+              <Button
+                icon={<FontAwesomeIcon icon={faShuffle} />}
+                onClick={() => {
+                  const { emoji } = random()
+                  setEmojiMap({ ...emojiMap, [piece]: emoji })
+                }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </>)

@@ -34,6 +34,7 @@ import { usePlayerMousePosition } from '@/hooks/usePlayerMousePosition'
 import { FirstPieceTag } from '../FirstPieceTag'
 import { useHighlightedChat } from '@/hooks/useHighlightedChat'
 import useSound from 'use-sound'
+import { type Piece } from '@/types/Piece'
 
 export function Game () {
   const t = useTranslations()
@@ -51,6 +52,16 @@ export function Game () {
   }
 
   const { roomPlayers, rawRoomPlayers, isAwaitingPlayer, opponent } = useRoomPlayers()
+  const emojiMap = (() => {
+    function findPiece (piece: Piece) {
+      return roomPlayers.find(player => player.piece === piece)?.emoji
+    }
+
+    return {
+      black: findPiece('black'),
+      white: findPiece('white'),
+    }
+  })()
 
   const {
     records,
@@ -202,6 +213,7 @@ export function Game () {
                 boardGrid={optimisticBoardGrid}
                 dimmedPositions={dimmedPositions}
                 disabled={isBoardDisabled}
+                emojiMap={emojiMap}
                 emphasis={emphasis}
                 highlight={highlight}
                 playerMousePosition={playerMousePosition}
