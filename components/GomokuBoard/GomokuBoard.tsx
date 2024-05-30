@@ -36,7 +36,7 @@ export function GomokuBoard ({
   dimmedPositions?: Nullish<Position[]>
   winningLine?: Nullish<WinningLineType>
   playerMousePosition?: MousePosition
-  emojiMap?: Record<PieceType, Nullish<string>>
+  emojiMap?: Nullish<Record<PieceType, Nullish<string>>>
   onPlace?: (position: Position) => void
   onHover?: (position: Position) => void
   onMouseMove?: (position: MousePosition) => void

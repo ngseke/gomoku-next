@@ -71,6 +71,8 @@
     "winRate": "勝率"
   },
   "menu": {
+    "showEmojiPiece": "絵文字碁石を表示",
+    "showDefaultPiece": "標準碁石を表示",
     "hideLabel": "ラベルを隠す",
     "showLabel": "ラベルを表示",
     "hideChat": "チャットを隠す",

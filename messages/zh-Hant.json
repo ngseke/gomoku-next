@@ -71,6 +71,8 @@
     "winRate": "勝率"
   },
   "menu": {
+    "showEmojiPiece": "顯示 Emoji 棋",
+    "showDefaultPiece": "顯示黑白棋",
     "hideLabel": "隱藏座標",
     "showLabel": "顯示座標",
     "hideChat": "隱藏聊天",

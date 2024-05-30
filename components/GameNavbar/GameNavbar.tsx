@@ -1,4 +1,4 @@
-import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
+import { faIcons, faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { BackIconButton } from '../BackIconButton'
 import { Button } from '../Button'
@@ -14,12 +14,16 @@ export function GameNavbar ({
   onClickBackIconButton,
   isShowLabels,
   onClickToggleIsShowLabels,
+  isShowEmojiPiece,
+  onClickToggleIsShowEmojiPiece,
   shareUrl,
 }: {
   isBackIconButtonLoading: boolean
   onClickBackIconButton: () => void
   isShowLabels: boolean
   onClickToggleIsShowLabels: () => void
+  isShowEmojiPiece: boolean
+  onClickToggleIsShowEmojiPiece: () => void
   shareUrl?: string
 }) {
   const t = useTranslations()
@@ -37,6 +41,11 @@ export function GameNavbar ({
 
         <div className=" hidden gap-2 sm:flex">
           <Button
+            icon={<FontAwesomeIcon icon={faIcons} />}
+            onClick={onClickToggleIsShowEmojiPiece}
+          >{isShowEmojiPiece ? t('menu.showDefaultPiece') : t('menu.showEmojiPiece')}</Button>
+
+          <Button
             icon={<FontAwesomeIcon icon={faLocationCrosshairs} />}
             onClick={onClickToggleIsShowLabels}
           >{isShowLabels ? t('menu.hideLabel') : t('menu.showLabel')}</Button>
@@ -47,8 +56,10 @@ export function GameNavbar ({
 
         <div className="block sm:hidden">
           <GameNavbarMenu
+            isShowEmojiPiece={isShowEmojiPiece}
             isShowLabels={isShowLabels}
             shareUrl={shareUrl}
+            onClickToggleIsShowEmojiPiece={onClickToggleIsShowEmojiPiece}
             onClickToggleIsShowLabels={onClickToggleIsShowLabels}
           />
         </div>

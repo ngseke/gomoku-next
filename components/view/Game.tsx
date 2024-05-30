@@ -56,11 +56,7 @@ export function Game () {
     function findPiece (piece: Piece) {
       return roomPlayers.find(player => player.piece === piece)?.emoji
     }
-
-    return {
-      black: findPiece('black'),
-      white: findPiece('white'),
-    }
+    return { black: findPiece('black'), white: findPiece('white') }
   })()
 
   const {
@@ -91,6 +87,7 @@ export function Game () {
   }, [lastRecord?.piece, isPlacing, play, myPiece])
 
   const [isShowLabels, toggleIsShowLabels] = useToggle(true)
+  const [isShowEmojiPiece, toggleIsShowEmojiPiece] = useToggle(false)
 
   async function handlePlace (position: Position) {
     await place(position, myPiece)
@@ -190,9 +187,11 @@ export function Game () {
   return (<>
     <GameNavbar
       isBackIconButtonLoading={isSubmittingRoomAction}
+      isShowEmojiPiece={isShowEmojiPiece}
       isShowLabels={isShowLabels}
       shareUrl={shareUrl}
       onClickBackIconButton={handleClickExitRoom}
+      onClickToggleIsShowEmojiPiece={toggleIsShowEmojiPiece}
       onClickToggleIsShowLabels={toggleIsShowLabels}
     />
 
@@ -213,7 +212,7 @@ export function Game () {
                 boardGrid={optimisticBoardGrid}
                 dimmedPositions={dimmedPositions}
                 disabled={isBoardDisabled}
-                emojiMap={emojiMap}
+                emojiMap={isShowEmojiPiece ? emojiMap : null}
                 emphasis={emphasis}
                 highlight={highlight}
                 playerMousePosition={playerMousePosition}

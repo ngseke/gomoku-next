@@ -71,6 +71,8 @@
     "winRate": "승률"
   },
   "menu": {
+    "showEmojiPiece": "Show Emoji Piece",
+    "showDefaultPiece": "Show Default Piece",
     "hideLabel": "레이블 숨기기",
     "showLabel": "레이블 표시",
     "hideChat": "채팅 숨기기",

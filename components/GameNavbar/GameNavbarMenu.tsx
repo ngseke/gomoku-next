@@ -1,5 +1,5 @@
 import { Menu as BaseMenu } from '@headlessui/react'
-import { faBars, faLocationCrosshairs, faShareNodes } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faIcons, faLocationCrosshairs, faShareNodes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslations } from 'next-intl'
 import { Menu } from '@/components/Menu'
@@ -12,10 +12,14 @@ import { ShareDialog } from '../Share/ShareDialog'
 export function GameNavbarMenu ({
   isShowLabels,
   onClickToggleIsShowLabels,
+  isShowEmojiPiece,
+  onClickToggleIsShowEmojiPiece,
   shareUrl,
 }: {
   isShowLabels: boolean
   onClickToggleIsShowLabels: () => void
+  isShowEmojiPiece: boolean
+  onClickToggleIsShowEmojiPiece: () => void
   shareUrl?: string
 }) {
   const t = useTranslations()
@@ -27,6 +31,11 @@ export function GameNavbarMenu ({
   if (!isMounted) return null
 
   const items = [
+    {
+      name: isShowEmojiPiece ? t('menu.showDefaultPiece') : t('menu.showEmojiPiece'),
+      icon: faIcons,
+      action: onClickToggleIsShowEmojiPiece,
+    },
     {
       name: isShowLabels ? t('menu.hideLabel') : t('menu.showLabel'),
       icon: faLocationCrosshairs,

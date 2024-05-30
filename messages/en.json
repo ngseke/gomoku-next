@@ -71,6 +71,8 @@
     "winRate": "Win Rate"
   },
   "menu": {
+    "showEmojiPiece": "Show Emoji Piece",
+    "showDefaultPiece": "Show Default Piece",
     "hideLabel": "Hide Label",
     "showLabel": "Show Label",
     "hideChat": "Hide Chat",
