@@ -10,7 +10,6 @@ import { useBoard } from '@/hooks/useBoard'
 import { useIsCurrentSession } from '@/hooks/useIsCurrentSession'
 import { RoomIdHashtag } from '../RoomIdHashtag'
 import { useRoomActions } from '@/hooks/useRoomActions'
-import { useToggle } from 'usehooks-ts'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle, faClockRotateLeft, faComment, faCrown, faStopwatch, faUserClock } from '@fortawesome/free-solid-svg-icons'
 import { ResultOverlay } from '../ResultOverlay'
@@ -35,6 +34,7 @@ import { FirstPieceTag } from '../FirstPieceTag'
 import { useHighlightedChat } from '@/hooks/useHighlightedChat'
 import useSound from 'use-sound'
 import { type Piece } from '@/types/Piece'
+import { usePreference } from '@/hooks/usePreference'
 
 export function Game () {
   const t = useTranslations()
@@ -86,8 +86,7 @@ export function Game () {
     play()
   }, [lastRecord?.piece, play, myPiece])
 
-  const [isShowLabels, toggleIsShowLabels] = useToggle(true)
-  const [isShowEmojiPiece, toggleIsShowEmojiPiece] = useToggle(false)
+  const { isShowLabels, toggleIsShowLabels, isShowEmojiPiece, toggleIsShowEmojiPiece } = usePreference()
 
   async function handlePlace (position: Position) {
     await place(position, myPiece)
