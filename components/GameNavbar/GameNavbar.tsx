@@ -1,4 +1,4 @@
-import { faIcons, faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
+import { faCircle, faGrinSquintTears, faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { BackIconButton } from '../BackIconButton'
 import { Button } from '../Button'
@@ -41,7 +41,7 @@ export function GameNavbar ({
 
         <div className="hidden gap-2 md:flex">
           <Button
-            icon={<FontAwesomeIcon icon={faIcons} />}
+            icon={<FontAwesomeIcon icon={isShowEmojiPiece ? faCircle : faGrinSquintTears} />}
             onClick={onClickToggleIsShowEmojiPiece}
           >{isShowEmojiPiece ? t('menu.showDefaultPiece') : t('menu.showEmojiPiece')}</Button>
 

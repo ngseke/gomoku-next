@@ -1,5 +1,5 @@
 import { Menu as BaseMenu } from '@headlessui/react'
-import { faBars, faIcons, faLocationCrosshairs, faShareNodes } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCircle, faGrinSquintTears, faLocationCrosshairs, faShareNodes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslations } from 'next-intl'
 import { Menu } from '@/components/Menu'
@@ -33,7 +33,7 @@ export function GameNavbarMenu ({
   const items = [
     {
       name: isShowEmojiPiece ? t('menu.showDefaultPiece') : t('menu.showEmojiPiece'),
-      icon: faIcons,
+      icon: isShowEmojiPiece ? faCircle : faGrinSquintTears,
       action: onClickToggleIsShowEmojiPiece,
     },
     {
