@@ -86,6 +86,8 @@ export function ChatBox ({
       isInitialized.current = true
       return
     }
+    if (!lastChatId) return
+
     play()
   }, [lastChatId, play])
 
