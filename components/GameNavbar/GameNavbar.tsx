@@ -39,7 +39,7 @@ export function GameNavbar ({
           <LogoText className="text-nowrap text-2xl sm:text-3xl" />
         </div>
 
-        <div className=" hidden gap-2 sm:flex">
+        <div className="hidden gap-2 md:flex">
           <Button
             icon={<FontAwesomeIcon icon={faIcons} />}
             onClick={onClickToggleIsShowEmojiPiece}
@@ -54,7 +54,7 @@ export function GameNavbar ({
           <ThemeButton />
         </div>
 
-        <div className="block sm:hidden">
+        <div className="block md:hidden">
           <GameNavbarMenu
             isShowEmojiPiece={isShowEmojiPiece}
             isShowLabels={isShowLabels}
