@@ -82,9 +82,9 @@ export function Game () {
   const [play] = useSound('/sounds/click.wav')
   const lastRecord = optimisticRecords?.at(-1)
   useEffect(() => {
-    if (lastRecord?.piece === myPiece) return
+    if (!lastRecord?.piece || lastRecord?.piece === myPiece) return
     play()
-  }, [lastRecord?.piece, isPlacing, play, myPiece])
+  }, [lastRecord?.piece, play, myPiece])
 
   const [isShowLabels, toggleIsShowLabels] = useToggle(true)
   const [isShowEmojiPiece, toggleIsShowEmojiPiece] = useToggle(false)
