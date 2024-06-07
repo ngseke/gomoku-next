@@ -3,9 +3,7 @@ import { useEffect } from 'react'
 import { useAuth } from 'reactfire'
 import { useAuthStore } from './useAuthStore'
 
-const axios = baseAxios.create({
-  timeout: 10000,
-})
+const axios = baseAxios.create({})
 
 export function useAxios () {
   const auth = useAuth()
