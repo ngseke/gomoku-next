@@ -24,12 +24,14 @@ export function PlayerRecord ({
     )}
       style={{ '--emoji': `"${emoji}"` } as CSSProperties}
     >
-      <PlayerRecordBody
-        loading={loading}
-        loseCount={loseCount}
-        winCount={winCount}
-        winRate={winRate}
-      />
+      <div>
+        <PlayerRecordBody
+          loading={loading}
+          loseCount={loseCount}
+          winCount={winCount}
+          winRate={winRate}
+        />
+      </div>
     </div>
   )
 }
