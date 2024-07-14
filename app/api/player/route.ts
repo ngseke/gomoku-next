@@ -1,22 +1,16 @@
 import { playerNameMaxLength } from '@/modules/constants'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
 import { getPlayerRef } from '@/modules/firebaseAdmin/refs'
+import { withAuth } from '@/modules/firebaseAdmin/withAuth'
 
-export async function GET (
-  request: Request,
-) {
-  const player = await fetchPlayer()
-  if (!player) return Response.json(null, { status: 403 })
-
+export const GET = withAuth(async ({ auth }) => {
+  const player = await fetchPlayer(auth)
   return Response.json(player)
-}
+})
 
-export async function PATCH (
-  request: Request,
-) {
-  const player = await fetchPlayer()
-  if (!player) return Response.json(null, { status: 403 })
-
+export const PATCH = withAuth(async (request) => {
+  const { auth } = request
+  const player = await fetchPlayer(auth)
   const playerRef = getPlayerRef(player.id)
 
   const { name, emoji } = await request.json()
@@ -30,4 +24,4 @@ export async function PATCH (
   }
 
   return new Response(null, { status: 204 })
-}
+})

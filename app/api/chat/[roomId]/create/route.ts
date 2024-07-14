@@ -1,13 +1,14 @@
 import { chatMessageMaxLength } from '@/modules/constants'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
 import { fetchPlayer } from '@/modules/firebaseAdmin/fetchPlayer'
+import { withAuth } from '@/modules/firebaseAdmin/withAuth'
 
-export async function POST (
-  request: Request,
+export const POST = withAuth(async (
+  request,
   { params }: { params: { roomId: string } }
-) {
-  const player = await fetchPlayer()
-  if (!player) return Response.json(null, { status: 403 })
+) => {
+  const { auth } = request
+  const player = await fetchPlayer(auth)
 
   const { roomId } = params
   const { message } = await request.json()
@@ -22,3 +23,4 @@ export async function POST (
 
   return new Response(null, { status: 204 })
 }
+)

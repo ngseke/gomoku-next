@@ -2,16 +2,13 @@ import { getNextBoardFirstPiece } from '@/modules/boardGrid'
 import { createBoard } from '@/modules/firebaseAdmin/createBoard'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
 import { fetchBoard } from '@/modules/firebaseAdmin/fetchBoard'
-import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
 import { getRoomRef } from '@/modules/firebaseAdmin/refs'
+import { withAuth } from '@/modules/firebaseAdmin/withAuth'
 
-export async function POST (
-  request: Request,
+export const POST = withAuth(async (
+  _request,
   { params: { roomId } }: { params: { roomId: string } }
-) {
-  const auth = await parseAuthorization()
-  if (!auth) return Response.json(null, { status: 403 })
-
+) => {
   const roomRef = getRoomRef(roomId)
   const boardIdRef = roomRef.child('boardId')
 
@@ -31,4 +28,4 @@ export async function POST (
   })
 
   return new Response(null, { status: 204 })
-}
+})

@@ -5,6 +5,7 @@ import { fetchRoom } from '@/modules/firebaseAdmin/fetchRoom'
 import { fetchRoomPlayers } from '@/modules/firebaseAdmin/fetchRoomPlayers'
 import { getSessionId } from '@/modules/firebaseAdmin/parseSessionId'
 import { getPlayerStateRef, getRoomPlayerRef } from '@/modules/firebaseAdmin/refs'
+import { withAuth } from '@/modules/firebaseAdmin/withAuth'
 import { runParallel } from '@/modules/runParallel'
 import { type Piece } from '@/types/Piece'
 import { type PlayerState } from '@/types/PlayerState'
@@ -21,12 +22,12 @@ function getNextPiece (roomPlayers: RoomPlayers | null): Piece | null {
   return anotherPlayer.piece === 'black' ? 'white' : 'black'
 }
 
-export async function POST (
-  request: Request,
+export const POST = withAuth(async (
+  request,
   { params }: { params: { roomId: string } }
-) {
-  const player = await fetchPlayer()
-  if (!player) return Response.json(null, { status: 403 })
+) => {
+  const { auth } = request
+  const player = await fetchPlayer(auth)
 
   const sessionId = getSessionId()
   if (!sessionId) {
@@ -73,7 +74,7 @@ export async function POST (
         roomId,
         type: 'game',
       } satisfies PlayerState)
-    },
+    }
   )
 
   void createChat(roomId, {
@@ -87,4 +88,4 @@ export async function POST (
   })
 
   return new Response(null, { status: 204 })
-}
+})

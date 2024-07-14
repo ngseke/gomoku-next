@@ -7,29 +7,25 @@ import { fetchBoard } from '@/modules/firebaseAdmin/fetchBoard'
 import { fetchAndJudgeBoard } from '@/modules/firebaseAdmin/fetchAndJudgeBoard'
 import { createBoardResult } from '@/modules/firebaseAdmin/createBoardResult'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
-import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
 import { findRoomPlayerByPiece } from '@/modules/findRoomPlayerByPiece'
 import { getBoardRecordsRef, getPlayerRecordDrawCountRef, getPlayerRecordLoseCountRef, getPlayerRecordWinCountRef } from '@/modules/firebaseAdmin/refs'
 import { runParallel } from '@/modules/runParallel'
 import { fetchRoom } from '@/modules/firebaseAdmin/fetchRoom'
+import { withAuth } from '@/modules/firebaseAdmin/withAuth'
 
-export async function POST (
-  request: Request,
+export const POST = withAuth(async (
+  request,
   { params: { boardId, roomId } }: { params: { boardId: string, roomId: string } }
-) {
-  const auth = await parseAuthorization()
-  if (!auth) return Response.json(null, { status: 403 })
+) => {
+  const { auth } = request
+  const { x, y } = (await request.json()) as { x: number, y: number }
 
   const playerId = auth.uid
 
-  const [
-    playerState,
-    room,
-    board,
-  ] = await runParallel(
+  const [playerState, room, board] = await runParallel(
     fetchPlayerState,
     async () => await fetchRoom(roomId),
-    async () => await fetchBoard(boardId),
+    async () => await fetchBoard(boardId)
   )
 
   if (!playerState) {
@@ -65,8 +61,6 @@ export async function POST (
       { status: 400 }
     )
   }
-
-  const { x, y } = await request.json()
 
   const canPlace = judgeCanPlace(boardGrid, { x, y })
   if (!canPlace) {
@@ -132,3 +126,4 @@ export async function POST (
 
   return new Response(null, { status: 204 })
 }
+)

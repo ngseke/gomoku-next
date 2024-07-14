@@ -12,7 +12,7 @@ export async function exitRoom (request: Request) {
   if (!auth) return
 
   const [player, playerState] = await Promise.all([
-    fetchPlayer(),
+    fetchPlayer(auth),
     fetchPlayerState(),
   ])
 

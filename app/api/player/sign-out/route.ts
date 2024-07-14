@@ -1,10 +1,7 @@
 import { firebaseAdminAuth } from '@/modules/firebaseAdmin/firebaseAdmin'
-import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
+import { withAuth } from '@/modules/firebaseAdmin/withAuth'
 
-export async function POST (request: Request) {
-  const auth = await parseAuthorization()
-  if (!auth) return Response.json(null, { status: 403 })
-
+export const POST = withAuth(async ({ auth }) => {
   const user = await firebaseAdminAuth.getUser(auth.uid)
   const isAnonymous = !user.providerData.length
 
@@ -13,4 +10,4 @@ export async function POST (request: Request) {
   }
 
   return new Response(null, { status: 204 })
-}
+})

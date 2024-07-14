@@ -1,19 +1,14 @@
 import { createBoard } from '@/modules/firebaseAdmin/createBoard'
 import { createChat } from '@/modules/firebaseAdmin/createChat'
-import { parseAuthorization } from '@/modules/firebaseAdmin/parseAuthorization'
 import { getRoomRef } from '@/modules/firebaseAdmin/refs'
+import { withAuth } from '@/modules/firebaseAdmin/withAuth'
 import { generateRoomId } from '@/modules/generateRoomId'
 import { type Room } from '@/types/Room'
 import { ServerValue } from 'firebase-admin/database'
 
-export async function POST (
-  request: Request,
-) {
-  const auth = await parseAuthorization()
-  if (!auth) return Response.json(null, { status: 403 })
-
+export const POST = withAuth(async (request) => {
+  const { auth } = request
   const playerId = auth.uid
-
   const body = await request.json()
 
   const roomId = generateRoomId()
@@ -48,4 +43,4 @@ export async function POST (
   const createdRoom = (await roomRef.get()).val()
 
   return Response.json(createdRoom)
-}
+})
