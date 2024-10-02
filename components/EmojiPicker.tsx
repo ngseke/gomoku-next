@@ -21,7 +21,7 @@ function List ({ emojis, value, onChange }: {
         .map((emoji) => (
           <button
             key={emoji.name}
-            className={cn('inline-flex aspect-square items-center justify-center overflow-hidden rounded-[25%] text-3xl', {
+            className={cn('inline-flex aspect-square items-center justify-center overflow-hidden rounded-[25%] text-2xl', {
               'bg-neutral-300/90 dark:bg-neutral-700/90': value === emoji.emoji,
             })}
             title={emoji.name}

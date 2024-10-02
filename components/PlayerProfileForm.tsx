@@ -50,7 +50,7 @@ export function PlayerProfileForm ({ onFinish }: {
     >
       <div className="w-full flex-none pt-2 sm:w-auto">
         <span className="flex aspect-square w-32 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800">
-          <span className="select-none text-8xl">{watch('emoji')}</span>
+          <span className="select-none text-[5rem]">{watch('emoji')}</span>
         </span>
       </div>
 
