@@ -31,6 +31,11 @@ export function ChatBox ({
   setMessage,
   error,
 }: ChatBoxProps) {
+  const getIsSelf = useCallback((id: Nullish<string>) => {
+    if (!playerId) return false
+    return id === playerId
+  }, [playerId])
+
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   function focusInput () {
@@ -78,18 +83,19 @@ export function ChatBox ({
   }
 
   const lastChatEntry = Object.entries(chats ?? {}).at(-1)
-  const lastChatId = lastChatEntry?.[0]
-  const isInitialized = useRef(false)
   const [play] = useSound('/sounds/bobble.wav')
+  const playedSoundIds = useRef(new Set<string>())
   useEffect(() => {
-    if (!isInitialized.current) {
-      isInitialized.current = true
-      return
-    }
-    if (!lastChatId) return
+    const id = lastChatEntry?.[0]
+    if (
+      !id ||
+      getIsSelf(lastChatEntry[1].createdBy) ||
+      playedSoundIds.current.has(id)
+    ) return
 
+    playedSoundIds.current.add(id)
     play()
-  }, [lastChatId, play])
+  }, [getIsSelf, lastChatEntry, play])
 
   return (
     <div className="relative flex h-full flex-col rounded-2xl border border-neutral-200 px-3 pb-3 transition-colors dark:border-neutral-800">
