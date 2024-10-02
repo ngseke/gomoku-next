@@ -1,5 +1,5 @@
 import { type SyntheticEvent, useEffect, useRef, type KeyboardEvent, useCallback, useState, Fragment } from 'react'
-import { ChatList } from './ChatList'
+import { ChatList } from './ChatList/ChatList'
 import { Input } from './Input'
 import { faArrowDown, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
