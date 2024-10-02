@@ -1,4 +1,6 @@
+import { checkIsEmojiOnly } from '@/modules/checkIsEmojiOnly'
 import { cn } from '@/modules/cn'
+import { getVisibleLength } from '@/modules/getVisibleLength'
 import { type SystemMessage, type Chat } from '@/types/Chat'
 import { type Nullish } from '@/types/Nullish'
 import { faHashtag } from '@fortawesome/free-solid-svg-icons'
@@ -60,7 +62,7 @@ function SystemChatItem ({ systemMessage, timestamp }: {
 
 function ChatItem ({ name, message, timestamp, hideName, self }: {
   name: Nullish<string>
-  message: ReactNode
+  message: string
   timestamp: number
   hideName?: boolean
   self?: boolean
@@ -68,6 +70,8 @@ function ChatItem ({ name, message, timestamp, hideName, self }: {
   const formattedDate = dayjs(timestamp).format('YYYY-MM-DD HH:mm')
   const briefTime = dayjs(timestamp).format('HH:mm')
   const shouldShowName = !hideName && !self
+  const length = getVisibleLength(message)
+  const isEmojiMessage = checkIsEmojiOnly(message)
 
   return (
     <li
@@ -85,8 +89,10 @@ function ChatItem ({ name, message, timestamp, hideName, self }: {
       })}
       >
         <span className={cn(
-          "max-w-full break-words rounded-xl bg-neutral-200 px-2 py-1 text-sm after:opacity-0 empty:after:content-['-'] dark:bg-neutral-800",
-        )}
+          "max-w-full break-words rounded-xl bg-neutral-200 px-2 py-1 text-sm after:opacity-0 empty:after:content-['-'] dark:bg-neutral-800", {
+            'text-3xl bg-transparent dark:bg-transparent': isEmojiMessage,
+            'text-6xl': isEmojiMessage && length === 1,
+          })}
         >
           {message}
         </span>
