@@ -40,7 +40,7 @@ export function ChatItem ({ name, message, timestamp, hideName, self }: {
         >
           {message}
         </span>
-        <span className="text-xs text-neutral-600 opacity-0 duration-100 group-hover:opacity-100 dark:text-neutral-400">
+        <span className="select-none text-xs text-neutral-600 opacity-0 duration-100 group-hover:opacity-100 dark:text-neutral-400">
           {briefTime}
         </span>
       </span>
