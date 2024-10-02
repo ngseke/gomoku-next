@@ -59,4 +59,16 @@ export const mockChats: Record<string, Chat> = {
     message: '名字好長==' + 'long'.repeat(20),
     createdAt: 872434600001,
   },
+  872434600002: {
+    createdBy: playerId1,
+    playerName: playerId1,
+    message: '🎄️',
+    createdAt: 872434600001,
+  },
+  872434600003: {
+    createdBy: playerId1,
+    playerName: playerId1,
+    message: '🧋🧊',
+    createdAt: 872434600001,
+  },
 }
