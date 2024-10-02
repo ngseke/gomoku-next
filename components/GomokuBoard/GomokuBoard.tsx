@@ -60,7 +60,7 @@ export function GomokuBoard ({
     box: 'border-box',
   })
 
-  const pieceFontSize = width / 17
+  const pieceFontSize = width / 19
 
   return (
     <div

@@ -10,8 +10,15 @@ import { Button } from './Button'
 import { faMagnifyingGlass, faShuffle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+interface Emoji { name: string, emoji: string }
+
+const hiddenEmojiName = new Set(['smiling face', 'index pointing up', 'telephone'])
+function filterEmoji (emoji: Emoji) {
+  return !hiddenEmojiName.has(emoji.name)
+}
+
 function List ({ emojis, value, onChange }: {
-  emojis: Array<{ name: string, emoji: string }>
+  emojis: Emoji[]
   value?: Nullish<string>
   onChange?: (value: string) => void
 }) {
@@ -21,7 +28,7 @@ function List ({ emojis, value, onChange }: {
         .map((emoji) => (
           <button
             key={emoji.name}
-            className={cn('inline-flex aspect-square items-center justify-center overflow-hidden rounded-[25%] text-3xl', {
+            className={cn('inline-flex aspect-square items-center justify-center overflow-hidden rounded-[25%] text-2xl', {
               'bg-neutral-300/90 dark:bg-neutral-700/90': value === emoji.emoji,
             })}
             title={emoji.name}
@@ -80,7 +87,7 @@ export function EmojiPicker ({ label, value, onChange }: {
             <section key={group.name} className="mb-4">
               <h2 className="mb-1 text-sm font-bold text-neutral-600 dark:text-neutral-400">{group.name}</h2>
               <List
-                emojis={group.emojis}
+                emojis={group.emojis.filter(filterEmoji)}
                 value={value}
                 onChange={onChange}
               />

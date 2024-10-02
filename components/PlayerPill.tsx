@@ -54,7 +54,7 @@ export function PlayerPill ({ name, emoji, loading, ghost, color, active, highli
           }
         )}
         >
-          {emoji && (<span className="select-none text-2xl">{emoji}</span>)}
+          {emoji && (<span className="select-none text-xl">{emoji}</span>)}
         </span>
 
         {(Boolean(loading) || Boolean(ghost))

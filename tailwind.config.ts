@@ -18,10 +18,10 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        inter: ['var(--font-inter)'],
-        sans: ['var(--font-inter)', 'var(--font-noto-sans-tc)'],
-        'sans-ja': ['var(--font-inter)', 'var(--font-noto-sans-jp)'],
-        mono: ['var(--font-robot-mono)'],
+        inter: ['var(--font-inter)', 'var(--font-emoji)'],
+        sans: ['var(--font-inter)', 'var(--font-noto-sans-tc)', 'var(--font-emoji)'],
+        'sans-ja': ['var(--font-inter)', 'var(--font-noto-sans-jp)', 'var(--font-emoji)'],
+        mono: ['var(--font-robot-mono)', 'var(--font-emoji)'],
       },
       gridTemplateColumns: {
         15: 'repeat(15, minmax(0, 1fr))',
