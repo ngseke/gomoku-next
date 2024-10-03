@@ -53,7 +53,7 @@ export function PlayerProfileForm ({ onFinish }: {
       className="flex flex-wrap gap-6 py-2 sm:flex-nowrap"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex w-full flex-none flex-col gap-4 pt-2 sm:w-auto">
+      <div className="flex w-full flex-none flex-col items-center gap-4 pt-2 sm:w-auto">
         <span className="flex aspect-square w-32 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800">
           <span className="select-none text-[5rem]">{watch('emoji')}</span>
         </span>
