@@ -13,11 +13,12 @@ type ButtonProps =
     icon?: ReactNode
     loading?: boolean
     href?: string
+    variant?: 'default' | 'subtle'
   }
 
 export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   function Button ({
-    block, icon, loading, children, disabled, readonly, className, href, ...restProps
+    block, icon, loading, children, disabled, readonly, className, href, variant = 'default', ...restProps
   }, ref) {
     const isIconButton = Boolean(icon && !children)
 
@@ -45,11 +46,12 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
         <Component
           ref={ref}
           className={cn(
-            'peer inline-flex size-full select-none items-center justify-center gap-2 rounded-full border border-neutral-200 bg-neutral-100 text-sm font-bold outline outline-1 outline-transparent duration-150 enabled:hover:bg-neutral-200 enabled:hover:shadow-lg enabled:active:scale-[97%] dark:enabled:hover:bg-neutral-700',
-            'dark:border-neutral-800 dark:bg-neutral-900',
+            'peer inline-flex size-full select-none items-center justify-center gap-2 rounded-full border border-transparent text-sm font-bold outline outline-1 outline-transparent duration-150 enabled:hover:bg-neutral-200 enabled:hover:shadow-lg enabled:active:scale-[97%] dark:enabled:hover:bg-neutral-700',
             {
               'px-4': !isIconButton,
               'opacity-50': Boolean(disabled) || Boolean(loading),
+              'bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800': variant === 'default',
+              'enabled:hover:shadow-none': variant === 'subtle',
             },
             className
           )}
