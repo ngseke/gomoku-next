@@ -19,7 +19,7 @@ export function PlayerRecord ({
 }) {
   return (
     <div className={cn(
-      'relative flex size-full items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 p-4 disabled:opacity-50 dark:bg-neutral-900 sm:py-0',
+      'relative flex items-center justify-center overflow-hidden rounded-2xl bg-neutral-100 p-4 disabled:opacity-50 dark:bg-neutral-900 sm:py-0',
       'after:pointer-events-none after:absolute after:-bottom-4 after:right-0 after:select-none after:text-9xl after:opacity-20 after:content-[var(--emoji)] dark:after:opacity-10'
     )}
       style={{ '--emoji': `"${emoji}"` } as CSSProperties}
