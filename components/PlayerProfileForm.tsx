@@ -10,6 +10,9 @@ import { EmojiPicker } from './EmojiPicker'
 import { playerNameMaxLength } from '@/modules/constants'
 import { usePlayer } from '@/hooks/usePlayer'
 import { useTranslations } from 'next-intl'
+import { useSignOut } from '@/hooks/useSignOut'
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface Inputs {
   name: string | null
@@ -43,15 +46,25 @@ export function PlayerProfileForm ({ onFinish }: {
     }
   }
 
+  const { signOut } = useSignOut()
+
   return (
     <form
       className="flex flex-wrap gap-6 py-2 sm:flex-nowrap"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="w-full flex-none pt-2 sm:w-auto">
+      <div className="flex w-full flex-none flex-col gap-4 pt-2 sm:w-auto">
         <span className="flex aspect-square w-32 flex-none items-center justify-center overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800">
           <span className="select-none text-[5rem]">{watch('emoji')}</span>
         </span>
+
+        <Button
+          icon={<FontAwesomeIcon icon={faRightFromBracket} />}
+          variant="subtle"
+          onClick={signOut}
+        >
+          {t('action.signOut')}
+        </Button>
       </div>
 
       <div className="flex flex-1 flex-col gap-4">

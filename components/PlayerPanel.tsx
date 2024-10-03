@@ -1,16 +1,15 @@
 'use client'
 
 import { useSignInWithGoogleAuth } from '@/hooks/useSignInWithGoogleAuth'
-import { useSignOut } from '@/hooks/useSignOut'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { Button } from './Button'
 import { useSignInAnonymously } from '@/hooks/useSignInAnonymously'
 import { useAuthStore } from '@/hooks/useAuthStore'
 import { ThemeButton } from './ThemeButton'
 import { PlayerPillButton } from './PlayerPillButton'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PlayerProfileDialog } from './PlayerProfileDialog'
 import { useTranslations } from 'next-intl'
 import { LanguageButtonWithMenu } from './LanguageButtonWithMenu'
@@ -28,11 +27,13 @@ export function PlayerPanel () {
 
   const { player, isInitializingPlayer } = useAuthStore()
 
-  const { signOut } = useSignOut()
-
   const shouldDisableButton = isSigningInAnonymously
 
   const [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    if (!player) setIsOpen(false)
+  }, [player])
 
   return (
     <nav className="flex flex-wrap items-center gap-2">
@@ -50,12 +51,6 @@ export function PlayerPanel () {
             loading={isInitializingPlayer}
             name={player?.name}
             onClick={() => { setIsOpen(true) }}
-          />
-
-          <Button
-            key="signOut"
-            icon={<FontAwesomeIcon icon={faRightFromBracket} />}
-            onClick={signOut}
           />
         </>
         : <>
@@ -77,7 +72,6 @@ export function PlayerPanel () {
           >
             {t('action.signInAsGuest')}
           </Button>
-
         </>}
 
       <Divider />

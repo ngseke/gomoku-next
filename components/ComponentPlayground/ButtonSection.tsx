@@ -23,6 +23,9 @@ export function ButtonSection () {
         Loading
       </Button>
       <Button loading icon={<FontAwesomeIcon icon={faUser} />} />
+      <Button icon={<FontAwesomeIcon icon={faGoogle} />} variant="subtle">
+        subtle
+      </Button>
 
       <Button block>Block</Button>
     </div>
