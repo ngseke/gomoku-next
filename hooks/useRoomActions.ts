@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/navigation'
 import { useAxios } from './useAxios'
 import { useRoomStore } from './useRoomStore'
 import { useState } from 'react'

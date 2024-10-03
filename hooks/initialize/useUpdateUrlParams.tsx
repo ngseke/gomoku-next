@@ -2,8 +2,8 @@
 
 import { useEffect } from 'react'
 import { usePlayerStateStore } from '@/hooks/usePlayerStateStore'
-import { useRouter } from 'next/navigation'
 import { useAppSelector } from '@/lib/hooks'
+import { useRouter } from '@/navigation'
 
 export function useUpdateUrlParams () {
   const playerState = usePlayerStateStore()

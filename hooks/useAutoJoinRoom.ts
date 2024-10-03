@@ -1,8 +1,9 @@
-import { useParams, useRouter } from 'next/navigation'
 import { useCreateOrJoinRoom } from './useCreateOrJoinRoom'
 import { useEffect, useRef } from 'react'
 import { useAppSelector } from '@/lib/hooks'
 import { useAuthStore } from './useAuthStore'
+import { useRouter } from '@/navigation'
+import { useParams } from 'next/navigation'
 
 export function useAutoJoinRoom () {
   const {
